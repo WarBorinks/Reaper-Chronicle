@@ -1,0 +1,75 @@
+{
+    "block.nether_soil.break": {
+        "sounds": [
+            { "name": "reaperchronicle:nether_soil/break/break1" },
+            { "name": "reaperchronicle:nether_soil/break/break2" },
+            { "name": "reaperchronicle:nether_soil/break/break3" },
+            { "name": "reaperchronicle:nether_soil/break/break4" },
+            { "name": "reaperchronicle:nether_soil/break/break5" },
+            { "name": "reaperchronicle:nether_soil/break/break6" },
+            { "name": "reaperchronicle:nether_soil/break/break7" },
+            { "name": "reaperchronicle:nether_soil/break/break8" },
+            { "name": "reaperchronicle:nether_soil/break/break9" },
+            { "name": "reaperchronicle:nether_soil/break/break10" },
+            { "name": "reaperchronicle:nether_soil/break/break11" },
+            { "name": "reaperchronicle:nether_soil/break/break12" },
+            { "name": "reaperchronicle:nether_soil/break/break13" },
+            { "name": "reaperchronicle:nether_soil/break/break14" },
+            { "name": "reaperchronicle:nether_soil/break/break15" },
+            { "name": "reaperchronicle:nether_soil/break/break16" },
+            { "name": "reaperchronicle:nether_soil/break/break17" }
+        ],
+        "subtitle": "subtitles.block.generic.break"
+    },
+    "block.nether_soil.step": {
+        "sounds": [
+            { "name": "reaperchronicle:nether_soil/step/step1" },
+            { "name": "reaperchronicle:nether_soil/step/step2" },
+            { "name": "reaperchronicle:nether_soil/step/step3" },
+            { "name": "reaperchronicle:nether_soil/step/step4" },
+            { "name": "reaperchronicle:nether_soil/step/step5" }
+        ],
+        "subtitle": "subtitles.block.generic.footsteps"
+    },
+    "block.nether_soil.place": {
+        "sounds": [
+            { "name": "reaperchronicle:nether_soil/place/place1" },
+            { "name": "reaperchronicle:nether_soil/place/place2" },
+            { "name": "reaperchronicle:nether_soil/place/place3" },
+            { "name": "reaperchronicle:nether_soil/place/place4" },
+            { "name": "reaperchronicle:nether_soil/place/place5" },
+            { "name": "reaperchronicle:nether_soil/place/place6" },
+            { "name": "reaperchronicle:nether_soil/place/place7" },
+            { "name": "reaperchronicle:nether_soil/place/place8" },
+            { "name": "reaperchronicle:nether_soil/place/place9" },
+            { "name": "reaperchronicle:nether_soil/place/place10" },
+            { "name": "reaperchronicle:nether_soil/place/place11" },
+            { "name": "reaperchronicle:nether_soil/place/place12" },
+            { "name": "reaperchronicle:nether_soil/place/place13" },
+            { "name": "reaperchronicle:nether_soil/place/place14" },
+            { "name": "reaperchronicle:nether_soil/place/place15" },
+            { "name": "reaperchronicle:nether_soil/place/place16" },
+            { "name": "reaperchronicle:nether_soil/place/place17" }
+        ],
+        "subtitle": "subtitles.block.generic.place"
+    },
+    "block.nether_soil.hit": {
+        "sounds": [
+            { "name": "reaperchronicle:nether_soil/hit/hit1" },
+            { "name": "reaperchronicle:nether_soil/hit/hit2" },
+            { "name": "reaperchronicle:nether_soil/hit/hit3" },
+            { "name": "reaperchronicle:nether_soil/hit/hit4" },
+            { "name": "reaperchronicle:nether_soil/hit/hit5" }
+        ],
+        "subtitle": "subtitles.block.generic.hit"
+    },
+    "block.nether_soil.fall": {
+        "sounds": [
+            { "name": "reaperchronicle:nether_soil/fall/fall1" },
+            { "name": "reaperchronicle:nether_soil/fall/fall2" },
+            { "name": "reaperchronicle:nether_soil/fall/fall3" },
+            { "name": "reaperchronicle:nether_soil/fall/fall4" },
+            { "name": "reaperchronicle:nether_soil/fall/fall5" }
+        ]
+    }
+}

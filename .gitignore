@@ -1,0 +1,8 @@
+.eclipse/
+.gradle/
+.vscode/
+bin
+build
+repo
+run
+run-data
