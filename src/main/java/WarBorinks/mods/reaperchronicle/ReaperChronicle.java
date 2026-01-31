@@ -4,6 +4,7 @@ package WarBorinks.mods.reaperchronicle;
 import WarBorinks.mods.reaperchronicle.register.RCBlockRegister;
 import WarBorinks.mods.reaperchronicle.register.RCCreativeModeTabRegister;
 import WarBorinks.mods.reaperchronicle.register.RCItemRegister;
+import WarBorinks.mods.reaperchronicle.register.RCMobEffectRegister;
 import WarBorinks.mods.reaperchronicle.register.RCSoundEventRegister;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -17,6 +18,7 @@ public class ReaperChronicle {
         RCSoundEventRegister.register(bus);
         RCBlockRegister.register(bus);
         RCItemRegister.register(bus);
+        RCMobEffectRegister.register(bus);
         RCCreativeModeTabRegister.register(bus);
     }
 }
