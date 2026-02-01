@@ -10,7 +10,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 @SuppressWarnings("null")
-public class RCMobEffectRegister {
+public class RCMobEffects {
     public static final DeferredRegister<MobEffect> MOB_EFFECT = DeferredRegister.create(
         BuiltInRegistries.MOB_EFFECT, 
         ReaperChronicle.MODID

@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:block",
+    "pools": [
+        {
+            "bonus_rolls": 0.0,
+            "rolls": 1.0,
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "reaperchronicle:nether_soil"
+                }
+            ]
+        }
+    ],
+    "random_sequence": "reaperchronicle:blocks/nether_sand"
+}

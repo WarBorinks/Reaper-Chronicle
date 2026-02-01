@@ -9,19 +9,29 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 @SuppressWarnings("null")
-public class RCItemRegister {
+public class RCItems {
     public static final DeferredRegister<Item> ITEM = DeferredRegister.create(
         BuiltInRegistries.ITEM, 
         ReaperChronicle.MODID
     );
 
-    public static final DeferredHolder<Item, BlockItem> NETHER_SOIL = ITEM.register(
-        "nether_soil",
-        () -> new BlockItem(
-            RCBlockRegister.NETHER_SOIL.get(), 
-            new Item.Properties()
-        )
-    );
+    public class BlockItems {
+        public static final DeferredHolder<Item, BlockItem> NETHER_SOIL = ITEM.register(
+            "nether_soil",
+            () -> new BlockItem(
+                RCBlocks.NETHER_SOIL.get(), 
+                new Item.Properties()
+            )
+        );
+
+        public static final DeferredHolder<Item, BlockItem> NETHER_SAND = ITEM.register(
+            "nether_sand", 
+            () -> new BlockItem(
+                RCBlocks.NETHER_SAND.get(), 
+                new Item.Properties()
+            )
+        );
+    }
 
     public static void register(IEventBus bus) {
         ITEM.register(bus);

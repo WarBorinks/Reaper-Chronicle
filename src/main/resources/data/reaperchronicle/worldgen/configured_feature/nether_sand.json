@@ -6,7 +6,7 @@
         "targets": [
             {
                 "state": {
-                    "Name": "reaperchronicle:nether_soil"
+                    "Name": "reaperchronicle:nether_sand"
                 },
                 "target": {
                     "predicate_type": "minecraft:block_match",
@@ -15,7 +15,7 @@
             },
             {
                 "state": {
-                    "Name": "reaperchronicle:nether_soil"
+                    "Name": "reaperchronicle:nether_sand"
                 },
                 "target": {
                     "predicate_type": "minecraft:block_match",
@@ -24,7 +24,7 @@
             },
             {
                 "state": {
-                    "Name": "reaperchronicle:nether_soil"
+                    "Name": "reaperchronicle:nether_sand"
                 },
                 "target": {
                     "predicate_type": "minecraft:tag_match",

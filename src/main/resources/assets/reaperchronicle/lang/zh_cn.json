@@ -1,6 +1,8 @@
 {
+    "block.reaperchronicle.nether_sand": "冥沙",
     "block.reaperchronicle.nether_soil": "冥土",
 
+    "item.reaperchronicle.nether_sand": "冥沙",
     "item.reaperchronicle.nether_soil": "冥土",
 
     "effect.reaperchronicle.nether_poison": "冥毒",
