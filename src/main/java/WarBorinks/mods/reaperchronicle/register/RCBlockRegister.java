@@ -20,7 +20,7 @@ public class RCBlockRegister {
     public static final DeferredHolder<Block, NetherSoil> NETHER_SOIL = BLOCK.register(
         "nether_soil", 
         () -> new NetherSoil(BlockBehaviour.Properties.of()
-            .strength(0.5f)
+            .strength(0.5f, 10.0f)
             .sound(RCSoundEventRegister.SoundTypes.NETHER_SOIL)
             .requiresCorrectToolForDrops()
             .mapColor(MapColor.COLOR_GRAY)

@@ -13,7 +13,7 @@ public class NetherPoison extends MobEffect {
     @Override
     public boolean applyEffectTick(LivingEntity entity, int amplifier) {
         if (!entity.level().isClientSide) {
-            int damage = 2 << amplifier;
+            int damage = 1 << amplifier;
             if (entity.getType().getCategory().isFriendly()) {
                 damage <<= 1;
             }
@@ -26,7 +26,11 @@ public class NetherPoison extends MobEffect {
 
     @Override
     public boolean shouldApplyEffectTickThisTick(int tick, int amplifier) {
-        int k = 64 >> amplifier;
-        return tick % k == 0;
+        int k = 16 >> amplifier;
+        if (k > 0) {
+            return tick % k == 0;
+        } else {
+            return true;
+        }
     }
 }
