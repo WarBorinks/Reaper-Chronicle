@@ -3,6 +3,7 @@ package WarBorinks.mods.reaperchronicle.mob_effect;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 
 @SuppressWarnings("null")
 public class NetherPoison extends MobEffect {
@@ -14,7 +15,7 @@ public class NetherPoison extends MobEffect {
     public boolean applyEffectTick(LivingEntity entity, int amplifier) {
         if (!entity.level().isClientSide) {
             int damage = 1 << amplifier;
-            if (entity.getType().getCategory().isFriendly()) {
+            if (entity.getType().getCategory().isFriendly() || entity instanceof Player) {
                 damage <<= 1;
             }
 
