@@ -20,10 +20,10 @@ public class RCCreativeModeTabs {
         "nether_blocks", 
         () -> CreativeModeTab.builder()
             .title(Component.translatable("creative_mode_tab.reaperchronicle.nether_blocks"))
-            .icon(() -> new ItemStack(RCItems.BlockItems.NETHER_SOIL.get()))
+            .icon(() -> new ItemStack(RCItems.NETHER_SOIL.get()))
             .displayItems((parameters, output) -> {
-                output.accept(RCItems.BlockItems.NETHER_SOIL.get());
-                output.accept(RCItems.BlockItems.NETHER_SAND.get());
+                output.accept(RCItems.NETHER_SOIL.get());
+                output.accept(RCItems.NETHER_SAND.get());
             })
         .build()
     );

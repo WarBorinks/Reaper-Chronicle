@@ -15,23 +15,21 @@ public class RCItems {
         ReaperChronicle.MODID
     );
 
-    public class BlockItems {
-        public static final DeferredHolder<Item, BlockItem> NETHER_SOIL = ITEM.register(
-            "nether_soil",
-            () -> new BlockItem(
-                RCBlocks.NETHER_SOIL.get(), 
-                new Item.Properties()
-            )
-        );
-
-        public static final DeferredHolder<Item, BlockItem> NETHER_SAND = ITEM.register(
-            "nether_sand", 
-            () -> new BlockItem(
-                RCBlocks.NETHER_SAND.get(), 
-                new Item.Properties()
-            )
-        );
-    }
+    public static final DeferredHolder<Item, BlockItem> NETHER_SOIL = ITEM.register(
+        "nether_soil",
+        () -> new BlockItem(
+            RCBlocks.NETHER_SOIL.get(), 
+            new Item.Properties()
+        )
+    );
+    
+    public static final DeferredHolder<Item, BlockItem> NETHER_SAND = ITEM.register(
+        "nether_sand", 
+        () -> new BlockItem(
+            RCBlocks.NETHER_SAND.get(), 
+            new Item.Properties()
+        )
+    );
 
     public static void register(IEventBus bus) {
         ITEM.register(bus);
