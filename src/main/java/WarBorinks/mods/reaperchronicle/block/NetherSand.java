@@ -21,7 +21,7 @@ public class NetherSand extends ColoredFallingBlock {
     public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
         if (!level.isClientSide && entity instanceof LivingEntity livingEntity) {
             livingEntity.addEffect(new MobEffectInstance(
-                RCMobEffects.NETHER_POISON, 256
+                RCMobEffects.NETHER_POISON, 128
             ));
         }
 
