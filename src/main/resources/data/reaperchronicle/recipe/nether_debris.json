@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:smelting",
+    "ingredient": {
+        "item": "reaperchronicle:nether_soil"
+    },
+    "result": {
+        "id": "reaperchronicle:nether_debris",
+        "count": 1
+    },
+    "experience": 10,
+    "cookingtime": 300
+}

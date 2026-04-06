@@ -2,10 +2,11 @@
     "block.reaperchronicle.nether_sand": "Nether Sand",
     "block.reaperchronicle.nether_soil": "Nether Soil",
 
-    "item.reaperchronicle.nether_sand": "Nether Sand",
-    "item.reaperchronicle.nether_soil": "Nether Soil",
+    "creative_mode_tab.reaperchronicle.crystal_ingredients": "Crystal Ingredients",
 
     "effect.reaperchronicle.nether_poison": "Nether Poison",
 
-    "creative_mode_tab.reaperchronicle.nether_blocks": "Nether Blocks"
+    "item.reaperchronicle.nether_debris": "Nether Debris",
+    "item.reaperchronicle.nether_sand": "Nether Sand",
+    "item.reaperchronicle.nether_soil": "Nether Soil"
 }

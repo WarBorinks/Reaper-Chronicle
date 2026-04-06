@@ -16,14 +16,15 @@ public class RCCreativeModeTabs {
         ReaperChronicle.MODID
     );
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> NETHER_BLOCKS = CREATIVE_MODE_TAB.register(
-        "nether_blocks", 
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> CRYSTAL_INGREDIENTS = CREATIVE_MODE_TAB.register(
+        "crystal_ingredients",
         () -> CreativeModeTab.builder()
-            .title(Component.translatable("creative_mode_tab.reaperchronicle.nether_blocks"))
-            .icon(() -> new ItemStack(RCItems.NETHER_SOIL.get()))
+            .title(Component.translatable("creative_mode_tab.reaperchronicle.crystal_ingredients"))
+            .icon(() -> new ItemStack(RCItems.NETHER_DEBRIS.get()))
             .displayItems((parameters, output) -> {
-                output.accept(RCItems.NETHER_SOIL.get());
+                output.accept(RCItems.NETHER_DEBRIS.get());
                 output.accept(RCItems.NETHER_SAND.get());
+                output.accept(RCItems.NETHER_SOIL.get());
             })
         .build()
     );

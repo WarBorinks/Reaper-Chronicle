@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "###",
+        "###",
+        "###"
+    ],
+    "key": {
+        "#": {
+            "item": "reaperchronicle:nether_sand"
+        }
+    },
+    "result": {
+        "count": 1,
+        "id": "reaperchronicle:nether_soil"
+    }
+}
