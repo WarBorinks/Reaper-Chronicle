@@ -1,22 +1,17 @@
-package WarBorinks.mods.reaperchronicle.register;
+package warborinks.mods.reaperchronicle.register;
 
-import WarBorinks.mods.reaperchronicle.ReaperChronicle;
-import net.minecraft.core.registries.BuiltInRegistries;
+import warborinks.mods.reaperchronicle.ReaperChronicle;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.util.DeferredSoundType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 @SuppressWarnings("null")
 public class RCSoundEvents {
-    public static DeferredRegister<SoundEvent> SOUND_EVENT = DeferredRegister.create(
-        BuiltInRegistries.SOUND_EVENT, 
-        ReaperChronicle.MODID
-    );
+    private DeferredRegister<SoundEvent> SOUND_EVENT;
 
-    private static DeferredHolder<SoundEvent, SoundEvent> registerSoundEvent(String name) {
+    private DeferredHolder<SoundEvent, SoundEvent> registerSoundEvent(String name) {
         ResourceLocation id = ResourceLocation.fromNamespaceAndPath(
             ReaperChronicle.MODID, name
         );
@@ -26,52 +21,69 @@ public class RCSoundEvents {
         );
     }
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SAND_BREAK = registerSoundEvent(
-        "block.nether_sand.break"
-    );
-    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SAND_STEP = registerSoundEvent(
-        "block.nether_sand.step"
-    );
-    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SAND_PLACE = registerSoundEvent(
-        "block.nether_sand.place"
-    );
-    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SAND_HIT = registerSoundEvent(
-        "block.nether_sand.hit"
-    );
-    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SAND_FALL = registerSoundEvent(
-        "block.nether_sand.fall"
-    );
+    public final DeferredHolder<SoundEvent, SoundEvent> NETHER_SAND_BREAK;
+    public final DeferredHolder<SoundEvent, SoundEvent> NETHER_SAND_STEP;
+    public final DeferredHolder<SoundEvent, SoundEvent> NETHER_SAND_PLACE;
+    public final DeferredHolder<SoundEvent, SoundEvent> NETHER_SAND_HIT;
+    public final DeferredHolder<SoundEvent, SoundEvent> NETHER_SAND_FALL;
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SOIL_BREAK = registerSoundEvent(
-        "block.nether_soil.break"
-    );
-    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SOIL_STEP = registerSoundEvent(
-        "block.nether_soil.step"
-    );
-    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SOIL_PLACE = registerSoundEvent(
-        "block.nether_soil.place"
-    );
-    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SOIL_HIT = registerSoundEvent(
-        "block.nether_soil.hit"
-    );
-    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SOIL_FALL = registerSoundEvent(
-        "block.nether_soil.fall"
-    );
+    public final DeferredHolder<SoundEvent, SoundEvent> NETHER_SOIL_BREAK;
+    public final DeferredHolder<SoundEvent, SoundEvent> NETHER_SOIL_STEP;
+    public final DeferredHolder<SoundEvent, SoundEvent> NETHER_SOIL_PLACE;
+    public final DeferredHolder<SoundEvent, SoundEvent> NETHER_SOIL_HIT;
+    public final DeferredHolder<SoundEvent, SoundEvent> NETHER_SOIL_FALL;
+
+    public final SoundTypes SOUND_TYPES;
+
+    RCSoundEvents(DeferredRegister<SoundEvent> soundEvent) {
+        this.SOUND_EVENT = soundEvent;
+
+        this.NETHER_SAND_BREAK = registerSoundEvent(
+            "block.nether_sand.break"
+        );
+        this.NETHER_SAND_FALL = registerSoundEvent(
+            "block.nether_sand.fall"
+        );
+        this.NETHER_SAND_HIT = registerSoundEvent(
+            "block.nether_sand.hit"
+        );
+        this.NETHER_SAND_PLACE = registerSoundEvent(
+            "block.nether_sand.place"
+        );
+        this.NETHER_SAND_STEP = registerSoundEvent(
+            "block.nether_sand.step"
+        );
+        
+        this.NETHER_SOIL_BREAK = registerSoundEvent(
+            "block.nether_soil.break"
+        );
+        this.NETHER_SOIL_FALL = registerSoundEvent(
+            "block.nether_soil.fall"
+        );
+        this.NETHER_SOIL_HIT = registerSoundEvent(
+            "block.nether_soil.hit"
+        );
+        this.NETHER_SOIL_PLACE = registerSoundEvent(
+            "block.nether_soil.place"
+        );
+        this.NETHER_SOIL_STEP = registerSoundEvent(
+            "block.nether_soil.step"
+        );
+
+        this.SOUND_TYPES = new SoundTypes();
+    }
 
     public class SoundTypes {
-        public static final DeferredSoundType NETHER_SAND = new DeferredSoundType(
+        public final DeferredSoundType NETHER_SAND = new DeferredSoundType(
             1.0f, 1.0f,
             NETHER_SAND_BREAK, NETHER_SAND_STEP, NETHER_SAND_PLACE, 
             NETHER_SAND_HIT, NETHER_SAND_FALL
         );
-        public static final DeferredSoundType NETHER_SOIL = new DeferredSoundType(
+        
+        public final DeferredSoundType NETHER_SOIL = new DeferredSoundType(
             1.0f, 1.0f,
             NETHER_SOIL_BREAK, NETHER_SOIL_STEP, NETHER_SOIL_PLACE, 
             NETHER_SOIL_HIT, NETHER_SOIL_FALL
         );
-    }
-
-    public static void register(IEventBus bus) {
-        SOUND_EVENT.register(bus);
     }
 }

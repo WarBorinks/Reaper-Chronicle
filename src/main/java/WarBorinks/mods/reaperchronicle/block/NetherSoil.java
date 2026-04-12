@@ -1,6 +1,6 @@
-package WarBorinks.mods.reaperchronicle.block;
+package warborinks.mods.reaperchronicle.block;
 
-import WarBorinks.mods.reaperchronicle.register.RCMobEffects;
+import warborinks.mods.reaperchronicle.register.RCDeferredRegisters;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -19,7 +19,7 @@ public class NetherSoil extends Block {
     public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
         if (!level.isClientSide && entity instanceof LivingEntity livingEntity) {
             livingEntity.addEffect(new MobEffectInstance(
-                RCMobEffects.NETHER_POISON, 128
+                RCDeferredRegisters.MOB_EFFECTS.NETHER_POISON, 64
             ));
         }
 

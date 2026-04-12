@@ -1,27 +1,22 @@
-package WarBorinks.mods.reaperchronicle.register;
+package warborinks.mods.reaperchronicle.register;
 
-import WarBorinks.mods.reaperchronicle.ReaperChronicle;
-import WarBorinks.mods.reaperchronicle.mob_effect.NetherPoison;
-import net.minecraft.core.registries.BuiltInRegistries;
+import warborinks.mods.reaperchronicle.mob_effect.NetherPoison;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-@SuppressWarnings("null")
 public class RCMobEffects {
-    public static final DeferredRegister<MobEffect> MOB_EFFECT = DeferredRegister.create(
-        BuiltInRegistries.MOB_EFFECT, 
-        ReaperChronicle.MODID
-    );
+    private final DeferredRegister<MobEffect> MOB_EFFECT;
 
-    public static final DeferredHolder<MobEffect, NetherPoison> NETHER_POISON = MOB_EFFECT.register(
-        "nether_poison", 
-        () -> new NetherPoison(MobEffectCategory.HARMFUL, 0x03020c)
-    );
+    public final DeferredHolder<MobEffect, NetherPoison> NETHER_POISON;
 
-    public static void register(IEventBus bus) {
-        MOB_EFFECT.register(bus);
+    RCMobEffects(DeferredRegister<MobEffect> mobEffect) {
+        this.MOB_EFFECT = mobEffect;
+
+        this.NETHER_POISON = MOB_EFFECT.register(
+            "nether_poison", 
+            () -> new NetherPoison(MobEffectCategory.HARMFUL, 0x03020c)
+        );
     }
 }

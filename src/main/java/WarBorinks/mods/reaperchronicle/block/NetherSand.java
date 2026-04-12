@@ -1,6 +1,5 @@
-package WarBorinks.mods.reaperchronicle.block;
+package warborinks.mods.reaperchronicle.block;
 
-import WarBorinks.mods.reaperchronicle.register.RCMobEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.ColorRGBA;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -10,6 +9,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.ColoredFallingBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import warborinks.mods.reaperchronicle.register.RCDeferredRegisters;
 
 @SuppressWarnings("null")
 public class NetherSand extends ColoredFallingBlock {
@@ -21,7 +21,7 @@ public class NetherSand extends ColoredFallingBlock {
     public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
         if (!level.isClientSide && entity instanceof LivingEntity livingEntity) {
             livingEntity.addEffect(new MobEffectInstance(
-                RCMobEffects.NETHER_POISON, 128
+                RCDeferredRegisters.MOB_EFFECTS.NETHER_POISON, 128
             ));
         }
 

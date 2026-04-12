@@ -1,4 +1,4 @@
-package WarBorinks.mods.reaperchronicle.mob_effect;
+package warborinks.mods.reaperchronicle.mob_effect;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;

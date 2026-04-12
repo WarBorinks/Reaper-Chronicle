@@ -1,8 +1,8 @@
 .eclipse/
 .gradle/
 .vscode/
-bin
-build
-repo
-run
-run-data
+bin/
+build/
+runs/
+
+gradle/wrapper/gradle-9.2.1-bin.zip

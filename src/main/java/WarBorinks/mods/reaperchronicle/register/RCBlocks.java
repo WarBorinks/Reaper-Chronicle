@@ -1,46 +1,43 @@
-package WarBorinks.mods.reaperchronicle.register;
+package warborinks.mods.reaperchronicle.register;
 
-import WarBorinks.mods.reaperchronicle.ReaperChronicle;
-import WarBorinks.mods.reaperchronicle.block.NetherSand;
-import WarBorinks.mods.reaperchronicle.block.NetherSoil;
-import net.minecraft.core.registries.BuiltInRegistries;
+import warborinks.mods.reaperchronicle.block.NetherSand;
+import warborinks.mods.reaperchronicle.block.NetherSoil;
 import net.minecraft.util.ColorRGBA;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 @SuppressWarnings("null")
 public class RCBlocks {
-    public static final DeferredRegister<Block> BLOCK = DeferredRegister.create(
-        BuiltInRegistries.BLOCK, 
-        ReaperChronicle.MODID
-    );
+    private final DeferredRegister<Block> BLOCK;
 
-    public static final DeferredHolder<Block, NetherSoil> NETHER_SOIL = BLOCK.register(
-        "nether_soil", 
-        () -> new NetherSoil(BlockBehaviour.Properties.of()
-            .strength(0.5f, 10.0f)
-            .sound(RCSoundEvents.SoundTypes.NETHER_SOIL)
-            .requiresCorrectToolForDrops()
-            .mapColor(MapColor.COLOR_GRAY)
-        )
-    );
+    public final DeferredHolder<Block, NetherSand> NETHER_SAND;
+    public final DeferredHolder<Block, NetherSoil> NETHER_SOIL;
 
-    public static final DeferredHolder<Block, NetherSand> NETHER_SAND = BLOCK.register(
-        "nether_sand", 
-        () -> new NetherSand(new ColorRGBA(0x2e2e2e00), 
-            BlockBehaviour.Properties.of()
-            .strength(0.5f, 10.0f)
-            .sound(RCSoundEvents.SoundTypes.NETHER_SAND)
-            .requiresCorrectToolForDrops()
-            .mapColor(MapColor.COLOR_GRAY)
-        )
-    );
+    RCBlocks(DeferredRegister<Block> block) {
+        this.BLOCK = block;
 
-    public static void register(IEventBus bus) {
-        BLOCK.register(bus);
+        this.NETHER_SAND = BLOCK.register(
+            "nether_sand", 
+            () -> new NetherSand(new ColorRGBA(0x2e2e2e00), 
+                BlockBehaviour.Properties.of()
+                .strength(0.5f, 10.0f)
+                .sound(RCDeferredRegisters.SOUND_EVENTS.SOUND_TYPES.NETHER_SAND)
+                .requiresCorrectToolForDrops()
+                .mapColor(MapColor.COLOR_GRAY)
+            )
+        );
+
+        this.NETHER_SOIL = BLOCK.register(
+            "nether_soil", 
+            () -> new NetherSoil(BlockBehaviour.Properties.of()
+                .strength(0.5f, 10.0f)
+                .sound(RCDeferredRegisters.SOUND_EVENTS.SOUND_TYPES.NETHER_SOIL)
+                .requiresCorrectToolForDrops()
+                .mapColor(MapColor.COLOR_GRAY)
+            )
+        );
     }
 }
