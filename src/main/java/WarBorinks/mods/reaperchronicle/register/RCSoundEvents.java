@@ -15,7 +15,7 @@ public class RCSoundEvents {
         ResourceLocation id = ResourceLocation.fromNamespaceAndPath(
             ReaperChronicle.MODID, name
         );
-        return SOUND_EVENT.register(
+        return this.SOUND_EVENT.register(
             name, 
             () -> SoundEvent.createVariableRangeEvent(id)
         );

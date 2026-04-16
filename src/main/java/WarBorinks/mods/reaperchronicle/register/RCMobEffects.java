@@ -14,7 +14,7 @@ public class RCMobEffects {
     RCMobEffects(DeferredRegister<MobEffect> mobEffect) {
         this.MOB_EFFECT = mobEffect;
 
-        this.NETHER_POISON = MOB_EFFECT.register(
+        this.NETHER_POISON = this.MOB_EFFECT.register(
             "nether_poison", 
             () -> new NetherPoison(MobEffectCategory.HARMFUL, 0x03020c)
         );

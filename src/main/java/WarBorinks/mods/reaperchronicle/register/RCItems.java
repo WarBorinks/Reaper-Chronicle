@@ -13,7 +13,7 @@ public class RCItems {
     RCItems(DeferredRegister<Item> item) {
         this.ITEM = item;
 
-        this.NETHER_DEBRIS = ITEM.register(
+        this.NETHER_DEBRIS = this.ITEM.register(
             "nether_debris",
             () -> new Item(
                 new Item.Properties()

@@ -16,7 +16,7 @@ public class RCBlockItems {
     RCBlockItems(DeferredRegister<Item> blockItem) {
         this.BLOCK_ITEM = blockItem;
         
-        this.NETHER_SAND = BLOCK_ITEM.register(
+        this.NETHER_SAND = this.BLOCK_ITEM.register(
             "nether_sand", 
             () -> new BlockItem(
                 RCDeferredRegisters.BLOCKS.NETHER_SAND.get(), 
@@ -24,7 +24,7 @@ public class RCBlockItems {
             )
         );
 
-        this.NETHER_SOIL = BLOCK_ITEM.register(
+        this.NETHER_SOIL = this.BLOCK_ITEM.register(
             "nether_soil",
             () -> new BlockItem(
                 RCDeferredRegisters.BLOCKS.NETHER_SOIL.get(), 

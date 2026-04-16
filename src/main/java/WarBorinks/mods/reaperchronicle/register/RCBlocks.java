@@ -19,7 +19,7 @@ public class RCBlocks {
     RCBlocks(DeferredRegister<Block> block) {
         this.BLOCK = block;
 
-        this.NETHER_SAND = BLOCK.register(
+        this.NETHER_SAND = this.BLOCK.register(
             "nether_sand", 
             () -> new NetherSand(new ColorRGBA(0x2e2e2e00), 
                 BlockBehaviour.Properties.of()
@@ -30,7 +30,7 @@ public class RCBlocks {
             )
         );
 
-        this.NETHER_SOIL = BLOCK.register(
+        this.NETHER_SOIL = this.BLOCK.register(
             "nether_soil", 
             () -> new NetherSoil(BlockBehaviour.Properties.of()
                 .strength(0.5f, 10.0f)

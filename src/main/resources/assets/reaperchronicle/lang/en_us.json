@@ -3,9 +3,11 @@
     "block.reaperchronicle.nether_soil": "Nether Soil",
 
     "creative_mode_tab.reaperchronicle.crystal_ingredients": "Crystal Ingredients",
+    "creative_mode_tab.reaperchronicle.crystals": "Crystals",
 
     "effect.reaperchronicle.nether_poison": "Nether Poison",
 
+    "item.reaperchronicle.empty_crystal": "Empty Crystal",
     "item.reaperchronicle.nether_debris": "Nether Debris",
     "item.reaperchronicle.nether_sand": "Nether Sand",
     "item.reaperchronicle.nether_soil": "Nether Soil"

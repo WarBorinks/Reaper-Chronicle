@@ -9,6 +9,8 @@ import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import warborinks.mods.reaperchronicle.ReaperChronicle;
+import warborinks.mods.reaperchronicle.crystal.Crystal;
+import warborinks.mods.reaperchronicle.attribute.Attribute;
 
 @SuppressWarnings("null")
 public class RCDeferredRegisters {
@@ -19,6 +21,16 @@ public class RCDeferredRegisters {
 
     static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB = DeferredRegister.create(
         BuiltInRegistries.CREATIVE_MODE_TAB, 
+        ReaperChronicle.MODID
+    );
+
+    static final DeferredRegister<Crystal> CRYSTAL = DeferredRegister.create(
+        RCRegistries.CRYSTAL,
+        ReaperChronicle.MODID
+    );
+
+    static final DeferredRegister<Attribute> ATTRIBUTE = DeferredRegister.create(
+        RCRegistries.ATTRIBUTE,
         ReaperChronicle.MODID
     );
 
@@ -37,8 +49,11 @@ public class RCDeferredRegisters {
         ReaperChronicle.MODID
     );
 
+    public static final RCAttributes ATTRIBUTES = new RCAttributes(ATTRIBUTE);
     public static final RCBlockItems BLOCK_ITEMS = new RCBlockItems(ITEM);
     public static final RCBlocks BLOCKS = new RCBlocks(BLOCK);
+    public static final RCCrystalItems CRYSTAL_ITEMS = new RCCrystalItems(ITEM);
+    public static final RCCrystals CRYSTALS = new RCCrystals(CRYSTAL);
     public static final RCCreativeModeTabs CREATIVE_MODE_TABS = new RCCreativeModeTabs(CREATIVE_MODE_TAB);
     public static final RCItems ITEMS = new RCItems(ITEM);
     public static final RCMobEffects MOB_EFFECTS = new RCMobEffects(MOB_EFFECT);
@@ -47,8 +62,12 @@ public class RCDeferredRegisters {
     public static void register(IEventBus bus) {
         BLOCK.register(bus);
         CREATIVE_MODE_TAB.register(bus);
+        CRYSTAL.register(bus);
+        ATTRIBUTE.register(bus);
         ITEM.register(bus);
         MOB_EFFECT.register(bus);
         SOUND_EVENT.register(bus);
+
+        RCRegistries.register(bus);
     }
 }

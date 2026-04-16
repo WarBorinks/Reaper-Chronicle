@@ -3,9 +3,11 @@
     "block.reaperchronicle.nether_soil": "冥土",
 
     "creative_mode_tab.reaperchronicle.crystal_ingredients": "结晶原料",
+    "creative_mode_tab.reaperchronicle.crystals": "结晶",
 
     "effect.reaperchronicle.nether_poison": "冥毒",
 
+    "item.reaperchronicle.empty_crystal": "空结晶",
     "item.reaperchronicle.nether_debris": "冥界残骸",
     "item.reaperchronicle.nether_sand": "冥沙",
     "item.reaperchronicle.nether_soil": "冥土"
