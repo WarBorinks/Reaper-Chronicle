@@ -1,5 +1,5 @@
 ### Reaper Chronicle
-> 21.1.1
+> v21.1.1-NeoForge
 
 **License:** GNU General Public License v3.0 (GPL-3.0). See the `LICENSE` file for details.
 
