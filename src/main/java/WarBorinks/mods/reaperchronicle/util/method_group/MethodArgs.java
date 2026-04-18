@@ -1,16 +1,16 @@
-package warborinks.mods.reaperchronicle.tool;
+package warborinks.mods.reaperchronicle.util.method_group;
 
 import java.util.Arrays;
 import java.util.List;
 
-public final class FeatureArgs {
-    private List<Object> args;
+public final class MethodArgs {
+    private final List<Object> args;
 
-    public FeatureArgs(List<Object> objects) {
+    public MethodArgs(List<Object> objects) {
         this.args = objects;
     }
 
-    public FeatureArgs(Object... objects) {
+    public MethodArgs(Object... objects) {
         this(Arrays.asList(objects));
     }
 

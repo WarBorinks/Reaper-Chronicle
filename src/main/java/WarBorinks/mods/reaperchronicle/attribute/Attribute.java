@@ -2,19 +2,19 @@ package warborinks.mods.reaperchronicle.attribute;
 
 import java.util.function.Function;
 
-import warborinks.mods.reaperchronicle.tool.FeatureArgs;
-import warborinks.mods.reaperchronicle.tool.FeatureGroup;
-import warborinks.mods.reaperchronicle.tool.FeatureResult;
+import warborinks.mods.reaperchronicle.util.method_group.MethodArgs;
+import warborinks.mods.reaperchronicle.util.method_group.MethodGroup;
+import warborinks.mods.reaperchronicle.util.method_group.MethodResult;
 
 public class Attribute {
-    protected FeatureGroup features;
+    protected MethodGroup features;
 
     public Attribute() {
-        this.features = new FeatureGroup();
+        this.features = new MethodGroup();
     }
 
-    public void addAttribute(String name, Function<FeatureArgs, FeatureResult> attribute) {
-        this.features.addFeature(name, attribute);
+    public void addAttribute(String name, Function<MethodArgs, MethodResult> attribute) {
+        this.features.addMethod(name, attribute);
     }
 
     public <T> T useAttribute(String name, Class<T> resType, Object... objects) {
@@ -22,6 +22,6 @@ public class Attribute {
     }
 
     public boolean findAttribute(String name) {
-        return this.features.findFeature(name);
+        return this.features.findMethod(name);
     }
 }

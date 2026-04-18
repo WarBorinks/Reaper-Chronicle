@@ -1,6 +1,8 @@
 ### Reaper Chronicle
 > v21.1.1-NeoForge
 
+**Crossing the boundary between life and death, reforging a lost world...**
+
 **License:** GNU General Public License v3.0 (GPL-3.0). See the `LICENSE` file for details.
 
 This mod is distributed under the terms of the GNU GPL v3.0. You may

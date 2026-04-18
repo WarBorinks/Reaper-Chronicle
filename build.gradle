@@ -12,13 +12,25 @@ version = mod_version
 group = mod_group_id
 
 sourceSets.main.resources {
-    srcDir('src/generated/resources')
+    srcDir('src/main/resources')
 
     exclude("**/*.bbmodel")
     exclude("src/generated/**/.cache")
 }
 
+tasks.processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 repositories {
+    maven {
+        url 'https://mirrors.cloud.tencent.com/nexus/repository/maven-public/'
+        name 'TencentCloud'
+    }
+    maven {
+        url 'https://maven.aliyun.com/repository/public/'
+        name 'Aliyun'
+    }
 }
 
 base {

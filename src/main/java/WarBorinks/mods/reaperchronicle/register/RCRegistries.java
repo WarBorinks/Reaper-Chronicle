@@ -16,12 +16,14 @@ public class RCRegistries {
         ResourceLocation.fromNamespaceAndPath(ReaperChronicle.MODID, "attribute")
     );
     public static final Registry<Attribute> ATTRIBUTE_REGISTRY = new RegistryBuilder<>(ATTRIBUTE)
+        .sync(true)
         .create(); 
         
     public static final ResourceKey<Registry<Crystal>> CRYSTAL = ResourceKey.createRegistryKey(
         ResourceLocation.fromNamespaceAndPath(ReaperChronicle.MODID, "crystal")
     );
     public static final Registry<Crystal> CRYSTAL_REGISTRY = new RegistryBuilder<>(CRYSTAL)
+        .sync(true)
         .create();
 
     private static void registerCustomRegistries(NewRegistryEvent event) {
