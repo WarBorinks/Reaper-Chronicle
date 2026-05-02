@@ -1,14 +1,12 @@
 {
-    "block.reaperchronicle.nether_sand": "Nether Sand",
-    "block.reaperchronicle.nether_soil": "Nether Soil",
-
-    "creative_mode_tab.reaperchronicle.crystal_ingredients": "Crystal Ingredients",
-    "creative_mode_tab.reaperchronicle.crystals": "Crystals",
-
-    "effect.reaperchronicle.nether_poison": "Nether Poison",
-
-    "item.reaperchronicle.empty_crystal": "Empty Crystal",
-    "item.reaperchronicle.nether_debris": "Nether Debris",
-    "item.reaperchronicle.nether_sand": "Nether Sand",
-    "item.reaperchronicle.nether_soil": "Nether Soil"
+  "block.reaperchronicle.nether_sand": "Nether Sand",
+  "block.reaperchronicle.nether_soil": "Nether Soil",
+  "creative_mode_tab.reaperchronicle.crystal_ingredients": "Crystal Ingredients",
+  "creative_mode_tab.reaperchronicle.crystals": "Crystals",
+  "crystal.reaperchronicle.empty_crystal": "Emtpy Crystal",
+  "crystal.reaperchronicle.water_crystal": "Water Crystal",
+  "effect.reaperchronicle.nether_poison": "Nether Poison",
+  "item.reaperchronicle.nether_debris": "Nether Debris",
+  "reaper_attribute.reaperchronicle.empty_attribute": "Emtpy",
+  "reaper_attribute.reaperchronicle.water_attribute": "Water"
 }

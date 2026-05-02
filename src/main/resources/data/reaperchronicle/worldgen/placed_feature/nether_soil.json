@@ -1,27 +1,27 @@
 {
-    "feature": "reaperchronicle:nether_soil",
-    "placement": [
-        {
-            "type": "minecraft:count", 
-            "count": 1
+  "feature": "reaperchronicle:nether_soil",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    },
+    {
+      "type": "minecraft:count",
+      "count": 1
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": {
+          "absolute": 32
         },
-        {
-            "type": "minecraft:in_square"
-        },
-        {
-            "type": "minecraft:height_range",
-            "height": {
-                "type": "minecraft:uniform",
-                "max_inclusive": {
-                    "absolute": 32
-                },
-                "min_inclusive": {
-                    "absolute": 0
-                }
-            }
-        },
-        {
-            "type": "minecraft:biome"
+        "min_inclusive": {
+          "absolute": 0
         }
-    ]
+      }
+    },
+    {
+      "type": "minecraft:in_square"
+    }
+  ]
 }

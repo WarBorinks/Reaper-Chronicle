@@ -1,16 +1,21 @@
 {
-    "type": "minecraft:block",
-    "pools": [
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
         {
-            "bonus_rolls": 0.0,
-            "rolls": 1.0,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "reaperchronicle:nether_soil"
-                }
-            ]
+          "condition": "minecraft:survives_explosion"
         }
-    ],
-    "random_sequence": "reaperchronicle:blocks/nether_soil"
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "reaperchronicle:nether_soil"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "reaperchronicle:blocks/nether_soil"
 }

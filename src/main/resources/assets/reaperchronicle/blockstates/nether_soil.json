@@ -1,7 +1,7 @@
 {
-    "variants": {
-        "": {
-            "model": "reaperchronicle:block/nether_soil"
-        }
+  "variants": {
+    "": {
+      "model": "reaperchronicle:block/nether_soil"
     }
+  }
 }

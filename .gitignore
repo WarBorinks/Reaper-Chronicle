@@ -3,6 +3,5 @@
 .vscode/
 bin/
 build/
+generated/
 runs/
-
-gradle/wrapper/gradle-9.2.1-bin.zip

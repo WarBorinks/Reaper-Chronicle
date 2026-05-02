@@ -1,14 +1,12 @@
 {
-    "block.reaperchronicle.nether_sand": "玄砂",
-    "block.reaperchronicle.nether_soil": "幽壤",
-
-    "creative_mode_tab.reaperchronicle.crystal_ingredients": "晶胚",
-    "creative_mode_tab.reaperchronicle.crystals": "結晶",
-
-    "effect.reaperchronicle.nether_poison": "陰沴",
-
-    "item.reaperchronicle.empty_crystal": "空結晶",
-    "item.reaperchronicle.nether_debris": "冥墟遺骸",
-    "item.reaperchronicle.nether_sand": "玄砂",
-    "item.reaperchronicle.nether_soil": "幽壤"
+  "block.reaperchronicle.nether_sand": "玄砂",
+  "block.reaperchronicle.nether_soil": "幽壤",
+  "creative_mode_tab.reaperchronicle.crystal_ingredients": "晶胚",
+  "creative_mode_tab.reaperchronicle.crystals": "結晶",
+  "crystal.reaperchronicle.empty_crystal": "空結晶",
+  "crystal.reaperchronicle.water_crystal": "水之結晶",
+  "effect.reaperchronicle.nether_poison": "陰沴",
+  "item.reaperchronicle.nether_debris": "冥墟遺骸",
+  "reaper_attribute.reaperchronicle.empty_attribute": "無",
+  "reaper_attribute.reaperchronicle.water_attribute": "水"
 }
