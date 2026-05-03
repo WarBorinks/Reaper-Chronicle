@@ -7,16 +7,16 @@ import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 import warborinks.mods.reaperchronicle.world.reaper.reaper_attribute.ReaperAttributes;
 
 public class Crystals {
-    private static final DeferredRegister<Crystal> REGISTER = RCDeferredRegisters.CRYSTAL;
+    private static final DeferredRegister<Crystal> REGISTRAR = RCDeferredRegisters.CRYSTAL;
 
-    public static final DeferredHolder<Crystal, Crystal> EMPTY_CRYSTAL = REGISTER.register(
+    public static final DeferredHolder<Crystal, Crystal> EMPTY_CRYSTAL = REGISTRAR.register(
         RCRegistryNames.Crystals.EMPTY_CRYSTAL,
-        () -> new Crystal(() -> ReaperAttributes.EMPTY_ATTRIBUTE.get())
+        () -> new Crystal(ReaperAttributes.EMPTY_ATTRIBUTE::get)
     );
 
-    public static final DeferredHolder<Crystal, Crystal> WATER_CRYSTAL = REGISTER.register(
+    public static final DeferredHolder<Crystal, Crystal> WATER_CRYSTAL = REGISTRAR.register(
         RCRegistryNames.Crystals.WATER_CRYSTAL,
-        () -> new Crystal(() -> ReaperAttributes.WATER_ATTRIBUTE.get())
+        () -> new Crystal(ReaperAttributes.WATER_ATTRIBUTE::get)
     );
 
     public static void load() {}

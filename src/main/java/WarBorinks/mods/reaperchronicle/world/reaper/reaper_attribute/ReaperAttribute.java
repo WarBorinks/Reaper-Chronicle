@@ -40,11 +40,7 @@ public class ReaperAttribute extends FeatureGroup {
         if (this.findFeature(name)) {
             return this.apply(name, resType, objects);
         } else {
-            if (ifThereNot != null) {
-                return ifThereNot.get();
-            } else {
-                return null;
-            }
+            return ifThereNot == null ? null : ifThereNot.get();
         }
     }
 

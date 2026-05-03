@@ -8,20 +8,20 @@ import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 import warborinks.mods.reaperchronicle.world.reaper.crystal.Crystals;
 
 public class CrystalItems {
-    private static final DeferredRegister<Item> REGISTER = RCDeferredRegisters.ITEM;
+    private static final DeferredRegister<Item> REGISTRAR = RCDeferredRegisters.ITEM;
 
-    public static final DeferredHolder<Item, CrystalItem> EMPTY_CRYSTAL = REGISTER.register(
+    public static final DeferredHolder<Item, CrystalItem> EMPTY_CRYSTAL = REGISTRAR.register(
         RCRegistryNames.Crystals.EMPTY_CRYSTAL,
         () -> new CrystalItem(
-            () -> Crystals.EMPTY_CRYSTAL.get(),
+            Crystals.EMPTY_CRYSTAL::get,
             new Item.Properties()
         )
     );
 
-    public static final DeferredHolder<Item, CrystalItem> WATER_CRYSTAL = REGISTER.register(
+    public static final DeferredHolder<Item, CrystalItem> WATER_CRYSTAL = REGISTRAR.register(
         RCRegistryNames.Crystals.WATER_CRYSTAL,
         () -> new CrystalItem(
-            () -> Crystals.WATER_CRYSTAL.get(),
+            Crystals.WATER_CRYSTAL::get,
             new Item.Properties()
         )
     );

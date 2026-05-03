@@ -11,9 +11,9 @@ import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 
 @SuppressWarnings("null")
 public class RCBlocks {
-    private static final DeferredRegister<Block> REGISTER = RCDeferredRegisters.BLOCK;
+    private static final DeferredRegister<Block> REGISTRAR = RCDeferredRegisters.BLOCK;
 
-    public static final DeferredHolder<Block, NetherSand> NETHER_SAND = REGISTER.register(
+    public static final DeferredHolder<Block, NetherSand> NETHER_SAND = REGISTRAR.register(
         RCRegistryNames.Blocks.NETHER_SAND,
         () -> new NetherSand(new ColorRGBA(0x2e2e2e00),
             BlockBehaviour.Properties.of()
@@ -24,7 +24,7 @@ public class RCBlocks {
         )
     );
 
-    public static final DeferredHolder<Block, NetherSoil> NETHER_SOIL = REGISTER.register(
+    public static final DeferredHolder<Block, NetherSoil> NETHER_SOIL = REGISTRAR.register(
         RCRegistryNames.Blocks.NETHER_SOIL,
         () -> new NetherSoil(BlockBehaviour.Properties.of()
             .strength(0.5f, 10.0f)

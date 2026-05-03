@@ -11,7 +11,7 @@ import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 
 @SuppressWarnings("null")
 public class RCCreativeModeTabs {
-    private static final DeferredRegister<CreativeModeTab> REGISTER = RCDeferredRegisters.CREATIVE_MODE_TAB;
+    private static final DeferredRegister<CreativeModeTab> REGISTRAR = RCDeferredRegisters.CREATIVE_MODE_TAB;
 
     private static String getTranslatableString(String name) {
         return RCRegistryNames.CreativeModeTabs.getCreativeModeTabDescriptionId(
@@ -19,7 +19,7 @@ public class RCCreativeModeTabs {
         );
     }
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> CRYSTALS = REGISTER.register(
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> CRYSTALS = REGISTRAR.register(
         RCRegistryNames.CreativeModeTabs.CRYSTALS,
         () -> CreativeModeTab.builder()
             .title(Component.translatable(getTranslatableString(RCRegistryNames.CreativeModeTabs.CRYSTALS)))
@@ -31,7 +31,7 @@ public class RCCreativeModeTabs {
             .build()
     );
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> CRYSTAL_INGREDIENTS = REGISTER.register(
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> CRYSTAL_INGREDIENTS = REGISTRAR.register(
         RCRegistryNames.CreativeModeTabs.CRYSTAL_INGREDIENTS,
         () -> CreativeModeTab.builder()
             .title(Component.translatable(getTranslatableString(RCRegistryNames.CreativeModeTabs.CRYSTAL_INGREDIENTS)))

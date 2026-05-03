@@ -35,6 +35,10 @@ public class RCRegistryNames {
         public static final String WATER_CRYSTAL = "water_crystal";
     }
 
+    public static class DataComponentTypes {
+        public static final String TEXT_INDEX = "text_index";
+    }
+
     public static class Items {
         public static final String NETEHR_DEBRIS = "nether_debris";
     }

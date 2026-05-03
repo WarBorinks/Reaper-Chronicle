@@ -21,7 +21,7 @@ import warborinks.mods.reaperchronicle.world.reaper.reaper_attribute.ReaperAttri
 public class CrystalItem extends Item {
     private final Supplier<Crystal> crystal;
 
-    public CrystalItem(Supplier<Crystal> crystal, Item.Properties properties) {
+    public CrystalItem(Supplier<Crystal> crystal, Properties properties) {
         super(properties);
         this.crystal = crystal;
     }
@@ -30,7 +30,7 @@ public class CrystalItem extends Item {
     public InteractionResult useOn(UseOnContext context) {
         List<ReaperAttribute> attributesHavingUseOn = new ArrayList<>();
         this.crystal.get().getAttributes().forEach(
-            (attribute) -> {
+            attribute -> {
                 if (attribute.findFeature("useOn")) {
                     attributesHavingUseOn.add(attribute);
                 }
@@ -51,7 +51,7 @@ public class CrystalItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         List<ReaperAttribute> attributesHavingUse = new ArrayList<>();
         this.crystal.get().getAttributes().forEach(
-            (attribute) -> {
+            attribute -> {
                 if (attribute.findFeature("use")) {
                     attributesHavingUse.add(attribute);
                 }
