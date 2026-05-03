@@ -2,6 +2,7 @@ package warborinks.mods.reaperchronicle.world.reaper.reaper_attribute;
 
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -33,6 +34,18 @@ public class ReaperAttribute extends FeatureGroup {
     
     public ReaperAttribute addFeatures(@Nonnull Class<?> cls) {
         return (ReaperAttribute) super.addFeatures(cls);
+    }
+
+    public <T> T apply(@Nonnull String name, Supplier<T> ifThereNot, Class<T> resType, Object... objects) {
+        if (this.findFeature(name)) {
+            return this.apply(name, resType, objects);
+        } else {
+            if (ifThereNot != null) {
+                return ifThereNot.get();
+            } else {
+                return null;
+            }
+        }
     }
 
     public String getDescriptionId() {

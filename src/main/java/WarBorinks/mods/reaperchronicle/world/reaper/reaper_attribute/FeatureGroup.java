@@ -38,7 +38,7 @@ public class FeatureGroup {
         return this;
     }
 
-    public <T> T apply(@Nonnull String name, @Nonnull Class<T> resType, Object... objects) {
+    public <T> T apply(@Nonnull String name, Class<T> resType, Object... objects) {
         if (this.findFeature(name)) {
             return this.features.get(name).apply(new Args(objects)).get(resType);
         } else {
@@ -69,8 +69,8 @@ public class FeatureGroup {
             this.res = res;
         }
 
-        public <T> T get(@Nonnull Class<T> resType) {
-            return resType.cast(this.res);
+        public <T> T get(Class<T> resType) {
+            return resType == null ? null : resType.cast(this.res);
         }
     }
 
