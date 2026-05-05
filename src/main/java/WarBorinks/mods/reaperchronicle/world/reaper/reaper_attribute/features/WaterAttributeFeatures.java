@@ -19,7 +19,7 @@ public class WaterAttributeFeatures {
         UseOnContext context = args.get(0, UseOnContext.class);
 
         Level level = context.getLevel();
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             BlockPos pos = context.getClickedPos();
             level.setBlock(pos, Blocks.WATER.defaultBlockState(), Block.UPDATE_NONE);
             level.setBlock(pos, level.getBlockState(pos).setValue(LiquidBlock.LEVEL, 0), Block.UPDATE_ALL);

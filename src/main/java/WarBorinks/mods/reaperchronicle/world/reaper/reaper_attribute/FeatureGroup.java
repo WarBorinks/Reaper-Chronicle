@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 
@@ -43,6 +44,13 @@ public class FeatureGroup {
             return this.features.get(name).apply(new Args(objects)).get(resType);
         } else {
             return null;
+        }
+    }
+    public <T> T apply(@Nonnull String name, Supplier<T> ifThereNot, Class<T> resType, Object... objects) {
+        if (this.findFeature(name)) {
+            return this.apply(name, resType, objects);
+        } else {
+            return ifThereNot == null ? null : ifThereNot.get();
         }
     }
 

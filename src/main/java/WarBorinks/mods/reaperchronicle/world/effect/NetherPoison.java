@@ -17,7 +17,7 @@ public class NetherPoison extends MobEffect {
 
     @Override
     public boolean applyEffectTick(LivingEntity entity, int amplifier) {
-        if (!entity.level().isClientSide) {
+        if (!entity.level().isClientSide()) {
             int damage = 1 << amplifier;
 
             if (entity.getType().getCategory().isFriendly() || entity instanceof Player) {

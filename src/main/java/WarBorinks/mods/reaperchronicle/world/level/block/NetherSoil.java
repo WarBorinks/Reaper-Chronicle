@@ -17,9 +17,10 @@ public class NetherSoil extends Block {
 
     @Override
     public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
-        if (!level.isClientSide && entity instanceof LivingEntity livingEntity) {
+        if (!level.isClientSide() && entity instanceof LivingEntity livingEntity) {
             livingEntity.addEffect(new MobEffectInstance(
-                RCMobEffects.NETHER_POISON, 64
+                RCMobEffects.NETHER_POISON,
+                128
             ));
         }
 

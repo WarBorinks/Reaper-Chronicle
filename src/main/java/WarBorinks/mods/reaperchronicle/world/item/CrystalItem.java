@@ -79,6 +79,10 @@ public class CrystalItem extends Item {
         );
     }
 
+    public Crystal getCrystal() {
+        return this.crystal.get();
+    }
+
     @Override
     public String getDescriptionId() {
         return this.crystal.get().getDescriptionId();
