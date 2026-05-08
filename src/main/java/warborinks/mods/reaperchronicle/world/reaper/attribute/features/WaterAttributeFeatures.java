@@ -1,4 +1,4 @@
-package warborinks.mods.reaperchronicle.world.reaper.reaper_attribute.features;
+package warborinks.mods.reaperchronicle.world.reaper.attribute.features;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
@@ -10,12 +10,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
-import warborinks.mods.reaperchronicle.world.reaper.reaper_attribute.FeatureGroup;
+import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttribute;
 
 @SuppressWarnings("null")
 public class WaterAttributeFeatures {
-    @FeatureGroup.Feature
-    public static FeatureGroup.Result useOn(FeatureGroup.Args args) {
+    @ReaperAttribute.Feature
+    public static ReaperAttribute.Result useOn(ReaperAttribute.Args args) {
         UseOnContext context = args.get(0, UseOnContext.class);
 
         Level level = context.getLevel();
@@ -28,6 +28,6 @@ public class WaterAttributeFeatures {
             level.playSound(player, pos, SoundEvents.WATER_AMBIENT, SoundSource.BLOCKS);
         }
         
-        return new FeatureGroup.Result(InteractionResult.CONSUME);
+        return new ReaperAttribute.Result(InteractionResult.CONSUME);
     }
 }

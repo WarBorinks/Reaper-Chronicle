@@ -1,4 +1,4 @@
-package warborinks.mods.reaperchronicle.world.reaper.reaper_attribute;
+package warborinks.mods.reaperchronicle.world.reaper.attribute;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -7,28 +7,28 @@ import java.util.Map;
 import java.util.function.Function;
 
 class FeatureGetter {
-    private static final Class<FeatureGroup.Feature> annotation = FeatureGroup.Feature.class;
+    private static final Class<ReaperAttribute.Feature> annotation = ReaperAttribute.Feature.class;
 
-    static Map<String, Function<FeatureGroup.Args, FeatureGroup.Result>> get(Class<?> cls) {
-        Map<String, Function<FeatureGroup.Args, FeatureGroup.Result>> features = new HashMap<>();
+    static Map<String, Function<ReaperAttribute.Args, ReaperAttribute.Result>> get(Class<?> cls) {
+        Map<String, Function<ReaperAttribute.Args, ReaperAttribute.Result>> features = new HashMap<>();
         for (Method method : cls.getDeclaredMethods()) {
             if (!method.isAnnotationPresent(annotation)) {
                 continue;
             } if (!Modifier.isStatic(method.getModifiers())) {
                 continue;
-            } if (method.getReturnType() != FeatureGroup.Result.class) {
+            } if (method.getReturnType() != ReaperAttribute.Result.class) {
                 continue;
             } if (method.getParameterCount() != 1) {
                 continue;
-            } if (method.getParameterTypes()[0] != FeatureGroup.Args.class) {
+            } if (method.getParameterTypes()[0] != ReaperAttribute.Args.class) {
                 continue;
             }
 
             method.setAccessible(true);
 
-            Function<FeatureGroup.Args, FeatureGroup.Result> feature = args -> {
+            Function<ReaperAttribute.Args, ReaperAttribute.Result> feature = args -> {
                 try {
-                    return (FeatureGroup.Result) method.invoke(null, args);
+                    return (ReaperAttribute.Result) method.invoke(null, args);
                 } catch (Exception e) {
                     throw new RuntimeException("Failed to invoke static method: " + method.getName(), e);
                 }

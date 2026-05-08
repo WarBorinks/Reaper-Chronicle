@@ -1,0 +1,18 @@
+package warborinks.mods.reaperchronicle.world.item.crafting;
+
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import warborinks.mods.reaperchronicle.core.registries.RCDeferredRegisters;
+import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
+
+public class RCRecipeSerializers {
+    private static final DeferredRegister<RecipeSerializer<?>> REGISTRAR = RCDeferredRegisters.RECIPE_SERIALIZERS;
+
+    public static final DeferredHolder<RecipeSerializer<?>, ReaperRecipeSerializer> REAPER_RECIPE = REGISTRAR.register(
+        RCRegistryNames.RecipeSerializers.REAPER_RECIPE,
+        () -> new ReaperRecipeSerializer()
+    );
+
+    public static void load() {}
+}

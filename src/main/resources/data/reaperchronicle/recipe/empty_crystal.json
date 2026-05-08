@@ -1,16 +1,15 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "key": {
-    "#": {
-      "item": "reaperchronicle:nether_debris"
+  "type": "reaperchronicle:reaper_recipe",
+  "crystals": [],
+  "others": [
+    {
+      "count": 9,
+      "ingredient": {
+        "item": "reaperchronicle:nether_debris"
+      }
     }
-  },
-  "pattern": [
-    " # ",
-    "###",
-    " # "
   ],
+  "reapers": [],
   "result": {
     "count": 1,
     "id": "reaperchronicle:empty_crystal"

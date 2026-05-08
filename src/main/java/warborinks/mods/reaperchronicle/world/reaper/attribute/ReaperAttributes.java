@@ -1,10 +1,10 @@
-package warborinks.mods.reaperchronicle.world.reaper.reaper_attribute;
+package warborinks.mods.reaperchronicle.world.reaper.attribute;
 
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import warborinks.mods.reaperchronicle.core.registries.RCDeferredRegisters;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
-import warborinks.mods.reaperchronicle.world.reaper.reaper_attribute.features.WaterAttributeFeatures;
+import warborinks.mods.reaperchronicle.world.reaper.attribute.features.WaterAttributeFeatures;
 
 public class ReaperAttributes {
     private static final DeferredRegister<ReaperAttribute> REGISTRAR = RCDeferredRegisters.REAPER_ATTRIBUTE;
