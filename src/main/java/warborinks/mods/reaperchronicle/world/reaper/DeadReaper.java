@@ -17,8 +17,8 @@ import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttribute;
 @SuppressWarnings("null")
 public class DeadReaper extends Reaper {
     @SafeVarargs
-    public DeadReaper(String title, String text, Supplier<ReaperAttribute>... attributes) {
-        super(title, text, attributes);
+    public DeadReaper(String absoluteText, Supplier<ReaperAttribute>... attributes) {
+        super(absoluteText, attributes);
     }
 
     @Override
@@ -57,6 +57,7 @@ public class DeadReaper extends Reaper {
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context,
         List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        tooltipComponents.add(Component.literal(this.getTitleWithStyle() + ": " + this.getText()));
+        tooltipComponents.add(Component.literal(this.getTitle() + " " + this.getWriter()));
+        tooltipComponents.add(Component.literal(this.getText()));
     }
 }

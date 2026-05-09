@@ -17,16 +17,17 @@ import warborinks.mods.reaperchronicle.core.registries.RCRegistries;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttribute;
 
 public abstract class Reaper {
-    private final String title;
-    private final String text;
+    private final String absoluteText;
     private final Set<Supplier<ReaperAttribute>> attributes;
 
+    @Nullable private String title;
+    @Nullable private String writer;
+    @Nullable private String text;
     @Nullable private String descriptionId;
 
     @SafeVarargs
-    public Reaper(String title, String text, Supplier<ReaperAttribute>... attributes) {
-        this.title = title;
-        this.text = text;
+    public Reaper(String absoluteText, Supplier<ReaperAttribute>... attributes) {
+        this.absoluteText = absoluteText;
         this.attributes = Set.of(attributes);
     }
 
@@ -56,14 +57,29 @@ public abstract class Reaper {
         return newDamage;
     }
 
-    public String getTitle() {
-        return this.title;
-    }
-    public String getTitleWithStyle() {
-        return "《" + this.title + "》";
+    public String getAbsoluteText() {
+        return this.absoluteText;
     }
 
+    public String getTitle() {
+        if (this.title == null) {
+            this.title = Component.translatable(this.getDescriptionId() + ".title").toString();
+        }
+
+        return this.title;
+    }
+    public String getWriter() {
+        if (this.writer == null) {
+            this.writer = Component.translatable(this.getDescriptionId() + ".writer").toString();
+        }
+
+        return this.title;
+    }
     public String getText() {
+        if (this.text == null) {
+            this.text = Component.translatable(this.getDescriptionId() + ".text").toString();
+        }
+
         return this.text;
     }
 
