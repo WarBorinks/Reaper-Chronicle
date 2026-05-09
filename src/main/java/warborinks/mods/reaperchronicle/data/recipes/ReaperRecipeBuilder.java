@@ -16,6 +16,7 @@ import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -55,11 +56,25 @@ public class ReaperRecipeBuilder implements RecipeBuilder {
         this.crystals.add(new ReaperRecipeIngredient(Ingredient.of(crystal), count));
         return this;
     }
+    public ReaperRecipeBuilder addCrystal(TagKey<Item> crystal, int count) {
+        this.crystals.add(new ReaperRecipeIngredient(Ingredient.of(crystal), count));
+        return this;
+    }
+
     public ReaperRecipeBuilder addReaper(ReaperItem reaper, int count) {
         this.reapers.add(new ReaperRecipeIngredient(Ingredient.of(reaper), count));
         return this;
     }
+    public ReaperRecipeBuilder addReaper(TagKey<Item> reaper, int count) {
+        this.reapers.add(new ReaperRecipeIngredient(Ingredient.of(reaper), count));
+        return this;
+    }
+
     public ReaperRecipeBuilder addOther(Item item, int count) {
+        this.others.add(new ReaperRecipeIngredient(Ingredient.of(item), count));
+        return this;
+    }
+    public ReaperRecipeBuilder addOther(TagKey<Item> item, int count) {
         this.others.add(new ReaperRecipeIngredient(Ingredient.of(item), count));
         return this;
     }

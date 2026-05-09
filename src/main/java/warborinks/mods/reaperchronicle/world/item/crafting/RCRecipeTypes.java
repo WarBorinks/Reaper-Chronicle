@@ -13,9 +13,9 @@ public class RCRecipeTypes {
     private static final DeferredRegister<RecipeType<?>> REGISTRAR = RCDeferredRegisters.RECIPE_TYPE;
 
     public static final DeferredHolder<RecipeType<?>, RecipeType<ReaperRecipe>> REAPER_RECIPE = REGISTRAR.register(
-        RCRegistryNames.RecipeTypes.REAPER_RECIPE,
+        RCRegistryNames.RecipeTypes.REAPER,
         () -> RecipeType.simple(ResourceLocation.fromNamespaceAndPath(
-            ReaperChronicle.MODID, RCRegistryNames.RecipeTypes.REAPER_RECIPE
+            ReaperChronicle.MODID, RCRegistryNames.RecipeTypes.REAPER
         ))
     );
 

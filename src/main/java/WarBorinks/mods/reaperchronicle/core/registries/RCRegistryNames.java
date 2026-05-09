@@ -53,11 +53,11 @@ public class RCRegistryNames {
     }
 
     public static class RecipeSerializers {
-        @Nonnull public static final String REAPER_RECIPE = "reaper_recipe";
+        @Nonnull public static final String REAPER = "reaper";
     }
 
     public static class RecipeTypes {
-        @Nonnull public static final String REAPER_RECIPE = "reaper_recipe";
+        @Nonnull public static final String REAPER = "reaper";
     }
 
     public static class SoundEvents {
