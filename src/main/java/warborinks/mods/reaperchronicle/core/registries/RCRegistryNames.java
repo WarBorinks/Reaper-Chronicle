@@ -14,6 +14,10 @@ public class RCRegistryNames {
         @Nonnull public static final String NETHER_SOIL = "nether_soil";
     }
 
+    public static class BlockEntityTypes {
+        @Nonnull public static final String REAPER_CRAFTING_TABLE = "reaper_crafting_table";
+    }
+
     public static class CreativeModeTabs {
         @Nonnull public static final String CRYSTALS = "crystals";
         @Nonnull public static final String CRYSTAL_INGREDIENTS = "crystal_ingredients";
@@ -45,6 +49,10 @@ public class RCRegistryNames {
 
     public static class MobEffects {
         @Nonnull public static final String NETHER_POISON = "nether_poison";
+    }
+
+    public static class Reapers {
+        @Nonnull public static final String COMMON_REAPER = "common_reaper";
     }
 
     public static class ReaperAttributes {

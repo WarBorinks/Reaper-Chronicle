@@ -5,23 +5,18 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import warborinks.mods.reaperchronicle.core.registries.RCDeferredRegisters;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
+import warborinks.mods.reaperchronicle.world.reaper.Reapers;
 
-@SuppressWarnings("null")
-public class RCItems {
+public class ReaperItems {
     private static final DeferredRegister<Item> REGISTRAR = RCDeferredRegisters.ITEM;
 
-    public static final DeferredHolder<Item, Item> NETHER_DEBRIS = REGISTRAR.register(
-        RCRegistryNames.Items.NETEHR_DEBRIS,
-        () -> new Item(
+    public static final DeferredHolder<Item, ReaperItem> COMMON_REAPER = REGISTRAR.register(
+        RCRegistryNames.Reapers.COMMON_REAPER,
+        () -> new ReaperItem(
+            Reapers.COMMON_REAPER::get,
             new Item.Properties()
-                .stacksTo(64)
         )
     );
 
-    public static void load() {
-        CrystalItems.load();
-        ReaperItems.load();
-        
-        RCBlockItems.load();
-    }
+    public static void load() {}
 }

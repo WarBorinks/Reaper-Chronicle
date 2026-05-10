@@ -34,5 +34,13 @@ public class RCBlocks {
         )
     );
 
+    public static final DeferredHolder<Block, ReaperCraftingTableBlock> REAPER_CRAFTING_TABLE = REGISTRAR.register(
+        RCRegistryNames.BlockEntityTypes.REAPER_CRAFTING_TABLE,
+        () -> new ReaperCraftingTableBlock(BlockBehaviour.Properties.of()
+            .strength(4.0f, 20.0f)
+            .mapColor(MapColor.COLOR_GRAY)
+        )
+    );
+
     public static void load() {}
 }

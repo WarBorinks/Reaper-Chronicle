@@ -16,6 +16,10 @@ public class Crystal {
     
     @Nullable private String descriptionId;
 
+    public Crystal() {
+        this.attributes = Set.of();
+    }
+
     @SafeVarargs
     public Crystal(@Nonnull Supplier<ReaperAttribute>... attributes) {
         this.attributes = Set.of(attributes);

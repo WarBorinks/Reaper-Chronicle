@@ -29,6 +29,11 @@ public abstract class Reaper {
     @Nullable private String textTranslationKey;
     @Nullable private String descriptionId;
 
+    public Reaper(String absoluteText) {
+        this.absoluteText = absoluteText;
+        this.attributes = Set.of();
+    }
+
     @SafeVarargs
     public Reaper(String absoluteText, Supplier<ReaperAttribute>... attributes) {
         this.absoluteText = absoluteText;

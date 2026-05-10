@@ -11,7 +11,7 @@ public class Crystals {
 
     public static final DeferredHolder<Crystal, Crystal> EMPTY_CRYSTAL = REGISTRAR.register(
         RCRegistryNames.Crystals.EMPTY_CRYSTAL,
-        () -> new Crystal(ReaperAttributes.EMPTY_ATTRIBUTE::get)
+        () -> new Crystal()
     );
 
     public static final DeferredHolder<Crystal, Crystal> WATER_CRYSTAL = REGISTRAR.register(
