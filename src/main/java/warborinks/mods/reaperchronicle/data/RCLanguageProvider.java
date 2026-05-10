@@ -1,23 +1,17 @@
 package warborinks.mods.reaperchronicle.data;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.data.PackOutput;
-import net.minecraft.world.item.CreativeModeTab;
-import net.neoforged.neoforge.common.data.LanguageProvider;
 import warborinks.mods.reaperchronicle.ReaperChronicle;
-import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
+import warborinks.mods.reaperchronicle.data.language.ExtendedLanguageProvider;
 import warborinks.mods.reaperchronicle.world.effect.RCMobEffects;
 import warborinks.mods.reaperchronicle.world.item.RCCreativeModeTabs;
 import warborinks.mods.reaperchronicle.world.item.RCItems;
 import warborinks.mods.reaperchronicle.world.level.block.RCBlocks;
-import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttribute;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttributes;
-import warborinks.mods.reaperchronicle.world.reaper.crystal.Crystal;
 import warborinks.mods.reaperchronicle.world.reaper.crystal.Crystals;
 
 @SuppressWarnings("null")
-public class RCLanguageProvider extends LanguageProvider {
+public class RCLanguageProvider extends ExtendedLanguageProvider {
     private final String locale;
 
     public RCLanguageProvider(PackOutput output, String locale) {
@@ -25,7 +19,6 @@ public class RCLanguageProvider extends LanguageProvider {
         this.locale = locale;
     }
 
-    @Nonnull
     private String choose(String en_us, String zh_cn, String lzh) {
         if (this.locale == "en_us") {
             return en_us;
@@ -85,17 +78,5 @@ public class RCLanguageProvider extends LanguageProvider {
             ReaperAttributes.WATER_ATTRIBUTE.get(),
             choose("Water", "水", "水")
         );
-    }
-
-    protected void add(CreativeModeTab key, String name) {
-        add(RCRegistryNames.CreativeModeTabs.getCreativeModeTabDescriptionId(key), name);
-    }
-
-    protected void add(Crystal key, String name) {
-        add(key.getDescriptionId(), name);
-    }
-
-    protected void add(ReaperAttribute key, String name) {
-        add(key.getDescriptionId(), name);
     }
 }

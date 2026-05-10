@@ -20,9 +20,13 @@ public abstract class Reaper {
     private final String absoluteText;
     private final Set<Supplier<ReaperAttribute>> attributes;
 
-    @Nullable private String title;
-    @Nullable private String writer;
-    @Nullable private String text;
+    @Nullable private Component title;
+    @Nullable private Component writer;
+    @Nullable private Component text;
+    
+    @Nullable private String titleTranslationKey;
+    @Nullable private String writerTranslationKey;
+    @Nullable private String textTranslationKey;
     @Nullable private String descriptionId;
 
     @SafeVarargs
@@ -57,30 +61,53 @@ public abstract class Reaper {
         return newDamage;
     }
 
-    public String getAbsoluteText() {
-        return this.absoluteText;
-    }
+    public String getTitleTranslationKey() {
+        if (this.titleTranslationKey == null) {
+            this.titleTranslationKey = this.getDescriptionId() + ".title";
+        }
 
-    public String getTitle() {
+        return this.titleTranslationKey;
+    }
+    public Component getTitle() {
         if (this.title == null) {
-            this.title = Component.translatable(this.getDescriptionId() + ".title").toString();
+            this.title = Component.translatable(this.getDescriptionId() + ".title");
         }
 
         return this.title;
     }
-    public String getWriter() {
+
+    public String getWriterTranslationKey() {
+        if (this.writerTranslationKey == null) {
+            this.writerTranslationKey = this.getDescriptionId() + ".writer";
+        }
+
+        return this.writerTranslationKey;
+    }
+    public Component getWriter() {
         if (this.writer == null) {
-            this.writer = Component.translatable(this.getDescriptionId() + ".writer").toString();
+            this.writer = Component.translatable(this.getDescriptionId() + ".writer");
         }
 
-        return this.title;
+        return this.writer;
     }
-    public String getText() {
+
+    public String getTextTranslationKey() {
+        if (this.textTranslationKey == null) {
+            this.textTranslationKey = this.getDescriptionId() + ".text";
+        }
+
+        return this.textTranslationKey;
+    }
+    public Component getText() {
         if (this.text == null) {
-            this.text = Component.translatable(this.getDescriptionId() + ".text").toString();
+            this.text = Component.translatable(this.getDescriptionId() + ".text");
         }
 
         return this.text;
+    }
+
+    public String getAbsoluteText() {
+        return this.absoluteText;
     }
 
     public Set<ReaperAttribute> getAttributes() {

@@ -66,6 +66,18 @@ public class ReaperAttribute {
         return this.features.containsKey(name);
     }
 
+    public int getColor() {
+        return this.color;
+    }
+
+    public String getDescriptionId() {
+        if (this.descriptionId == null) {
+            this.descriptionId = Util.makeDescriptionId(RCRegistries.Names.REAPER_ATTRIBUTE, RCRegistries.REAPER_ATTRIBUTE.getKey(this));
+        }
+
+        return this.descriptionId;
+    }
+
     public static final class Args {
         private final List<Object> args;
 
@@ -94,17 +106,5 @@ public class ReaperAttribute {
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     public static @interface Feature {
-    }
-
-    public String getDescriptionId() {
-        if (this.descriptionId == null) {
-            this.descriptionId = Util.makeDescriptionId(RCRegistries.Names.REAPER_ATTRIBUTE, RCRegistries.REAPER_ATTRIBUTE.getKey(this));
-        }
-
-        return this.descriptionId;
-    }
-
-    public int getColor() {
-        return this.color;
     }
 }

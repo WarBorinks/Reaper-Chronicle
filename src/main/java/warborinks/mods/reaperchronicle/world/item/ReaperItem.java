@@ -59,7 +59,7 @@ public class ReaperItem extends Item {
         stack.hurtAndBreak(reaper.getConsumption(target, stack), attacker, EquipmentSlot.MAINHAND);
 
         int text_index = stack.getOrDefault(RCDataComponentTypes.TEXT_INDEX, 0);
-        text_index = (text_index + 1) % reaper.getText().length();
+        text_index = (text_index + 1) % reaper.getAbsoluteText().length();
         stack.set(RCDataComponentTypes.TEXT_INDEX, text_index);
 
         return true;

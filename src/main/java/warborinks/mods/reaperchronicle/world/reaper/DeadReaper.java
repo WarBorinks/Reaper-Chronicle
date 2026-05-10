@@ -40,7 +40,7 @@ public class DeadReaper extends Reaper {
 
     @Override
     public boolean isSpecialAttack(ItemStack stack) {
-        return stack.getOrDefault(RCDataComponentTypes.TEXT_INDEX, 0) == this.getText().length() - 1;
+        return stack.getOrDefault(RCDataComponentTypes.TEXT_INDEX, 0) == this.getAbsoluteText().length() - 1;
     }
 
     @Override
@@ -57,7 +57,11 @@ public class DeadReaper extends Reaper {
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context,
         List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        tooltipComponents.add(Component.literal(this.getTitle() + " " + this.getWriter()));
-        tooltipComponents.add(Component.literal(this.getText()));
+        tooltipComponents.add(Component.empty()
+            .append(this.getTitle())
+            .append(" ")
+            .append(this.getWriter())
+        );
+        tooltipComponents.add(this.getText());
     }
 }
