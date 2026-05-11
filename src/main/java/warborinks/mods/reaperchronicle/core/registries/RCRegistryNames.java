@@ -15,12 +15,13 @@ public class RCRegistryNames {
     }
 
     public static class BlockEntityTypes {
-        @Nonnull public static final String REAPER_CRAFTING_TABLE = "reaper_crafting_table";
+        @Nonnull public static final String SOUL_ALTAR = "soul_altar";
     }
 
     public static class CreativeModeTabs {
         @Nonnull public static final String CRYSTALS = "crystals";
         @Nonnull public static final String CRYSTAL_INGREDIENTS = "crystal_ingredients";
+        @Nonnull public static final String REAPERS = "reapers";
         
         public static String getCreativeModeTabDescriptionId(@Nonnull CreativeModeTab creativeModeTab) {
             return Util.makeDescriptionId("creative_mode_tab", BuiltInRegistries.CREATIVE_MODE_TAB.getKey(creativeModeTab));

@@ -42,8 +42,8 @@ public class RCLanguageProvider extends ExtendedLanguageProvider {
             choose("Nether Soil", "冥土", "幽壤")
         );
         add(
-            RCBlocks.REAPER_CRAFTING_TABLE.get(),
-            choose("Reaper Crafting Table", "渡魂之刃工作台", "渡魂之刃鍛冶臺")
+            RCBlocks.SOUL_ALTAR.get(),
+            choose("Soul Altar", "灵魂祭坛", "靈魂祭壇")
         );
 
         add(
@@ -53,6 +53,10 @@ public class RCLanguageProvider extends ExtendedLanguageProvider {
         add(
             RCCreativeModeTabs.CRYSTALS.get(),
             choose("Crystals", "结晶", "結晶")
+        );
+        add(
+            RCCreativeModeTabs.REAPERS.get(),
+            choose("Reapers", "渡魂刃", "渡魂刃")
         );
 
         add(

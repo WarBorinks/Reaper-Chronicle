@@ -1,9 +1,10 @@
 {
   "block.reaperchronicle.nether_sand": "Nether Sand",
   "block.reaperchronicle.nether_soil": "Nether Soil",
-  "block.reaperchronicle.reaper_crafting_table": "Reaper Crafting Table",
+  "block.reaperchronicle.soul_altar": "Soul Altar",
   "creative_mode_tab.reaperchronicle.crystal_ingredients": "Crystal Ingredients",
   "creative_mode_tab.reaperchronicle.crystals": "Crystals",
+  "creative_mode_tab.reaperchronicle.reapers": "Reapers",
   "crystal.reaperchronicle.empty_crystal": "Emtpy Crystal",
   "crystal.reaperchronicle.water_crystal": "Water Crystal",
   "effect.reaperchronicle.nether_poison": "Nether Poison",

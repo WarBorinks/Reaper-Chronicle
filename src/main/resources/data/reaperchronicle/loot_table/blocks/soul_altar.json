@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "reaperchronicle:reaper_crafting_table"
+          "name": "reaperchronicle:soul_altar"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "reaperchronicle:blocks/reaper_crafting_table"
+  "random_sequence": "reaperchronicle:blocks/soul_altar"
 }

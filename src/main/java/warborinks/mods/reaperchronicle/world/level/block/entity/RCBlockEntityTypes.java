@@ -11,11 +11,11 @@ import warborinks.mods.reaperchronicle.world.level.block.RCBlocks;
 public class RCBlockEntityTypes {
     private static final DeferredRegister<BlockEntityType<?>> REGISTRAR = RCDeferredRegisters.BLOCK_ENTITY_TYPE;
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ReaperCraftingTable>> REAPER_CRAFTING_TABLE = REGISTRAR.register(
-        RCRegistryNames.BlockEntityTypes.REAPER_CRAFTING_TABLE,
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SoulAltar>> SOUL_ALTAR = REGISTRAR.register(
+        RCRegistryNames.BlockEntityTypes.SOUL_ALTAR,
         () -> BlockEntityType.Builder.of(
-            ReaperCraftingTable::new,
-            RCBlocks.REAPER_CRAFTING_TABLE.get()
+            SoulAltar::new,
+            RCBlocks.SOUL_ALTAR.get()
         ).build(null)
     );
 

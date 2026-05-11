@@ -28,10 +28,10 @@ public class RCBlockItems {
         )
     );
 
-    public static final DeferredHolder<Item, BlockItem> REAPER_CRAFTING_TABLE = REGISTRAR.register(
-        RCRegistryNames.BlockEntityTypes.REAPER_CRAFTING_TABLE,
+    public static final DeferredHolder<Item, BlockItem> SOUL_ALTAR = REGISTRAR.register(
+        RCRegistryNames.BlockEntityTypes.SOUL_ALTAR,
         () -> new BlockItem(
-            RCBlocks.REAPER_CRAFTING_TABLE.get(),
+            RCBlocks.SOUL_ALTAR.get(),
             new Item.Properties()
         )
     );

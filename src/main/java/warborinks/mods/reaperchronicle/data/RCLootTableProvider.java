@@ -36,7 +36,7 @@ public class RCLootTableProvider extends LootTableProvider {
         protected void generate() {
             dropSelf(RCBlocks.NETHER_SAND.get());
             dropSelf(RCBlocks.NETHER_SOIL.get());
-            dropSelf(RCBlocks.REAPER_CRAFTING_TABLE.get());
+            dropSelf(RCBlocks.SOUL_ALTAR.get());
         }
 
         @Override

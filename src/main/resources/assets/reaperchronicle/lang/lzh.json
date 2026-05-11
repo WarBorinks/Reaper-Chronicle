@@ -1,9 +1,10 @@
 {
   "block.reaperchronicle.nether_sand": "玄砂",
   "block.reaperchronicle.nether_soil": "幽壤",
-  "block.reaperchronicle.reaper_crafting_table": "渡魂之刃鍛冶臺",
+  "block.reaperchronicle.soul_altar": "靈魂祭壇",
   "creative_mode_tab.reaperchronicle.crystal_ingredients": "晶胚",
   "creative_mode_tab.reaperchronicle.crystals": "結晶",
+  "creative_mode_tab.reaperchronicle.reapers": "渡魂刃",
   "crystal.reaperchronicle.empty_crystal": "空結晶",
   "crystal.reaperchronicle.water_crystal": "水之結晶",
   "effect.reaperchronicle.nether_poison": "陰沴",

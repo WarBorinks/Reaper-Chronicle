@@ -19,6 +19,19 @@ public class RCCreativeModeTabs {
         );
     }
 
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> CRYSTAL_INGREDIENTS = REGISTRAR.register(
+        RCRegistryNames.CreativeModeTabs.CRYSTAL_INGREDIENTS,
+        () -> CreativeModeTab.builder()
+            .title(Component.translatable(getTranslatableString(RCRegistryNames.CreativeModeTabs.CRYSTAL_INGREDIENTS)))
+            .icon(() -> new ItemStack(RCItems.NETHER_DEBRIS.get()))
+            .displayItems((parameters, output) -> {
+                output.accept(RCItems.NETHER_DEBRIS.get());
+                output.accept(RCBlockItems.NETHER_SAND.get());
+                output.accept(RCBlockItems.NETHER_SOIL.get());
+            })
+            .build()
+    );
+
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> CRYSTALS = REGISTRAR.register(
         RCRegistryNames.CreativeModeTabs.CRYSTALS,
         () -> CreativeModeTab.builder()
@@ -30,16 +43,14 @@ public class RCCreativeModeTabs {
             })
             .build()
     );
-
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> CRYSTAL_INGREDIENTS = REGISTRAR.register(
-        RCRegistryNames.CreativeModeTabs.CRYSTAL_INGREDIENTS,
+    
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> REAPERS = REGISTRAR.register(
+        RCRegistryNames.CreativeModeTabs.REAPERS,
         () -> CreativeModeTab.builder()
-            .title(Component.translatable(getTranslatableString(RCRegistryNames.CreativeModeTabs.CRYSTAL_INGREDIENTS)))
+            .title(Component.translatable(getTranslatableString(RCRegistryNames.CreativeModeTabs.REAPERS)))
             .icon(() -> new ItemStack(RCItems.NETHER_DEBRIS.get()))
             .displayItems((parameters, output) -> {
-                output.accept(RCItems.NETHER_DEBRIS.get());
-                output.accept(RCBlockItems.NETHER_SAND.get());
-                output.accept(RCBlockItems.NETHER_SOIL.get());
+                output.accept(ReaperItems.COMMON_REAPER.get());
             })
             .build()
     );
