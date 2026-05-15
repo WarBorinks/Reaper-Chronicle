@@ -15,6 +15,7 @@ import javax.annotation.Nullable;
 
 import net.minecraft.Util;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistries;
+import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 
 @SuppressWarnings("null")
 public class ReaperAttribute {
@@ -72,7 +73,7 @@ public class ReaperAttribute {
 
     public String getDescriptionId() {
         if (this.descriptionId == null) {
-            this.descriptionId = Util.makeDescriptionId(RCRegistries.Names.REAPER_ATTRIBUTE, RCRegistries.REAPER_ATTRIBUTE.getKey(this));
+            this.descriptionId = Util.makeDescriptionId(RCRegistryNames.Registries.REAPER_ATTRIBUTE, RCRegistries.REAPER_ATTRIBUTE.getKey(this));
         }
 
         return this.descriptionId;

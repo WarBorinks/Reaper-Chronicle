@@ -1,7 +1,5 @@
 package warborinks.mods.reaperchronicle.core.registries;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -34,22 +32,16 @@ public class RCRegistries {
 
     public static class Keys {
         public static final ResourceKey<Registry<Crystal>> CRYSTAL = ResourceKey.createRegistryKey(
-            ResourceLocation.fromNamespaceAndPath(ReaperChronicle.MODID, Names.CRYSTAL)
+            ResourceLocation.fromNamespaceAndPath(ReaperChronicle.MODID, RCRegistryNames.Registries.CRYSTAL)
         );
         public static final ResourceKey<Registry<Reaper>> REAPER = ResourceKey.createRegistryKey(
-            ResourceLocation.fromNamespaceAndPath(ReaperChronicle.MODID, Names.REAPER)
+            ResourceLocation.fromNamespaceAndPath(ReaperChronicle.MODID, RCRegistryNames.Registries.REAPER)
         );
         public static final ResourceKey<Registry<ReaperAttribute>> REAPER_ATTRIBUTE = ResourceKey.createRegistryKey(
-            ResourceLocation.fromNamespaceAndPath(ReaperChronicle.MODID, Names.REAPER_ATTRIBUTE)
+            ResourceLocation.fromNamespaceAndPath(ReaperChronicle.MODID, RCRegistryNames.Registries.REAPER_ATTRIBUTE)
         );
     }
-
-    public static class Names {
-        @Nonnull public static String CRYSTAL = "crystal";
-        @Nonnull public static String REAPER = "reaper";
-        @Nonnull public static String REAPER_ATTRIBUTE = "reaper_attribute";
-    }
-
+    
     @EventBusSubscriber(modid = ReaperChronicle.MODID)
     public static class Events {
         @SubscribeEvent

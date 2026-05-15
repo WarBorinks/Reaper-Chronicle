@@ -14,6 +14,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistries;
+import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttribute;
 
 public abstract class Reaper {
@@ -123,7 +124,7 @@ public abstract class Reaper {
 
     public String getDescriptionId() {
         if (this.descriptionId == null) {
-            this.descriptionId = Util.makeDescriptionId(RCRegistries.Names.REAPER, RCRegistries.REAPER.getKey(this));
+            this.descriptionId = Util.makeDescriptionId(RCRegistryNames.Registries.REAPER, RCRegistries.REAPER.getKey(this));
         }
 
         return this.descriptionId;

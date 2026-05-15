@@ -69,6 +69,12 @@ public class RCRegistryNames {
         @Nonnull public static final String REAPER = "reaper";
     }
 
+    public static class Registries {
+        @Nonnull public static String CRYSTAL = "crystal";
+        @Nonnull public static String REAPER = "reaper";
+        @Nonnull public static String REAPER_ATTRIBUTE = "reaper_attribute";
+    }
+
     public static class SoundEvents {
         @Nonnull public static final String NETHER_SAND_BREAK = "block.nether_sand.break";
         @Nonnull public static final String NETHER_SAND_STEP = "block.nether_sand.step";

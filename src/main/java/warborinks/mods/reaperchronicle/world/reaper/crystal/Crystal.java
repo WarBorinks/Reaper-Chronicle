@@ -9,6 +9,7 @@ import javax.annotation.Nullable;
 
 import net.minecraft.Util;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistries;
+import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttribute;
 
 public class Crystal {
@@ -33,7 +34,7 @@ public class Crystal {
 
     public String getDescriptionId() {
         if (this.descriptionId == null) {
-            this.descriptionId = Util.makeDescriptionId(RCRegistries.Names.CRYSTAL, RCRegistries.CRYSTAL.getKey(this));
+            this.descriptionId = Util.makeDescriptionId(RCRegistryNames.Registries.CRYSTAL, RCRegistries.CRYSTAL.getKey(this));
         }
 
         return this.descriptionId;
