@@ -2,12 +2,6 @@ package warborinks.mods.reaperchronicle.core.registries;
 
 import javax.annotation.Nonnull;
 
-import net.minecraft.Util;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.CreativeModeTab;
-
-@SuppressWarnings("null")
 public class RCRegistryNames {
     public static class Blocks {
         @Nonnull public static final String NETHER_SAND = "nether_sand";
@@ -22,17 +16,6 @@ public class RCRegistryNames {
         @Nonnull public static final String CRYSTALS = "crystals";
         @Nonnull public static final String CRYSTAL_INGREDIENTS = "crystal_ingredients";
         @Nonnull public static final String REAPERS = "reapers";
-        
-        public static String getCreativeModeTabDescriptionId(@Nonnull CreativeModeTab creativeModeTab) {
-            return Util.makeDescriptionId("creative_mode_tab", BuiltInRegistries.CREATIVE_MODE_TAB.getKey(creativeModeTab));
-        }
-
-        public static String getCreativeModeTabDescriptionId(@Nonnull String namespace, @Nonnull String id) {
-            return getCreativeModeTabDescriptionId(ResourceLocation.fromNamespaceAndPath(namespace, id));
-        }
-        public static String getCreativeModeTabDescriptionId(@Nonnull ResourceLocation resourceLocation) {
-            return Util.makeDescriptionId("creative_mode_tab", resourceLocation);
-        }
     }
 
     public static class Crystals {

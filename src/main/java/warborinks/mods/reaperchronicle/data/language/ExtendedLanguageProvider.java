@@ -3,7 +3,7 @@ package warborinks.mods.reaperchronicle.data.language;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.CreativeModeTab;
 import net.neoforged.neoforge.common.data.LanguageProvider;
-import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
+import warborinks.mods.reaperchronicle.RCUtil;
 import warborinks.mods.reaperchronicle.world.reaper.Reaper;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttribute;
 import warborinks.mods.reaperchronicle.world.reaper.crystal.Crystal;
@@ -15,7 +15,7 @@ public abstract class ExtendedLanguageProvider extends LanguageProvider {
     }
 
     protected void add(CreativeModeTab key, String name) {
-        add(RCRegistryNames.CreativeModeTabs.getCreativeModeTabDescriptionId(key), name);
+        add(RCUtil.getCreativeModeTabDescriptionId(key), name);
     }
 
     protected void add(Crystal key, String name) {

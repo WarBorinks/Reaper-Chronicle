@@ -1,6 +1,7 @@
 package warborinks.mods.reaperchronicle.world.item;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
 import net.minecraft.network.chat.Component;
@@ -13,20 +14,21 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import warborinks.mods.reaperchronicle.RCUtil;
 import warborinks.mods.reaperchronicle.ReaperChronicle;
 import warborinks.mods.reaperchronicle.core.component.RCDataComponentTypes;
+import warborinks.mods.reaperchronicle.core.registries.RCRegistryCallbacks;
 import warborinks.mods.reaperchronicle.world.item.component.RCItemAttributeNames;
 import warborinks.mods.reaperchronicle.world.reaper.Reaper;
 
 @SuppressWarnings("null")
 public class ReaperItem extends Item {
-    private final Supplier<Reaper> reaper;
-
     private static final ResourceLocation ATTACK_DAMAGE = ResourceLocation.fromNamespaceAndPath(
         ReaperChronicle.MODID, RCItemAttributeNames.ReaperItem.ATTACK_DAMAGE
     );
@@ -34,22 +36,17 @@ public class ReaperItem extends Item {
         ReaperChronicle.MODID, RCItemAttributeNames.ReaperItem.ATTACK_SPEED
     );
 
+    private static final Map<Reaper, Item> BY_REAPER = RCRegistryCallbacks.ItemCallbacks.REAPER_TO_ITEM_MAP;
+
+    private final Supplier<Reaper> reaper;
+
     public ReaperItem(Supplier<Reaper> reaper, Properties properties) {
         super(properties);
         this.reaper = reaper;
     }
 
-    public static ItemAttributeModifiers createAttributes(double damage, double speed) {
-        return ItemAttributeModifiers.builder()
-            .add(
-                Attributes.ATTACK_DAMAGE,
-                new AttributeModifier(ATTACK_DAMAGE, damage, AttributeModifier.Operation.ADD_VALUE),
-                EquipmentSlotGroup.MAINHAND
-            ).add(
-                Attributes.ATTACK_SPEED,
-                new AttributeModifier(ATTACK_SPEED, speed, AttributeModifier.Operation.ADD_VALUE),
-                EquipmentSlotGroup.MAINHAND
-            ).build();
+    public static Item byReaper(Reaper reaper) {
+        return BY_REAPER.getOrDefault(reaper, Items.AIR);
     }
 
     @Override
@@ -71,7 +68,8 @@ public class ReaperItem extends Item {
         List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         this.reaper.get().appendHoverText(stack, context, tooltipComponents, tooltipFlag);
         this.reaper.get().getAttributes().forEach(
-            attribute -> tooltipComponents.add(
+            attribute -> RCUtil.addComponentToComponentListWithCheckingEmpty(
+                tooltipComponents,
                 Component.translatable(attribute.getDescriptionId())
                     .withColor(attribute.getColor())
             )
@@ -80,6 +78,10 @@ public class ReaperItem extends Item {
 
     public Reaper getReaper() {
         return this.reaper.get();
+    }
+
+    public void registerReapers(Map<Reaper, Item> reaperToItemMap, Item item) {
+        reaperToItemMap.put(this.getReaper(), item);
     }
     
     @Override
@@ -113,6 +115,34 @@ public class ReaperItem extends Item {
             );
 
             event.setNewDamage(newDamage);
+        }
+
+        @SubscribeEvent
+        public static void onItemAttributeModifier(ItemAttributeModifierEvent event) {
+            ItemStack stack = event.getItemStack();
+            if (!(stack.getItem() instanceof ReaperItem reaperItem)) {
+                return;
+            }
+
+            Reaper reaper = reaperItem.getReaper();
+            event.addModifier(
+                Attributes.ATTACK_DAMAGE,
+                new AttributeModifier(
+                    ATTACK_DAMAGE,
+                    reaper.getDamage(),
+                    AttributeModifier.Operation.ADD_VALUE
+                ),
+                EquipmentSlotGroup.MAINHAND
+            );
+            event.addModifier(
+                Attributes.ATTACK_SPEED,
+                new AttributeModifier(
+                    ATTACK_SPEED,
+                    reaper.getSpeed(),
+                    AttributeModifier.Operation.ADD_VALUE
+                ),
+                EquipmentSlotGroup.MAINHAND
+            );
         }
     }
 }

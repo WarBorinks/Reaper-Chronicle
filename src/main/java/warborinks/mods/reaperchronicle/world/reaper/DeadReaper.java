@@ -10,15 +10,20 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import warborinks.mods.reaperchronicle.RCUtil;
 import warborinks.mods.reaperchronicle.core.component.RCDataComponentTypes;
 import warborinks.mods.reaperchronicle.world.effect.RCMobEffects;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttribute;
 
 @SuppressWarnings("null")
 public class DeadReaper extends Reaper {
+    public DeadReaper(String absoluteText, double damage, double speed) {
+        super(absoluteText, damage, speed);
+    }
+
     @SafeVarargs
-    public DeadReaper(String absoluteText, Supplier<ReaperAttribute>... attributes) {
-        super(absoluteText, attributes);
+    public DeadReaper(String absoluteText, double damage, double speed, Supplier<ReaperAttribute>... attributes) {
+        super(absoluteText, damage, speed, attributes);
     }
 
     @Override
@@ -57,11 +62,14 @@ public class DeadReaper extends Reaper {
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context,
         List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        tooltipComponents.add(Component.empty()
-            .append(this.getTitle())
-            .append(" ")
-            .append(this.getWriter())
+        RCUtil.addComponentsToComponentListWithCheckingEmpty(
+            tooltipComponents,
+            List.of(
+                RCUtil.joinComponentsWithIgnoringEmpty(
+                    List.of(getTitleComponent(), getWriterComponent()), " "
+                ),
+                getTextComponent()
+            )
         );
-        tooltipComponents.add(this.getText());
     }
 }

@@ -5,6 +5,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import warborinks.mods.reaperchronicle.RCUtil;
 import warborinks.mods.reaperchronicle.ReaperChronicle;
 import warborinks.mods.reaperchronicle.core.registries.RCDeferredRegisters;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
@@ -14,7 +15,7 @@ public class RCCreativeModeTabs {
     private static final DeferredRegister<CreativeModeTab> REGISTRAR = RCDeferredRegisters.CREATIVE_MODE_TAB;
 
     private static String getTranslatableString(String name) {
-        return RCRegistryNames.CreativeModeTabs.getCreativeModeTabDescriptionId(
+        return RCUtil.getCreativeModeTabDescriptionId(
             ReaperChronicle.MODID, name
         );
     }

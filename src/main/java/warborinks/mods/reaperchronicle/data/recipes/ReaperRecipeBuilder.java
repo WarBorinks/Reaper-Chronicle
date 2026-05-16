@@ -20,10 +20,13 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import warborinks.mods.reaperchronicle.world.item.CrystalItem;
 import warborinks.mods.reaperchronicle.world.item.ReaperItem;
 import warborinks.mods.reaperchronicle.world.item.crafting.ReaperRecipe;
 import warborinks.mods.reaperchronicle.world.item.crafting.ReaperRecipeIngredient;
+import warborinks.mods.reaperchronicle.world.reaper.Reaper;
+import warborinks.mods.reaperchronicle.world.reaper.crystal.Crystal;
 
 @SuppressWarnings("null")
 public class ReaperRecipeBuilder implements RecipeBuilder {
@@ -45,15 +48,33 @@ public class ReaperRecipeBuilder implements RecipeBuilder {
         return new ReaperRecipeBuilder(new ItemStack(crystal, count));
     }
     
+    public static ReaperRecipeBuilder crystal(Crystal crystal) {
+        return crystal(crystal, 1);
+    }
+    public static ReaperRecipeBuilder crystal(Crystal crystal, int count) {
+        return new ReaperRecipeBuilder(new ItemStack(crystal, count));
+    }
+    
     public static ReaperRecipeBuilder reaper(ReaperItem reaper) {
         return reaper(reaper, 1);
     }
     public static ReaperRecipeBuilder reaper(ReaperItem reaper, int count) {
         return new ReaperRecipeBuilder(new ItemStack(reaper, count));
     }
+    
+    public static ReaperRecipeBuilder reaper(Reaper reaper) {
+        return reaper(reaper, 1);
+    }
+    public static ReaperRecipeBuilder reaper(Reaper reaper, int count) {
+        return new ReaperRecipeBuilder(new ItemStack(reaper, count));
+    }
 
-    public ReaperRecipeBuilder addCrystal(CrystalItem crystal, int count) {
-        this.crystals.add(new ReaperRecipeIngredient(Ingredient.of(crystal), count));
+    public ReaperRecipeBuilder addCrystal(ItemLike item, int count) {
+        if (item instanceof CrystalItem crystalItem) {
+            this.crystals.add(new ReaperRecipeIngredient(Ingredient.of(crystalItem), count));
+        } else if (item instanceof Crystal crystal) {
+            this.crystals.add(new ReaperRecipeIngredient(Ingredient.of(crystal), count));
+        }
         return this;
     }
     public ReaperRecipeBuilder addCrystal(TagKey<Item> crystal, int count) {
@@ -61,8 +82,12 @@ public class ReaperRecipeBuilder implements RecipeBuilder {
         return this;
     }
 
-    public ReaperRecipeBuilder addReaper(ReaperItem reaper, int count) {
-        this.reapers.add(new ReaperRecipeIngredient(Ingredient.of(reaper), count));
+    public ReaperRecipeBuilder addReaper(ItemLike item, int count) {
+        if (item instanceof ReaperItem reaperItem) {
+            this.reapers.add(new ReaperRecipeIngredient(Ingredient.of(reaperItem), count));
+        } else if (item instanceof Reaper reaper) {
+            this.reapers.add(new ReaperRecipeIngredient(Ingredient.of(reaper), count));
+        }
         return this;
     }
     public ReaperRecipeBuilder addReaper(TagKey<Item> reaper, int count) {
@@ -70,7 +95,7 @@ public class ReaperRecipeBuilder implements RecipeBuilder {
         return this;
     }
 
-    public ReaperRecipeBuilder addOther(Item item, int count) {
+    public ReaperRecipeBuilder addOther(ItemLike item, int count) {
         this.others.add(new ReaperRecipeIngredient(Ingredient.of(item), count));
         return this;
     }

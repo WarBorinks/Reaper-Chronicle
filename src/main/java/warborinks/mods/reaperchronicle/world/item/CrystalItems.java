@@ -13,7 +13,7 @@ public class CrystalItems {
     public static final DeferredHolder<Item, CrystalItem> EMPTY_CRYSTAL = REGISTRAR.register(
         RCRegistryNames.Crystals.EMPTY_CRYSTAL,
         () -> new CrystalItem(
-            Crystals.EMPTY_CRYSTAL::get,
+            Crystals.EMPTY_CRYSTAL,
             new Item.Properties()
         )
     );
@@ -21,7 +21,7 @@ public class CrystalItems {
     public static final DeferredHolder<Item, CrystalItem> WATER_CRYSTAL = REGISTRAR.register(
         RCRegistryNames.Crystals.WATER_CRYSTAL,
         () -> new CrystalItem(
-            Crystals.WATER_CRYSTAL::get,
+            Crystals.WATER_CRYSTAL,
             new Item.Properties()
         )
     );

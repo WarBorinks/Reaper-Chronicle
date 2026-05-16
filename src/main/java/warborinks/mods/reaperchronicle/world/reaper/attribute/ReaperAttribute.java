@@ -47,7 +47,6 @@ public class ReaperAttribute {
         return this;
     }
     
-
     public <T> T apply(@Nonnull String name, Class<T> resType, Object... objects) {
         if (this.findFeature(name)) {
             return this.features.get(name).apply(new Args(objects)).get(resType);

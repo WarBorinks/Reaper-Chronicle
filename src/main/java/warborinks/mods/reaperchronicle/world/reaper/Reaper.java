@@ -13,31 +13,41 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.ItemLike;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistries;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
+import warborinks.mods.reaperchronicle.world.item.ReaperItem;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttribute;
 
-public abstract class Reaper {
+public abstract class Reaper implements ItemLike {
     private final String absoluteText;
+    private final double damage;
+    private final double speed;
     private final Set<Supplier<ReaperAttribute>> attributes;
 
-    @Nullable private Component title;
-    @Nullable private Component writer;
-    @Nullable private Component text;
+    @Nullable private Item item;
+
+    @Nullable private Component titleComponent;
+    @Nullable private Component writerComponent;
+    @Nullable private Component textComponent;
     
     @Nullable private String titleTranslationKey;
     @Nullable private String writerTranslationKey;
     @Nullable private String textTranslationKey;
     @Nullable private String descriptionId;
 
-    public Reaper(String absoluteText) {
+    public Reaper(String absoluteText, double damage, double speed) {
         this.absoluteText = absoluteText;
+        this.damage = damage;
+        this.speed = speed;
         this.attributes = Set.of();
     }
 
     @SafeVarargs
-    public Reaper(String absoluteText, Supplier<ReaperAttribute>... attributes) {
+    public Reaper(String absoluteText, double damage, double speed, Supplier<ReaperAttribute>... attributes) {
         this.absoluteText = absoluteText;
+        this.damage = damage;
+        this.speed = speed;
         this.attributes = Set.of(attributes);
     }
 
@@ -67,6 +77,15 @@ public abstract class Reaper {
         return newDamage;
     }
 
+    @Override
+    public Item asItem() {
+        if (this.item == null) {
+            this.item = ReaperItem.byReaper(this);
+        }
+
+        return this.item;
+    }
+
     public String getTitleTranslationKey() {
         if (this.titleTranslationKey == null) {
             this.titleTranslationKey = this.getDescriptionId() + ".title";
@@ -74,12 +93,12 @@ public abstract class Reaper {
 
         return this.titleTranslationKey;
     }
-    public Component getTitle() {
-        if (this.title == null) {
-            this.title = Component.translatable(this.getDescriptionId() + ".title");
+    public Component getTitleComponent() {
+        if (this.titleComponent == null) {
+            this.titleComponent = Component.translatable(this.getDescriptionId() + ".title");
         }
 
-        return this.title;
+        return this.titleComponent;
     }
 
     public String getWriterTranslationKey() {
@@ -89,12 +108,12 @@ public abstract class Reaper {
 
         return this.writerTranslationKey;
     }
-    public Component getWriter() {
-        if (this.writer == null) {
-            this.writer = Component.translatable(this.getDescriptionId() + ".writer");
+    public Component getWriterComponent() {
+        if (this.writerComponent == null) {
+            this.writerComponent = Component.translatable(this.getDescriptionId() + ".writer");
         }
 
-        return this.writer;
+        return this.writerComponent;
     }
 
     public String getTextTranslationKey() {
@@ -104,16 +123,24 @@ public abstract class Reaper {
 
         return this.textTranslationKey;
     }
-    public Component getText() {
-        if (this.text == null) {
-            this.text = Component.translatable(this.getDescriptionId() + ".text");
+    public Component getTextComponent() {
+        if (this.textComponent == null) {
+            this.textComponent = Component.translatable(this.getDescriptionId() + ".text");
         }
 
-        return this.text;
+        return this.textComponent;
     }
 
     public String getAbsoluteText() {
         return this.absoluteText;
+    }
+
+    public double getDamage() {
+        return this.damage;
+    }
+    
+    public double getSpeed() {
+        return this.speed;
     }
 
     public Set<ReaperAttribute> getAttributes() {
