@@ -21,15 +21,15 @@ import warborinks.mods.reaperchronicle.world.item.RCItems;
 import warborinks.mods.reaperchronicle.world.item.crafting.RCRecipeSerializers;
 import warborinks.mods.reaperchronicle.world.item.crafting.RCRecipeTypes;
 import warborinks.mods.reaperchronicle.world.level.block.RCBlocks;
+import warborinks.mods.reaperchronicle.world.level.crystal.Crystal;
+import warborinks.mods.reaperchronicle.world.level.crystal.Crystals;
 import warborinks.mods.reaperchronicle.world.reaper.Reaper;
 import warborinks.mods.reaperchronicle.world.reaper.Reapers;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttribute;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttributes;
-import warborinks.mods.reaperchronicle.world.reaper.crystal.Crystal;
-import warborinks.mods.reaperchronicle.world.reaper.crystal.Crystals;
 
 @SuppressWarnings("null")
-public class RCDeferredRegisters {
+public final class RCDeferredRegisters {
     public static final DeferredRegister<Block> BLOCK = DeferredRegister.create(
         BuiltInRegistries.BLOCK,
         ReaperChronicle.MODID

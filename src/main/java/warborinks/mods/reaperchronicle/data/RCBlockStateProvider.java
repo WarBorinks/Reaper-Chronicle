@@ -8,7 +8,7 @@ import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 import warborinks.mods.reaperchronicle.world.level.block.RCBlocks;
 
 @SuppressWarnings("null")
-public class RCBlockStateProvider extends BlockStateProvider {
+public final class RCBlockStateProvider extends BlockStateProvider {
     public RCBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
         super(output, ReaperChronicle.MODID, exFileHelper);
     }

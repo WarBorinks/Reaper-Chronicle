@@ -11,15 +11,16 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import warborinks.mods.reaperchronicle.ReaperChronicle;
 
 @EventBusSubscriber(modid = ReaperChronicle.MODID)
-public class Datagen {
+public final class Datagen {
     @SubscribeEvent
-    public static void onGatherData(GatherDataEvent event) {
+    private static void onGatherData(GatherDataEvent event) {
         PackOutput output = event.getGenerator().getPackOutput();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 
         RCBlockStateProvider blockStateProvider = new RCBlockStateProvider(output, existingFileHelper);
         RCItemModelProvider itemModelProvider = new RCItemModelProvider(output, existingFileHelper);
+        RCSoundDefinitionsProvider soundDefinitionsProvider = new RCSoundDefinitionsProvider(output, existingFileHelper);
 
         RCLanguageProvider enusLanguageProvider = new RCLanguageProvider(output, "en_us");
         RCLanguageProvider zhcnLanguageProvider = new RCLanguageProvider(output, "zh_cn");
@@ -39,6 +40,7 @@ public class Datagen {
         if (event.includeClient()) {
             event.addProvider(blockStateProvider);
             event.addProvider(itemModelProvider);
+            event.addProvider(soundDefinitionsProvider);
 
             event.addProvider(enusLanguageProvider);
             event.addProvider(zhcnLanguageProvider);

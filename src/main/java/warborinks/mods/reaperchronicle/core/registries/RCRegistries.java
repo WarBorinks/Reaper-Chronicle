@@ -8,12 +8,12 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 import warborinks.mods.reaperchronicle.ReaperChronicle;
+import warborinks.mods.reaperchronicle.world.level.crystal.Crystal;
 import warborinks.mods.reaperchronicle.world.reaper.Reaper;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttribute;
-import warborinks.mods.reaperchronicle.world.reaper.crystal.Crystal;
 
 @SuppressWarnings("null")
-public class RCRegistries {
+public final class RCRegistries {
     public static final Registry<Crystal> CRYSTAL = new RegistryBuilder<>(Keys.CRYSTAL)
         .sync(true)
         .defaultKey(ResourceLocation.fromNamespaceAndPath(
@@ -43,9 +43,9 @@ public class RCRegistries {
     }
     
     @EventBusSubscriber(modid = ReaperChronicle.MODID)
-    public static class Events {
+    private static class Events {
         @SubscribeEvent
-        public static void onNewRegistry(NewRegistryEvent event) {
+        private static void onNewRegistry(NewRegistryEvent event) {
             event.register(CRYSTAL);
             event.register(REAPER);
             event.register(REAPER_ATTRIBUTE);

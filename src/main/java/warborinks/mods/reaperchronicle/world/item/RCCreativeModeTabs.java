@@ -11,7 +11,7 @@ import warborinks.mods.reaperchronicle.core.registries.RCDeferredRegisters;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 
 @SuppressWarnings("null")
-public class RCCreativeModeTabs {
+public final class RCCreativeModeTabs {
     private static final DeferredRegister<CreativeModeTab> REGISTRAR = RCDeferredRegisters.CREATIVE_MODE_TAB;
 
     private static String getTranslatableString(String name) {
@@ -49,7 +49,7 @@ public class RCCreativeModeTabs {
         RCRegistryNames.CreativeModeTabs.REAPERS,
         () -> CreativeModeTab.builder()
             .title(Component.translatable(getTranslatableString(RCRegistryNames.CreativeModeTabs.REAPERS)))
-            .icon(() -> new ItemStack(RCItems.NETHER_DEBRIS.get()))
+            .icon(() -> new ItemStack(ReaperItems.COMMON_REAPER.get()))
             .displayItems((parameters, output) -> {
                 output.accept(ReaperItems.COMMON_REAPER.get());
             })

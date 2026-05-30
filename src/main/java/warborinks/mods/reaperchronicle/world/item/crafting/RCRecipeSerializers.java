@@ -6,11 +6,11 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import warborinks.mods.reaperchronicle.core.registries.RCDeferredRegisters;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 
-public class RCRecipeSerializers {
+public final class RCRecipeSerializers {
     private static final DeferredRegister<RecipeSerializer<?>> REGISTRAR = RCDeferredRegisters.RECIPE_SERIALIZERS;
 
     public static final DeferredHolder<RecipeSerializer<?>, ReaperRecipeSerializer> REAPER_RECIPE = REGISTRAR.register(
-        RCRegistryNames.RecipeSerializers.REAPER,
+        RCRegistryNames.RecipeTypes.REAPER,
         () -> new ReaperRecipeSerializer()
     );
 

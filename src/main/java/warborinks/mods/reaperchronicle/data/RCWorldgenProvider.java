@@ -10,7 +10,7 @@ import warborinks.mods.reaperchronicle.world.level.levelgen.feature.RCConfigured
 import warborinks.mods.reaperchronicle.world.level.levelgen.feature.RCPlacedFeatures;
 import warborinks.mods.reaperchronicle.world.level.levelgen.modifier.RCBiomeModifiers;
 
-public class RCWorldgenProvider extends WorldgenProvider {
+public final class RCWorldgenProvider extends WorldgenProvider {
     public RCWorldgenProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries, ReaperChronicle.MODID);
     }

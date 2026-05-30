@@ -9,7 +9,7 @@ import warborinks.mods.reaperchronicle.core.registries.RCDeferredRegisters;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 
 @SuppressWarnings("null")
-public class RCRecipeTypes {
+public final class RCRecipeTypes {
     private static final DeferredRegister<RecipeType<?>> REGISTRAR = RCDeferredRegisters.RECIPE_TYPE;
 
     public static final DeferredHolder<RecipeType<?>, RecipeType<ReaperRecipe>> REAPER_RECIPE = REGISTRAR.register(

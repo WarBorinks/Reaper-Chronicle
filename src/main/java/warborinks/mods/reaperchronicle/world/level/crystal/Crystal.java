@@ -1,4 +1,4 @@
-package warborinks.mods.reaperchronicle.world.reaper.crystal;
+package warborinks.mods.reaperchronicle.world.level.crystal;
 
 import java.util.Set;
 import java.util.function.Supplier;

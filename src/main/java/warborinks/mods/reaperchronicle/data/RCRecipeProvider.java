@@ -17,7 +17,7 @@ import warborinks.mods.reaperchronicle.world.item.RCBlockItems;
 import warborinks.mods.reaperchronicle.world.item.RCItems;
 
 @SuppressWarnings("null")
-public class RCRecipeProvider extends RecipeProvider {
+public final class RCRecipeProvider extends RecipeProvider {
     public RCRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries);
     }

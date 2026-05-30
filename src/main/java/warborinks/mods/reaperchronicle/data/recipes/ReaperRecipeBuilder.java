@@ -25,11 +25,11 @@ import warborinks.mods.reaperchronicle.world.item.CrystalItem;
 import warborinks.mods.reaperchronicle.world.item.ReaperItem;
 import warborinks.mods.reaperchronicle.world.item.crafting.ReaperRecipe;
 import warborinks.mods.reaperchronicle.world.item.crafting.ReaperRecipeIngredient;
+import warborinks.mods.reaperchronicle.world.level.crystal.Crystal;
 import warborinks.mods.reaperchronicle.world.reaper.Reaper;
-import warborinks.mods.reaperchronicle.world.reaper.crystal.Crystal;
 
 @SuppressWarnings("null")
-public class ReaperRecipeBuilder implements RecipeBuilder {
+public final class ReaperRecipeBuilder implements RecipeBuilder {
     private final List<ReaperRecipeIngredient> crystals = new ArrayList<>();
     private final List<ReaperRecipeIngredient> reapers = new ArrayList<>();
     private final List<ReaperRecipeIngredient> others = new ArrayList<>();

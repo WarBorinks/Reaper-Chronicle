@@ -4,7 +4,7 @@ import net.neoforged.neoforge.common.util.DeferredSoundType;
 import warborinks.mods.reaperchronicle.sounds.RCSoundEvents;
 
 @SuppressWarnings("null")
-public class RCSoundTypes {
+public final class RCSoundTypes {
     public static final DeferredSoundType NETHER_SAND = new DeferredSoundType(
         1.0f, 1.0f,
         RCSoundEvents.NETHER_SAND_BREAK, RCSoundEvents.NETHER_SAND_STEP,

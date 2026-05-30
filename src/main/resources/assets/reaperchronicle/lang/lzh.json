@@ -9,6 +9,10 @@
   "crystal.reaperchronicle.water_crystal": "水之結晶",
   "effect.reaperchronicle.nether_poison": "陰沴",
   "item.reaperchronicle.nether_debris": "冥墟遺骸",
-  "reaper_attribute.reaperchronicle.empty_attribute": "無",
+  "reaper.reaperchronicle.common_reaper": "凡刃",
+  "reaper.reaperchronicle.common_reaper.text": "",
+  "reaper.reaperchronicle.common_reaper.title": "",
+  "reaper.reaperchronicle.common_reaper.writer": "",
+  "reaper_attribute.reaperchronicle.empty_attribute": "",
   "reaper_attribute.reaperchronicle.water_attribute": "水"
 }

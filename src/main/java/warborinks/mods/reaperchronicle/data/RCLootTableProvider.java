@@ -16,7 +16,7 @@ import warborinks.mods.reaperchronicle.core.registries.RCDeferredRegisters;
 import warborinks.mods.reaperchronicle.world.level.block.RCBlocks;
 
 @SuppressWarnings("null")
-public class RCLootTableProvider extends LootTableProvider {
+public final class RCLootTableProvider extends LootTableProvider {
     public RCLootTableProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(
             output, Collections.emptySet(),
@@ -27,7 +27,7 @@ public class RCLootTableProvider extends LootTableProvider {
         );
     }
 
-    private static class RCBlockLootSubProvider extends BlockLootSubProvider {
+    private static final class RCBlockLootSubProvider extends BlockLootSubProvider {
         public RCBlockLootSubProvider(HolderLookup.Provider registries) {
             super(Set.of(), FeatureFlags.DEFAULT_FLAGS, registries);
         }

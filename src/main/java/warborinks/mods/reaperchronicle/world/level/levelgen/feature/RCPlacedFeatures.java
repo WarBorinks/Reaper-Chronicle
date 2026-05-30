@@ -20,7 +20,7 @@ import warborinks.mods.reaperchronicle.ReaperChronicle;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 
 @SuppressWarnings("null")
-public class RCPlacedFeatures {
+public final class RCPlacedFeatures {
     public static final Function<BootstrapContext<PlacedFeature>, PlacedFeature> NETHER_SAND = ctx -> {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = ctx.lookup(Registries.CONFIGURED_FEATURE);
         Holder<ConfiguredFeature<?, ?>> configuredFeatureHolder = configuredFeatures.getOrThrow(
@@ -55,7 +55,7 @@ public class RCPlacedFeatures {
         );
     };
     
-    public static class Keys {
+    public static final class Keys {
         public static final ResourceKey<PlacedFeature> NETHER_SAND = ResourceKey.create(
             Registries.PLACED_FEATURE,
             ResourceLocation.fromNamespaceAndPath(ReaperChronicle.MODID, RCRegistryNames.Blocks.NETHER_SAND)

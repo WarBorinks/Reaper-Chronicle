@@ -7,7 +7,7 @@ import warborinks.mods.reaperchronicle.core.registries.RCDeferredRegisters;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 
 @SuppressWarnings("null")
-public class RCItems {
+public final class RCItems {
     private static final DeferredRegister<Item> REGISTRAR = RCDeferredRegisters.ITEM;
 
     public static final DeferredHolder<Item, Item> NETHER_DEBRIS = REGISTRAR.register(

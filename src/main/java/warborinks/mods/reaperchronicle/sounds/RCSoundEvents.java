@@ -2,6 +2,8 @@ package warborinks.mods.reaperchronicle.sounds;
 
 import java.util.function.Supplier;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -11,10 +13,10 @@ import warborinks.mods.reaperchronicle.core.registries.RCDeferredRegisters;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 
 @SuppressWarnings("null")
-public class RCSoundEvents {
+public final class RCSoundEvents {
     private static final DeferredRegister<SoundEvent> REGISTRAR = RCDeferredRegisters.SOUND_EVENT;
 
-    private static Supplier<SoundEvent> getSoundEventSupplier(String name) {
+    @Nonnull private static Supplier<SoundEvent> getSoundEventSupplier(@Nonnull String name) {
         ResourceLocation id = ResourceLocation.fromNamespaceAndPath(
             ReaperChronicle.MODID, name
         );

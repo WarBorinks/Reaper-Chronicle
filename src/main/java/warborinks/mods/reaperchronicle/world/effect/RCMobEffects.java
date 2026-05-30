@@ -7,7 +7,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import warborinks.mods.reaperchronicle.core.registries.RCDeferredRegisters;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 
-public class RCMobEffects {
+public final class RCMobEffects {
     private static final DeferredRegister<MobEffect> REGISTRAR = RCDeferredRegisters.MOB_EFFECT;
 
     public static final DeferredHolder<MobEffect, NetherPoison> NETHER_POISON = REGISTRAR.register(

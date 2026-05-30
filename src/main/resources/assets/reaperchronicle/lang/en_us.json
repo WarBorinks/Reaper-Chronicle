@@ -9,6 +9,10 @@
   "crystal.reaperchronicle.water_crystal": "Water Crystal",
   "effect.reaperchronicle.nether_poison": "Nether Poison",
   "item.reaperchronicle.nether_debris": "Nether Debris",
-  "reaper_attribute.reaperchronicle.empty_attribute": "Emtpy",
+  "reaper.reaperchronicle.common_reaper": "Common Reaper",
+  "reaper.reaperchronicle.common_reaper.text": "",
+  "reaper.reaperchronicle.common_reaper.title": "",
+  "reaper.reaperchronicle.common_reaper.writer": "",
+  "reaper_attribute.reaperchronicle.empty_attribute": "",
   "reaper_attribute.reaperchronicle.water_attribute": "Water"
 }

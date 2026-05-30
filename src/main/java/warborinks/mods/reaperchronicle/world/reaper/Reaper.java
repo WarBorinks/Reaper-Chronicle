@@ -18,6 +18,7 @@ import warborinks.mods.reaperchronicle.core.registries.RCRegistries;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 import warborinks.mods.reaperchronicle.world.item.ReaperItem;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttribute;
+import warborinks.mods.reaperchronicle.world.reaper.attribute.features.SpecialFeatures;
 
 public abstract class Reaper implements ItemLike {
     private final String absoluteText;
@@ -61,15 +62,15 @@ public abstract class Reaper implements ItemLike {
         float newDamage = damage;
         for (Supplier<ReaperAttribute> attribute : attributes) {
             if (specialAttack) {
-                newDamage = attribute.get().apply(
-                    "addDamageOnSpecialAttack",
-                    Float.class,
+                newDamage = attribute.get().invokeOrDefault(
+                    SpecialFeatures.SPECIAL_ATTACK,
+                    newDamage, Float.class,
                     target, attacker, newDamage
                 );
             } else {
-                newDamage = attribute.get().apply(
-                    "addDamageOnCommonAttack",
-                    Float.class,
+                newDamage = attribute.get().invokeOrDefault(
+                    SpecialFeatures.COMMON_ATTACK,
+                    newDamage, Float.class,
                     target, attacker, newDamage
                 );
             }

@@ -1,33 +1,53 @@
 package warborinks.mods.reaperchronicle.world.reaper.attribute.features;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LiquidBlock;
-import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttribute;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
+import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttributeBehaviour.Args;
+import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttributeBehaviour.Result;
+import warborinks.mods.reaperchronicle.world.reaper.attribute.features.FeatureAnnotations.FeatureToolset;
 
-@SuppressWarnings("null")
-public class WaterAttributeFeatures {
-    @ReaperAttribute.Feature
-    public static ReaperAttribute.Result useOn(ReaperAttribute.Args args) {
-        UseOnContext context = args.get(0, UseOnContext.class);
+@FeatureToolset(id = RCRegistryNames.ReaperAttributes.WATER_ATTRIBUTE)
+public final class WaterAttributeFeatures implements FeatureClass {
+    @Override
+    @SuppressWarnings("null")
+    public Result use(Args args) {
+        Level level = args.get(1, Level.class);
+        Player player = args.get(2, Player.class);
+        ItemStack stack = player.getItemInHand(args.get(3, InteractionHand.class));
 
-        Level level = context.getLevel();
-        if (!level.isClientSide()) {
-            BlockPos pos = context.getClickedPos();
-            level.setBlock(pos, Blocks.WATER.defaultBlockState(), Block.UPDATE_NONE);
-            level.setBlock(pos, level.getBlockState(pos).setValue(LiquidBlock.LEVEL, 0), Block.UPDATE_ALL);
-
-            Player player = context.getPlayer();
-            level.playSound(player, pos, SoundEvents.WATER_AMBIENT, SoundSource.BLOCKS);
+        BlockHitResult hit = Item.getPlayerPOVHitResult(level, player, ClipContext.Fluid.ANY);
+        if (hit.getType() != HitResult.Type.BLOCK) {
+            return Result.of(InteractionResultHolder.pass(stack));
         }
         
-        return new ReaperAttribute.Result(InteractionResult.CONSUME);
+        BlockPos pos = hit.getBlockPos();
+        BlockState state = level.getBlockState(pos);
+        if (state.is(Blocks.BEDROCK) || state.is(Blocks.BARRIER)) {
+            return Result.of(InteractionResultHolder.fail(stack));
+        }
+      
+        if (!level.isClientSide()) {
+            level.destroyBlock(pos, false);
+            ((BucketItem) Items.WATER_BUCKET).emptyContents(player, level, pos, hit, null);
+        }
+
+        if (!player.isCreative()) {
+            stack.shrink(1);
+        }
+
+        return Result.of(InteractionResultHolder.sidedSuccess(stack, level.isClientSide()));
     }
 }

@@ -19,7 +19,7 @@ import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 import warborinks.mods.reaperchronicle.world.level.block.RCBlocks;
 
 @SuppressWarnings("null")
-public class RCConfiguredFeatures {
+public final class RCConfiguredFeatures {
     public static final Function<BootstrapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> NETHER_SAND = ctx -> 
         new ConfiguredFeature<>(
             Feature.ORE,
@@ -64,7 +64,7 @@ public class RCConfiguredFeatures {
             )
         );
 
-    public static class Keys {
+    public final static class Keys {
         public static final ResourceKey<ConfiguredFeature<?, ?>> NETHER_SAND = ResourceKey.create(
             Registries.CONFIGURED_FEATURE,
             ResourceLocation.fromNamespaceAndPath(ReaperChronicle.MODID, RCRegistryNames.Blocks.NETHER_SAND)

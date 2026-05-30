@@ -2,63 +2,59 @@ package warborinks.mods.reaperchronicle.core.registries;
 
 import javax.annotation.Nonnull;
 
-public class RCRegistryNames {
-    public static class Blocks {
+public final class RCRegistryNames {
+    public static final class Blocks {
         @Nonnull public static final String NETHER_SAND = "nether_sand";
         @Nonnull public static final String NETHER_SOIL = "nether_soil";
     }
 
-    public static class BlockEntityTypes {
+    public static final class BlockEntityTypes {
         @Nonnull public static final String SOUL_ALTAR = "soul_altar";
     }
 
-    public static class CreativeModeTabs {
+    public static final class CreativeModeTabs {
         @Nonnull public static final String CRYSTALS = "crystals";
         @Nonnull public static final String CRYSTAL_INGREDIENTS = "crystal_ingredients";
         @Nonnull public static final String REAPERS = "reapers";
     }
 
-    public static class Crystals {
+    public static final class Crystals {
         @Nonnull public static final String EMPTY_CRYSTAL = "empty_crystal";
         @Nonnull public static final String WATER_CRYSTAL = "water_crystal";
     }
 
-    public static class DataComponentTypes {
+    public static final class DataComponentTypes {
         @Nonnull public static final String TEXT_INDEX = "text_index";
     }
 
-    public static class Items {
+    public static final class Items {
         @Nonnull public static final String NETEHR_DEBRIS = "nether_debris";
     }
 
-    public static class MobEffects {
+    public static final class MobEffects {
         @Nonnull public static final String NETHER_POISON = "nether_poison";
     }
 
-    public static class Reapers {
+    public static final class Reapers {
         @Nonnull public static final String COMMON_REAPER = "common_reaper";
     }
 
-    public static class ReaperAttributes {
+    public static final class ReaperAttributes {
         @Nonnull public static final String EMPTY_ATTRIBUTE = "empty_attribute";
         @Nonnull public static final String WATER_ATTRIBUTE = "water_attribute";
     }
 
-    public static class RecipeSerializers {
+    public static final class RecipeTypes {
         @Nonnull public static final String REAPER = "reaper";
     }
 
-    public static class RecipeTypes {
-        @Nonnull public static final String REAPER = "reaper";
-    }
-
-    public static class Registries {
+    public static final class Registries {
         @Nonnull public static String CRYSTAL = "crystal";
         @Nonnull public static String REAPER = "reaper";
         @Nonnull public static String REAPER_ATTRIBUTE = "reaper_attribute";
     }
 
-    public static class SoundEvents {
+    public static final class SoundEvents {
         @Nonnull public static final String NETHER_SAND_BREAK = "block.nether_sand.break";
         @Nonnull public static final String NETHER_SAND_STEP = "block.nether_sand.step";
         @Nonnull public static final String NETHER_SAND_PLACE = "block.nether_sand.place";
@@ -72,8 +68,8 @@ public class RCRegistryNames {
         @Nonnull public static final String NETHER_SOIL_FALL = "block.nether_soil.fall";
     }
 
-    public static class Tags {
-        public static class EntityTypeTags {
+    public static final class Tags {
+        public static final class EntityTypeTags {
             @Nonnull public static final String NETEHR_MOBS = "nether_mobs";
         }
     }

@@ -21,7 +21,7 @@ import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 import warborinks.mods.reaperchronicle.world.level.levelgen.feature.RCPlacedFeatures;
 
 @SuppressWarnings("null")
-public class RCBiomeModifiers {
+public final class RCBiomeModifiers {
     public static final Function<BootstrapContext<BiomeModifier>, BiomeModifier> NETHER_SAND = ctx -> {
         HolderGetter<Biome> biomes = ctx.lookup(Registries.BIOME);
         HolderSet<Biome> biomeHolderSet = biomes.getOrThrow(BiomeTags.IS_NETHER);
@@ -50,7 +50,7 @@ public class RCBiomeModifiers {
         );
     };
 
-    public static class Keys {
+    public static final class Keys {
         public static final ResourceKey<BiomeModifier> NETHER_SAND = ResourceKey.create(
             NeoForgeRegistries.Keys.BIOME_MODIFIERS,
             ResourceLocation.fromNamespaceAndPath(ReaperChronicle.MODID, RCRegistryNames.Blocks.NETHER_SAND)

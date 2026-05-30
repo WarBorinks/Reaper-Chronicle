@@ -10,7 +10,7 @@ import warborinks.mods.reaperchronicle.core.registries.RCDeferredRegisters;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 
 @SuppressWarnings("null")
-public class RCBlocks {
+public final class RCBlocks {
     private static final DeferredRegister<Block> REGISTRAR = RCDeferredRegisters.BLOCK;
 
     public static final DeferredHolder<Block, NetherSand> NETHER_SAND = REGISTRAR.register(

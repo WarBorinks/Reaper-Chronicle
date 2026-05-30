@@ -7,11 +7,12 @@ import warborinks.mods.reaperchronicle.world.effect.RCMobEffects;
 import warborinks.mods.reaperchronicle.world.item.RCCreativeModeTabs;
 import warborinks.mods.reaperchronicle.world.item.RCItems;
 import warborinks.mods.reaperchronicle.world.level.block.RCBlocks;
+import warborinks.mods.reaperchronicle.world.level.crystal.Crystals;
+import warborinks.mods.reaperchronicle.world.reaper.Reapers;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttributes;
-import warborinks.mods.reaperchronicle.world.reaper.crystal.Crystals;
 
 @SuppressWarnings("null")
-public class RCLanguageProvider extends ExtendedLanguageProvider {
+public final class RCLanguageProvider extends ExtendedLanguageProvider {
     private final String locale;
 
     public RCLanguageProvider(PackOutput output, String locale) {
@@ -33,57 +34,63 @@ public class RCLanguageProvider extends ExtendedLanguageProvider {
 
     @Override
     protected void addTranslations() {
-        add(
-            RCBlocks.NETHER_SAND.get(),
+        addBlock(
+            RCBlocks.NETHER_SAND,
             choose("Nether Sand", "冥沙", "玄砂")
         );
-        add(
-            RCBlocks.NETHER_SOIL.get(),
+        addBlock(
+            RCBlocks.NETHER_SOIL,
             choose("Nether Soil", "冥土", "幽壤")
         );
-        add(
-            RCBlocks.SOUL_ALTAR.get(),
+        addBlock(
+            RCBlocks.SOUL_ALTAR,
             choose("Soul Altar", "灵魂祭坛", "靈魂祭壇")
         );
 
-        add(
-            RCCreativeModeTabs.CRYSTAL_INGREDIENTS.get(),
+        addCreativeModeTab(
+            RCCreativeModeTabs.CRYSTAL_INGREDIENTS,
             choose("Crystal Ingredients", "结晶原料", "晶胚")
         );
-        add(
-            RCCreativeModeTabs.CRYSTALS.get(),
+        addCreativeModeTab(
+            RCCreativeModeTabs.CRYSTALS,
             choose("Crystals", "结晶", "結晶")
         );
-        add(
-            RCCreativeModeTabs.REAPERS.get(),
+        addCreativeModeTab(
+            RCCreativeModeTabs.REAPERS,
             choose("Reapers", "渡魂刃", "渡魂刃")
         );
 
-        add(
-            Crystals.EMPTY_CRYSTAL.get(),
+        addCrystal(
+            Crystals.EMPTY_CRYSTAL,
             choose("Emtpy Crystal", "空结晶", "空結晶")
         );
-        add(
-            Crystals.WATER_CRYSTAL.get(),
+        addCrystal(
+            Crystals.WATER_CRYSTAL,
             choose("Water Crystal", "水之结晶", "水之結晶")
         );
 
-        add(
-            RCItems.NETHER_DEBRIS.get(),
+        addItem(
+            RCItems.NETHER_DEBRIS,
             choose("Nether Debris", "冥界残骸", "冥墟遺骸")
         );
         
-        add(
-            RCMobEffects.NETHER_POISON.get(),
+        addEffect(
+            RCMobEffects.NETHER_POISON,
             choose("Nether Poison", "冥毒", "陰沴")
         );
 
-        add(
-            ReaperAttributes.EMPTY_ATTRIBUTE.get(),
-            choose("Emtpy", "无", "無")
+        addReaper(
+            Reapers.COMMON_REAPER,
+            choose("Common Reaper", "凡刃", "凡刃"),
+            "", "", ""
         );
-        add(
-            ReaperAttributes.WATER_ATTRIBUTE.get(),
+
+        addReaperAttribute(
+            ReaperAttributes.EMPTY_ATTRIBUTE,
+            choose("", "", "")
+        );
+        addReaperAttribute(
+            ReaperAttributes.WATER_ATTRIBUTE,
             choose("Water", "水", "水")
         );
     }

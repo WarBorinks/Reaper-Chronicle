@@ -16,8 +16,8 @@ import warborinks.mods.reaperchronicle.tags.RCEntityTypeTags;
 import warborinks.mods.reaperchronicle.world.level.block.RCBlocks;
 
 @SuppressWarnings("null")
-public class RCTagsProvider {
-    public static class RCBlockTagsProvider extends BlockTagsProvider {
+public final class RCTagsProvider {
+    public static final class RCBlockTagsProvider extends BlockTagsProvider {
         public RCBlockTagsProvider(
             PackOutput output,
             CompletableFuture<HolderLookup.Provider> lookupProvider,
@@ -37,7 +37,7 @@ public class RCTagsProvider {
         }
     }
 
-    public static class RCEntityTypeTagsProvider extends EntityTypeTagsProvider {
+    public static final class RCEntityTypeTagsProvider extends EntityTypeTagsProvider {
         public RCEntityTypeTagsProvider(
             PackOutput output,
             CompletableFuture<HolderLookup.Provider> lookupProvider,

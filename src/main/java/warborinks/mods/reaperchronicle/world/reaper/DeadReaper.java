@@ -62,7 +62,7 @@ public class DeadReaper extends Reaper {
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context,
         List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        RCUtil.addComponentsToComponentListWithCheckingEmpty(
+        RCUtil.addComponentsToComponentListWithIngnoringEmpty(
             tooltipComponents,
             List.of(
                 RCUtil.joinComponentsWithIgnoringEmpty(
