@@ -12,6 +12,9 @@ description='''
 Crossing the boundary between life and death, reforging a lost world...
 '''
 
+[[mixins]]
+config="${mod_id}.mixins.json"
+
 [[dependencies.${mod_id}]]
     modId="neoforge"
     type="required"

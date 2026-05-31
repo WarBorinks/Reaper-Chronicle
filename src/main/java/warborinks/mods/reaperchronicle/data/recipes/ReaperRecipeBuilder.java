@@ -21,6 +21,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import warborinks.mods.reaperchronicle.ReaperChronicle;
+import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 import warborinks.mods.reaperchronicle.world.item.CrystalItem;
 import warborinks.mods.reaperchronicle.world.item.ReaperItem;
 import warborinks.mods.reaperchronicle.world.item.crafting.ReaperRecipe;
@@ -129,6 +131,8 @@ public final class ReaperRecipeBuilder implements RecipeBuilder {
             .requirements(AdvancementRequirements.Strategy.OR);
         criteria.forEach(adv::addCriterion);
         ReaperRecipe recipe = new ReaperRecipe(this.group, this.crystals, this.reapers, this.others, this.result);
-        output.accept(id, recipe, adv.build(id.withPrefix("recipes/")));
+        output.accept(id, recipe, adv.build(id.withPrefix(
+            "recipes/" + ReaperChronicle.MODID + "/" + RCRegistryNames.RecipeTypes.REAPER + "/"
+        )));
     }
 }

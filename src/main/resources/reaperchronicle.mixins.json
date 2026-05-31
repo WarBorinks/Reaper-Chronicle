@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "warborinks.mods.reaperchronicle.mixins.mixin",
+  "mixins": [
+  ],
+  "client": [
+  ],
+  "server": [
+    "RecipeCategoryMixin"
+  ],
+  "compatibilityLevel": "JAVA_21",
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
