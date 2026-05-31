@@ -11,7 +11,6 @@ import warborinks.mods.reaperchronicle.world.level.crystal.Crystals;
 import warborinks.mods.reaperchronicle.world.reaper.Reapers;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttributes;
 
-@SuppressWarnings("null")
 public final class RCLanguageProvider extends ExtendedLanguageProvider {
     private final String locale;
 
@@ -33,6 +32,7 @@ public final class RCLanguageProvider extends ExtendedLanguageProvider {
     }
 
     @Override
+    @SuppressWarnings("null")
     protected void addTranslations() {
         addBlock(
             RCBlocks.NETHER_SAND,

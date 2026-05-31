@@ -2,6 +2,8 @@ package warborinks.mods.reaperchronicle.data;
 
 import java.util.concurrent.CompletableFuture;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
@@ -15,7 +17,6 @@ import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 import warborinks.mods.reaperchronicle.tags.RCEntityTypeTags;
 import warborinks.mods.reaperchronicle.world.level.block.RCBlocks;
 
-@SuppressWarnings("null")
 public final class RCTagsProvider {
     public static final class RCBlockTagsProvider extends BlockTagsProvider {
         public RCBlockTagsProvider(
@@ -26,7 +27,8 @@ public final class RCTagsProvider {
         }
 
         @Override
-        protected void addTags(HolderLookup.Provider provider) {
+        @SuppressWarnings("null")
+        protected void addTags(@Nonnull HolderLookup.Provider provider) {
             tag(BlockTags.NEEDS_IRON_TOOL)
                 .add(RCBlocks.NETHER_SAND.get(),
                     RCBlocks.NETHER_SOIL.get());
@@ -46,7 +48,8 @@ public final class RCTagsProvider {
         }
 
         @Override
-        protected void addTags(HolderLookup.Provider provider) {
+        @SuppressWarnings("null")
+        protected void addTags(@Nonnull HolderLookup.Provider provider) {
             tag(RCEntityTypeTags.NETHER_MOBS)
                 .add(EntityType.BLAZE,
                     EntityType.ENDERMAN,

@@ -10,12 +10,12 @@ import warborinks.mods.reaperchronicle.world.level.crystal.Crystal;
 import warborinks.mods.reaperchronicle.world.reaper.Reaper;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttribute;
 
-@SuppressWarnings("null")
 public abstract class ExtendedLanguageProvider extends LanguageProvider {
     public ExtendedLanguageProvider(PackOutput output, String modid, String locale) {
         super(output, modid, locale);
     }
 
+    @SuppressWarnings("null")
     protected void add(CreativeModeTab key, String name) {
         add(RCUtil.getCreativeModeTabDescriptionId(key), name);
     }
@@ -23,6 +23,7 @@ public abstract class ExtendedLanguageProvider extends LanguageProvider {
         add(key.get(), name);
     }
 
+    @SuppressWarnings("null")
     protected void add(Crystal key, String name) {
         add(key.getDescriptionId(), name);
     }
@@ -30,6 +31,7 @@ public abstract class ExtendedLanguageProvider extends LanguageProvider {
         add(key.get(), name);
     }
 
+    @SuppressWarnings("null")
     protected void add(Reaper key, String name, String title, String writer, String text) {
         add(key.getDescriptionId(), name);
         add(key.getTitleTranslationKey(), title);
@@ -40,6 +42,7 @@ public abstract class ExtendedLanguageProvider extends LanguageProvider {
         add(key.get(), name, title, writer, text);
     }
 
+    @SuppressWarnings("null")
     protected void add(ReaperAttribute key, String name) {
         add(key.getDescriptionId(), name);
     }

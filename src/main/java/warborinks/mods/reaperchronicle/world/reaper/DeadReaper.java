@@ -15,7 +15,6 @@ import warborinks.mods.reaperchronicle.core.component.RCDataComponentTypes;
 import warborinks.mods.reaperchronicle.world.effect.RCMobEffects;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttribute;
 
-@SuppressWarnings("null")
 public class DeadReaper extends Reaper {
     public DeadReaper(String absoluteText, double damage, double speed) {
         super(absoluteText, damage, speed);
@@ -27,6 +26,7 @@ public class DeadReaper extends Reaper {
     }
 
     @Override
+    @SuppressWarnings("null")
     public void onReap(LivingEntity target, LivingEntity attacker, ItemStack stack) {
         if (!target.level().isClientSide()) {
             if (this.isSpecialAttack(stack)) {
@@ -44,11 +44,13 @@ public class DeadReaper extends Reaper {
     }
 
     @Override
+    @SuppressWarnings("null")
     public boolean isSpecialAttack(ItemStack stack) {
         return stack.getOrDefault(RCDataComponentTypes.TEXT_INDEX, 0) == this.getAbsoluteText().length() - 1;
     }
 
     @Override
+    @SuppressWarnings("null")
     public int getConsumption(LivingEntity target, ItemStack stack) {
         if (isSpecialAttack(stack)) {
             return 1;

@@ -2,6 +2,8 @@ package warborinks.mods.reaperchronicle.data;
 
 import java.util.concurrent.CompletableFuture;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -16,14 +18,14 @@ import warborinks.mods.reaperchronicle.world.item.CrystalItems;
 import warborinks.mods.reaperchronicle.world.item.RCBlockItems;
 import warborinks.mods.reaperchronicle.world.item.RCItems;
 
-@SuppressWarnings("null")
 public final class RCRecipeProvider extends RecipeProvider {
     public RCRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries);
     }
 
     @Override
-    protected void buildRecipes(RecipeOutput recipeOutput) {
+    @SuppressWarnings("null")
+    protected void buildRecipes(@Nonnull RecipeOutput recipeOutput) {
         ReaperRecipeBuilder.crystal(CrystalItems.EMPTY_CRYSTAL.get())
             .addOther(RCItems.NETHER_DEBRIS.get(), 9)
             .unlockedBy("has_" + RCRegistryNames.Items.NETEHR_DEBRIS, has(RCItems.NETHER_DEBRIS.get()))

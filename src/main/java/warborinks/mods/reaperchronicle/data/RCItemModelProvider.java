@@ -7,13 +7,13 @@ import warborinks.mods.reaperchronicle.ReaperChronicle;
 import warborinks.mods.reaperchronicle.world.item.CrystalItems;
 import warborinks.mods.reaperchronicle.world.item.RCItems;
 
-@SuppressWarnings("null")
 public final class RCItemModelProvider extends ItemModelProvider {
     public RCItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
         super(output, ReaperChronicle.MODID, existingFileHelper);
     }
 
     @Override
+    @SuppressWarnings("null")
     protected void registerModels() {
         basicItem(CrystalItems.EMPTY_CRYSTAL.get());
         basicItem(CrystalItems.WATER_CRYSTAL.get());

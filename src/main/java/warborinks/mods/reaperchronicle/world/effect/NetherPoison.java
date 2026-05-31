@@ -1,5 +1,7 @@
 package warborinks.mods.reaperchronicle.world.effect;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -9,14 +11,14 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 
-@SuppressWarnings("null")
 public class NetherPoison extends MobEffect {
     public NetherPoison(MobEffectCategory category, int color) {
         super(category, color);
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
+    @SuppressWarnings("null")
+    public boolean applyEffectTick(@Nonnull LivingEntity entity, int amplifier) {
         if (!entity.level().isClientSide()) {
             int damage = 1 << amplifier;
 

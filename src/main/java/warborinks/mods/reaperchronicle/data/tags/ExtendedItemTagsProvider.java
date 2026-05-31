@@ -17,7 +17,6 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import warborinks.mods.reaperchronicle.world.level.crystal.Crystal;
 import warborinks.mods.reaperchronicle.world.reaper.Reaper;
 
-@SuppressWarnings("null")
 public abstract class ExtendedItemTagsProvider extends ItemTagsProvider {
     private final CompletableFuture<TagsProvider.TagLookup<Crystal>> crystalTags;
     private final CompletableFuture<TagsProvider.TagLookup<Reaper>> reaperTags;
@@ -43,6 +42,7 @@ public abstract class ExtendedItemTagsProvider extends ItemTagsProvider {
     }
     
     @Override
+    @SuppressWarnings("null")
     protected CompletableFuture<HolderLookup.Provider> createContentsProvider() {
         return super.createContentsProvider().thenCombine(
             this.crystalTags,

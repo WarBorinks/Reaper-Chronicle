@@ -30,7 +30,6 @@ import warborinks.mods.reaperchronicle.world.item.crafting.ReaperRecipeIngredien
 import warborinks.mods.reaperchronicle.world.level.crystal.Crystal;
 import warborinks.mods.reaperchronicle.world.reaper.Reaper;
 
-@SuppressWarnings("null")
 public final class ReaperRecipeBuilder implements RecipeBuilder {
     private final List<ReaperRecipeIngredient> crystals = new ArrayList<>();
     private final List<ReaperRecipeIngredient> reapers = new ArrayList<>();
@@ -43,31 +42,31 @@ public final class ReaperRecipeBuilder implements RecipeBuilder {
         this.result = result;
     }
 
-    public static ReaperRecipeBuilder crystal(CrystalItem crystal) {
+    public static ReaperRecipeBuilder crystal(@Nonnull CrystalItem crystal) {
         return crystal(crystal, 1);
     }
-    public static ReaperRecipeBuilder crystal(CrystalItem crystal, int count) {
+    public static ReaperRecipeBuilder crystal(@Nonnull CrystalItem crystal, int count) {
         return new ReaperRecipeBuilder(new ItemStack(crystal, count));
     }
     
-    public static ReaperRecipeBuilder crystal(Crystal crystal) {
+    public static ReaperRecipeBuilder crystal(@Nonnull Crystal crystal) {
         return crystal(crystal, 1);
     }
-    public static ReaperRecipeBuilder crystal(Crystal crystal, int count) {
+    public static ReaperRecipeBuilder crystal(@Nonnull Crystal crystal, int count) {
         return new ReaperRecipeBuilder(new ItemStack(crystal, count));
     }
     
-    public static ReaperRecipeBuilder reaper(ReaperItem reaper) {
+    public static ReaperRecipeBuilder reaper(@Nonnull ReaperItem reaper) {
         return reaper(reaper, 1);
     }
-    public static ReaperRecipeBuilder reaper(ReaperItem reaper, int count) {
+    public static ReaperRecipeBuilder reaper(@Nonnull ReaperItem reaper, int count) {
         return new ReaperRecipeBuilder(new ItemStack(reaper, count));
     }
     
-    public static ReaperRecipeBuilder reaper(Reaper reaper) {
+    public static ReaperRecipeBuilder reaper(@Nonnull Reaper reaper) {
         return reaper(reaper, 1);
     }
-    public static ReaperRecipeBuilder reaper(Reaper reaper, int count) {
+    public static ReaperRecipeBuilder reaper(@Nonnull Reaper reaper, int count) {
         return new ReaperRecipeBuilder(new ItemStack(reaper, count));
     }
 
@@ -79,7 +78,7 @@ public final class ReaperRecipeBuilder implements RecipeBuilder {
         }
         return this;
     }
-    public ReaperRecipeBuilder addCrystal(TagKey<Item> crystal, int count) {
+    public ReaperRecipeBuilder addCrystal(@Nonnull TagKey<Item> crystal, int count) {
         this.crystals.add(new ReaperRecipeIngredient(Ingredient.of(crystal), count));
         return this;
     }
@@ -92,7 +91,7 @@ public final class ReaperRecipeBuilder implements RecipeBuilder {
         }
         return this;
     }
-    public ReaperRecipeBuilder addReaper(TagKey<Item> reaper, int count) {
+    public ReaperRecipeBuilder addReaper(@Nonnull TagKey<Item> reaper, int count) {
         this.reapers.add(new ReaperRecipeIngredient(Ingredient.of(reaper), count));
         return this;
     }
@@ -101,7 +100,7 @@ public final class ReaperRecipeBuilder implements RecipeBuilder {
         this.others.add(new ReaperRecipeIngredient(Ingredient.of(item), count));
         return this;
     }
-    public ReaperRecipeBuilder addOther(TagKey<Item> item, int count) {
+    public ReaperRecipeBuilder addOther(@Nonnull TagKey<Item> item, int count) {
         this.others.add(new ReaperRecipeIngredient(Ingredient.of(item), count));
         return this;
     }
@@ -124,6 +123,7 @@ public final class ReaperRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
+    @SuppressWarnings("null")
     public void save(@Nonnull RecipeOutput output, @Nonnull ResourceLocation id) {
         Advancement.Builder adv = output.advancement()
             .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))

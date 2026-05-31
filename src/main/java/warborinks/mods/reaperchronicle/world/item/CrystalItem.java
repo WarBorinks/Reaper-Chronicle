@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Supplier;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -28,7 +30,6 @@ import warborinks.mods.reaperchronicle.world.level.crystal.Crystal;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttribute;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.features.SpecialFeatures;
 
-@SuppressWarnings("null")
 public class CrystalItem extends Item {
     private static final Map<Crystal, Item> BY_CRYSTAL = new HashMap<>();
 
@@ -44,7 +45,7 @@ public class CrystalItem extends Item {
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext context) {
+    public InteractionResult useOn(@Nonnull UseOnContext context) {
         List<ReaperAttribute> attributesHavingUseOn = new ArrayList<>();
         this.crystal.get().getAttributes().forEach(
             attribute -> {
@@ -80,7 +81,8 @@ public class CrystalItem extends Item {
 
     @Override
     @SuppressWarnings("unchecked")
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(@Nonnull Level level,
+        @Nonnull Player player, @Nonnull InteractionHand hand) {
         List<ReaperAttribute> attributesHavingUse = new ArrayList<>();
         this.crystal.get().getAttributes().forEach(
             attribute -> {
@@ -117,8 +119,9 @@ public class CrystalItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context,
-        List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    @SuppressWarnings("null")
+    public void appendHoverText(@Nonnull ItemStack stack, @Nonnull Item.TooltipContext context,
+        @Nonnull List<Component> tooltipComponents, @Nonnull TooltipFlag tooltipFlag) {
         this.crystal.get().getAttributes().forEach(
             attribute -> RCUtil.addComponentToComponentListWithIngnoringEmpty(
                 tooltipComponents,

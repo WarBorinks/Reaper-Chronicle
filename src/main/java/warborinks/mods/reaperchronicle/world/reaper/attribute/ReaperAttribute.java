@@ -23,7 +23,6 @@ import warborinks.mods.reaperchronicle.world.reaper.attribute.features.FeatureCl
 import warborinks.mods.reaperchronicle.world.reaper.attribute.features.FeatureGetter;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.features.FeatureInterface;
 
-@SuppressWarnings("null")
 public class ReaperAttribute extends ReaperAttributeBehaviour {
     private final int color;
 
@@ -78,6 +77,7 @@ public class ReaperAttribute extends ReaperAttributeBehaviour {
             return this;
         }
     }
+    @SuppressWarnings("null")
     public ReaperAttribute addFeaturesOrThrow(@Nonnull FeatureClass featureClass) {
         if (this.isLocked()) {
             throw new LockedException(this);
@@ -92,17 +92,19 @@ public class ReaperAttribute extends ReaperAttributeBehaviour {
         }
     }
     
-    public <T> T invoke(@Nonnull String name, Class<T> resType, Object... args)
+    public <T> T invoke(@Nonnull String name, @Nonnull Class<T> resType, Object... args)
         throws NoSuchFeatureException, Throwable {
         return invoke(name, args).get(resType);
     }
-    public <T> T invokeOrSilence(@Nonnull String name, Class<T> resType, Object... args) {
+    public <T> T invokeOrSilence(@Nonnull String name, @Nonnull Class<T> resType, Object... args) {
         return this.invokeOrDeal(name, (a, t) -> {}, resType, args);
     }
-    public <T> T invokeOrDefault(@Nonnull String name, T defaultValue, Class<T> resType, Object... args) {
+    public <T> T invokeOrDefault(@Nonnull String name, T defaultValue,
+        @Nonnull Class<T> resType, Object... args) {
         return this.invokeOrGet(name, () -> defaultValue, resType, args);
     }
-    public <T> T invokeOrGet(@Nonnull String name, @Nonnull Supplier<T> getter, Class<T> resType, Object... args) {
+    public <T> T invokeOrGet(@Nonnull String name, @Nonnull Supplier<T> getter,
+        @Nonnull Class<T> resType, Object... args) {
         try {
             return this.invoke(name, resType, args);
         } catch (Throwable throwable) {
@@ -110,7 +112,7 @@ public class ReaperAttribute extends ReaperAttributeBehaviour {
         }
     }
     public <T> T invokeOrDeal(@Nonnull String name, BiConsumer<Object[], Throwable> deal,
-        Class<T> resType, Object... args) {
+        @Nonnull Class<T> resType, Object... args) {
         T result;
         try {
             result = this.invoke(name, resType, args);
@@ -121,7 +123,7 @@ public class ReaperAttribute extends ReaperAttributeBehaviour {
         return result;
     }
     public <T> T invokeOrDealAndGet(@Nonnull String name, BiFunction<Object[], Throwable, T> dealAndget,
-        Class<T> resType, Object... args) {
+        @Nonnull Class<T> resType, Object... args) {
         try {
             return this.invoke(name, resType, args);
         } catch (Throwable throwable) {
@@ -158,6 +160,7 @@ public class ReaperAttribute extends ReaperAttributeBehaviour {
     @EventBusSubscriber(modid = ReaperChronicle.MODID)
     private static final class Events {
         @SubscribeEvent(priority = EventPriority.HIGHEST)
+        @SuppressWarnings("null")
         private static void onFMLCommonSetup(FMLCommonSetupEvent event) {
             ModFileScanData modFileScanData = RCUtil.getModFileScanDataByModContainer(ReaperChronicle.getModContainer());
             Map<String, FeatureClass> idToFeatureClass = FeatureGetter.getClasses(modFileScanData);

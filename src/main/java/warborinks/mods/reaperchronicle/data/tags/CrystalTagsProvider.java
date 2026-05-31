@@ -11,8 +11,8 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistries;
 import warborinks.mods.reaperchronicle.world.level.crystal.Crystal;
 
-@SuppressWarnings("null")
 public abstract class CrystalTagsProvider extends IntrinsicHolderTagsProvider<Crystal> {
+    @SuppressWarnings("null")
     public CrystalTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
         String modid, @Nullable ExistingFileHelper existingFileHelper) {
         super(output, RCRegistries.Keys.CRYSTAL, lookupProvider,

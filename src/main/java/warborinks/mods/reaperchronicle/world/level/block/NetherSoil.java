@@ -9,13 +9,13 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import warborinks.mods.reaperchronicle.world.effect.RCMobEffects;
 
-@SuppressWarnings("null")
 public class NetherSoil extends Block {
     public NetherSoil(Properties properties) {
         super(properties);
     }
 
     @Override
+    @SuppressWarnings("null")
     public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
         if (!level.isClientSide() && entity instanceof LivingEntity livingEntity) {
             livingEntity.addEffect(new MobEffectInstance(

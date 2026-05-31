@@ -11,8 +11,8 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistries;
 import warborinks.mods.reaperchronicle.world.reaper.Reaper;
 
-@SuppressWarnings("null")
 public abstract class ReaperTagsProvider extends IntrinsicHolderTagsProvider<Reaper> {
+    @SuppressWarnings("null")
     public ReaperTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
         String modid, @Nullable ExistingFileHelper existingFileHelper) {
         super(output, RCRegistries.Keys.REAPER, lookupProvider,

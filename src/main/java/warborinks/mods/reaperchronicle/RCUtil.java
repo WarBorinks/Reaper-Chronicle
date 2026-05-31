@@ -19,7 +19,6 @@ import net.neoforged.fml.ModList;
 import net.neoforged.neoforgespi.language.ModFileScanData;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttributeBehaviour.Result;
 
-@SuppressWarnings("null")
 public final class RCUtil {
     public static ModFileScanData getModFileScanDataByModContainer(ModContainer modContainer) {
         return modContainer.getModInfo().getOwningFile().getFile().getScanResult();
@@ -32,6 +31,7 @@ public final class RCUtil {
         return Util.makeDescriptionId("creative_mode_tab", BuiltInRegistries.CREATIVE_MODE_TAB.getKey(creativeModeTab));
     }
     
+    @SuppressWarnings("null")
     public static String getCreativeModeTabDescriptionId(@Nonnull String namespace, @Nonnull String id) {
         return getCreativeModeTabDescriptionId(ResourceLocation.fromNamespaceAndPath(namespace, id));
     }
@@ -56,6 +56,7 @@ public final class RCUtil {
     public static Component joinComponentsWithIgnoringEmpty(List<Component> components) {
         return joinComponentsWithIgnoringEmpty(components, "");
     }
+    @SuppressWarnings("null")
     public static Component joinComponentsWithIgnoringEmpty(List<Component> components, String space) {
         MutableComponent res = Component.empty();
         for (int i = 0; i < components.size(); i++) {

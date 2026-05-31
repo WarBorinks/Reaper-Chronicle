@@ -11,13 +11,13 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import warborinks.mods.reaperchronicle.world.effect.RCMobEffects;
 
-@SuppressWarnings("null")
 public class NetherSand extends ColoredFallingBlock {
     public NetherSand(ColorRGBA dustColor, BlockBehaviour.Properties properties) {
         super(dustColor, properties);
     }
     
     @Override
+    @SuppressWarnings("null")
     public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
         if (!level.isClientSide() && entity instanceof LivingEntity livingEntity) {
             livingEntity.addEffect(new MobEffectInstance(

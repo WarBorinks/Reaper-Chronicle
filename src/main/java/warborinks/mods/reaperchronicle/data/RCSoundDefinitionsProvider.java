@@ -14,12 +14,12 @@ import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 import warborinks.mods.reaperchronicle.sounds.RCSoundEvents;
 import warborinks.mods.reaperchronicle.sounds.RCSubtitles;
 
-@SuppressWarnings("null")
 public final class RCSoundDefinitionsProvider extends SoundDefinitionsProvider {
     public RCSoundDefinitionsProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
         super(output, ReaperChronicle.MODID, existingFileHelper);
     }
 
+    @SuppressWarnings("null")
     private SoundDefinition.Sound[] createSounds(String name, Integer amount) {
         List<String> t = Arrays.asList(name.split("\\."));
         String path = String.join("/", t.toArray(new String[0])) + "/" + t.getLast();
@@ -33,6 +33,7 @@ public final class RCSoundDefinitionsProvider extends SoundDefinitionsProvider {
     }
 
     @Override
+    @SuppressWarnings("null")
     public void registerSounds() {
         add(RCSoundEvents.NETHER_SAND_BREAK.get(),
             definition()

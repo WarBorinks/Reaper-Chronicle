@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -29,7 +31,6 @@ import warborinks.mods.reaperchronicle.core.component.RCDataComponentTypes;
 import warborinks.mods.reaperchronicle.world.item.component.RCItemAttributeNames;
 import warborinks.mods.reaperchronicle.world.reaper.Reaper;
 
-@SuppressWarnings("null")
 public class ReaperItem extends Item {
     private static final ResourceLocation ATTACK_DAMAGE = ResourceLocation.fromNamespaceAndPath(
         ReaperChronicle.MODID, RCItemAttributeNames.ReaperItem.ATTACK_DAMAGE
@@ -52,7 +53,8 @@ public class ReaperItem extends Item {
     }
 
     @Override
-    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+    @SuppressWarnings("null")
+    public boolean hurtEnemy(@Nonnull ItemStack stack, @Nonnull LivingEntity target, @Nonnull LivingEntity attacker) {
         Reaper reaper = this.reaper.get();
         reaper.onReap(target, attacker, stack);
         stack.hurtAndBreak(reaper.getConsumption(target, stack), attacker, EquipmentSlot.MAINHAND);
@@ -66,8 +68,9 @@ public class ReaperItem extends Item {
 
     
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context,
-        List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    @SuppressWarnings("null")
+    public void appendHoverText(@Nonnull ItemStack stack, @Nonnull Item.TooltipContext context,
+        @Nonnull List<Component> tooltipComponents, @Nonnull TooltipFlag tooltipFlag) {
         this.reaper.get().appendHoverText(stack, context, tooltipComponents, tooltipFlag);
         this.reaper.get().getAttributes().forEach(
             attribute -> RCUtil.addComponentToComponentListWithIngnoringEmpty(
@@ -120,6 +123,7 @@ public class ReaperItem extends Item {
         }
 
         @SubscribeEvent
+        @SuppressWarnings("null")
         private static void onItemAttributeModifier(ItemAttributeModifierEvent event) {
             ItemStack stack = event.getItemStack();
             if (!(stack.getItem() instanceof ReaperItem reaperItem)) {

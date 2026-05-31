@@ -15,8 +15,8 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import warborinks.mods.reaperchronicle.core.registries.RCDeferredRegisters;
 import warborinks.mods.reaperchronicle.world.level.block.RCBlocks;
 
-@SuppressWarnings("null")
 public final class RCLootTableProvider extends LootTableProvider {
+    @SuppressWarnings("null")
     public RCLootTableProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(
             output, Collections.emptySet(),
@@ -33,6 +33,7 @@ public final class RCLootTableProvider extends LootTableProvider {
         }
 
         @Override
+        @SuppressWarnings("null")
         protected void generate() {
             dropSelf(RCBlocks.NETHER_SAND.get());
             dropSelf(RCBlocks.NETHER_SOIL.get());

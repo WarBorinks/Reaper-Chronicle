@@ -10,13 +10,13 @@ import warborinks.mods.reaperchronicle.ReaperChronicle;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 import warborinks.mods.reaperchronicle.world.level.block.RCBlocks;
 
-@SuppressWarnings("null")
 public final class RCBlockStateProvider extends BlockStateProvider {
     public RCBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
         super(output, ReaperChronicle.MODID, exFileHelper);
     }
 
     @Override
+    @SuppressWarnings("null")
     protected void registerStatesAndModels() {
         simpleBlockWithItem(
             RCBlocks.NETHER_SAND.get(),
@@ -38,6 +38,7 @@ public final class RCBlockStateProvider extends BlockStateProvider {
         );
     }
 
+    @SuppressWarnings("null")
     private ModelFile getSoulAltarModel() {
         BlockModelBuilder model = models()
             .getBuilder("block/" + RCRegistryNames.BlockEntityTypes.SOUL_ALTAR)
