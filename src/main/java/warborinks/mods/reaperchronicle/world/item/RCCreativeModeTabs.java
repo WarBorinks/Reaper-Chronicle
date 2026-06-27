@@ -2,7 +2,11 @@ package warborinks.mods.reaperchronicle.world.item;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import warborinks.mods.reaperchronicle.RCUtil;
@@ -15,7 +19,7 @@ public final class RCCreativeModeTabs {
     private static final DeferredRegister<CreativeModeTab> REGISTRAR = RCDeferredRegisters.CREATIVE_MODE_TAB;
 
     private static String getTranslatableString(String name) {
-        return RCUtil.getCreativeModeTabDescriptionId(
+        return RCUtil.makeCreativeModeTabDescriptionId(
             ReaperChronicle.MODID, name
         );
     }
@@ -57,4 +61,14 @@ public final class RCCreativeModeTabs {
     );
 
     public static void load() {}
+
+    @EventBusSubscriber(modid = ReaperChronicle.MODID)
+    private static final class Events {
+        @SubscribeEvent
+        private static void onBuildCreativeModeTabContents(BuildCreativeModeTabContentsEvent event) {
+            if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
+                event.accept(RCBlockItems.SOUL_ALTAR.get());
+            }
+        }
+    }
 }

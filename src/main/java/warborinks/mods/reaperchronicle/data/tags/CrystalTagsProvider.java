@@ -9,7 +9,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistries;
-import warborinks.mods.reaperchronicle.world.level.crystal.Crystal;
+import warborinks.mods.reaperchronicle.world.reaper.crystal.Crystal;
 
 public abstract class CrystalTagsProvider extends IntrinsicHolderTagsProvider<Crystal> {
     @SuppressWarnings("null")

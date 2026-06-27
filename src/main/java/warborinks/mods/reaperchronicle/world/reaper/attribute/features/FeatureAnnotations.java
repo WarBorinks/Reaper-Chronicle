@@ -10,12 +10,12 @@ public class FeatureAnnotations {
     @Retention(RetentionPolicy.RUNTIME)
     public static @interface Feature {
         String name();
-        Class<?>[] types() default {};
     }
 
     @Target(ElementType.TYPE)
     @Retention(RetentionPolicy.RUNTIME)
     public static @interface FeatureToolset {
+        String namespace();
         String id();
     }
 }

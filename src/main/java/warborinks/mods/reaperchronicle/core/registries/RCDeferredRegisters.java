@@ -4,6 +4,7 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -16,17 +17,19 @@ import warborinks.mods.reaperchronicle.ReaperChronicle;
 import warborinks.mods.reaperchronicle.core.component.RCDataComponentTypes;
 import warborinks.mods.reaperchronicle.sounds.RCSoundEvents;
 import warborinks.mods.reaperchronicle.world.effect.RCMobEffects;
+import warborinks.mods.reaperchronicle.world.inventory.RCMenuTypes;
 import warborinks.mods.reaperchronicle.world.item.RCCreativeModeTabs;
 import warborinks.mods.reaperchronicle.world.item.RCItems;
 import warborinks.mods.reaperchronicle.world.item.crafting.RCRecipeSerializers;
 import warborinks.mods.reaperchronicle.world.item.crafting.RCRecipeTypes;
 import warborinks.mods.reaperchronicle.world.level.block.RCBlocks;
-import warborinks.mods.reaperchronicle.world.level.crystal.Crystal;
-import warborinks.mods.reaperchronicle.world.level.crystal.Crystals;
+import warborinks.mods.reaperchronicle.world.level.block.entity.RCBlockEntityTypes;
 import warborinks.mods.reaperchronicle.world.reaper.Reaper;
 import warborinks.mods.reaperchronicle.world.reaper.Reapers;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttribute;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttributes;
+import warborinks.mods.reaperchronicle.world.reaper.crystal.Crystal;
+import warborinks.mods.reaperchronicle.world.reaper.crystal.Crystals;
 
 @SuppressWarnings("null")
 public final class RCDeferredRegisters {
@@ -57,6 +60,11 @@ public final class RCDeferredRegisters {
 
     public static final DeferredRegister<Item> ITEM = DeferredRegister.create(
         BuiltInRegistries.ITEM,
+        ReaperChronicle.MODID
+    );
+
+    public static final DeferredRegister<MenuType<?>> MENU_TYPE = DeferredRegister.create(
+        BuiltInRegistries.MENU,
         ReaperChronicle.MODID
     );
     
@@ -96,19 +104,23 @@ public final class RCDeferredRegisters {
         ReaperAttributes.load();
 
         RCBlocks.load();
+        RCBlockEntityTypes.load();
         RCCreativeModeTabs.load();
         RCDataComponentTypes.load();
         RCItems.load();
+        RCMenuTypes.load();
         RCMobEffects.load();
         RCRecipeSerializers.load();
         RCRecipeTypes.load();
         RCSoundEvents.load();
 
         BLOCK.register(bus);
+        BLOCK_ENTITY_TYPE.register(bus);
         CREATIVE_MODE_TAB.register(bus);
         CRYSTAL.register(bus);
         DATA_COMPONENT_TYPE.register(bus);
         ITEM.register(bus);
+        MENU_TYPE.register(bus);
         MOB_EFFECT.register(bus);
         REAPER.register(bus);
         REAPER_ATTRIBUTE.register(bus);

@@ -5,13 +5,13 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import warborinks.mods.reaperchronicle.core.registries.RCDeferredRegisters;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
-import warborinks.mods.reaperchronicle.world.level.crystal.Crystals;
+import warborinks.mods.reaperchronicle.world.reaper.crystal.Crystals;
 
 public final class CrystalItems {
     private static final DeferredRegister<Item> REGISTRAR = RCDeferredRegisters.ITEM;
 
     public static final DeferredHolder<Item, CrystalItem> EMPTY_CRYSTAL = REGISTRAR.register(
-        RCRegistryNames.Crystals.EMPTY_CRYSTAL,
+        RCRegistryNames.Items.EMPTY_CRYSTAL,
         () -> new CrystalItem(
             Crystals.EMPTY_CRYSTAL,
             new Item.Properties()
@@ -19,7 +19,7 @@ public final class CrystalItems {
     );
 
     public static final DeferredHolder<Item, CrystalItem> WATER_CRYSTAL = REGISTRAR.register(
-        RCRegistryNames.Crystals.WATER_CRYSTAL,
+        RCRegistryNames.Items.WATER_CRYSTAL,
         () -> new CrystalItem(
             Crystals.WATER_CRYSTAL,
             new Item.Properties()

@@ -10,6 +10,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import net.minecraft.Util;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -19,7 +20,7 @@ import warborinks.mods.reaperchronicle.RCUtil;
 import warborinks.mods.reaperchronicle.ReaperChronicle;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistries;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
-import warborinks.mods.reaperchronicle.world.reaper.attribute.features.FeatureClass;
+import warborinks.mods.reaperchronicle.world.reaper.attribute.features.IFeatureClass;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.features.FeatureGetter;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.features.FeatureInterface;
 
@@ -70,7 +71,7 @@ public class ReaperAttribute extends ReaperAttributeBehaviour {
         }
     }
 
-    public ReaperAttribute addFeatures(@Nonnull FeatureClass featureClass) {
+    public ReaperAttribute addFeatures(@Nonnull IFeatureClass featureClass) {
         try {
             return this.addFeaturesOrThrow(featureClass);
         } catch (LockedException exception) {
@@ -78,7 +79,7 @@ public class ReaperAttribute extends ReaperAttributeBehaviour {
         }
     }
     @SuppressWarnings("null")
-    public ReaperAttribute addFeaturesOrThrow(@Nonnull FeatureClass featureClass) {
+    public ReaperAttribute addFeaturesOrThrow(@Nonnull IFeatureClass featureClass) {
         if (this.isLocked()) {
             throw new LockedException(this);
         } else {
@@ -150,6 +151,11 @@ public class ReaperAttribute extends ReaperAttributeBehaviour {
 
         return this.descriptionId;
     }
+
+    @Override
+    public String toString() {
+        return RCRegistries.REAPER_ATTRIBUTE.wrapAsHolder(this).getRegisteredName();
+    }
     
     public static final class LockedException extends RuntimeException {
         public LockedException(ReaperAttribute reaperAttribute) {
@@ -162,11 +168,11 @@ public class ReaperAttribute extends ReaperAttributeBehaviour {
         @SubscribeEvent(priority = EventPriority.HIGHEST)
         @SuppressWarnings("null")
         private static void onFMLCommonSetup(FMLCommonSetupEvent event) {
-            ModFileScanData modFileScanData = RCUtil.getModFileScanDataByModContainer(ReaperChronicle.getModContainer());
-            Map<String, FeatureClass> idToFeatureClass = FeatureGetter.getClasses(modFileScanData);
+            ModFileScanData modFileScanData = RCUtil.getModFileScanDataByModContainer(ReaperChronicle.CONTAINER);
+            Map<ResourceLocation, IFeatureClass> idToFeatureClass = FeatureGetter.getClasses(modFileScanData);
             for (ReaperAttribute reaperAttribute : RCRegistries.REAPER_ATTRIBUTE) {
-                String id = RCRegistries.REAPER_ATTRIBUTE.getKey(reaperAttribute).getPath();
-                FeatureClass featureClass = idToFeatureClass.get(id);
+                ResourceLocation key = RCRegistries.REAPER_ATTRIBUTE.getKey(reaperAttribute);
+                IFeatureClass featureClass = idToFeatureClass.get(key);
                 if (featureClass != null) {
                     reaperAttribute.addFeatures(featureClass);
                 }

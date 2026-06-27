@@ -20,6 +20,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -28,22 +29,21 @@ import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import warborinks.mods.reaperchronicle.RCUtil;
 import warborinks.mods.reaperchronicle.ReaperChronicle;
 import warborinks.mods.reaperchronicle.core.component.RCDataComponentTypes;
-import warborinks.mods.reaperchronicle.world.item.component.RCItemAttributeNames;
 import warborinks.mods.reaperchronicle.world.reaper.Reaper;
 
 public class ReaperItem extends Item {
     private static final ResourceLocation ATTACK_DAMAGE = ResourceLocation.fromNamespaceAndPath(
-        ReaperChronicle.MODID, RCItemAttributeNames.ReaperItem.ATTACK_DAMAGE
+        ReaperChronicle.MODID, "reaper/attack_damage"
     );
     private static final ResourceLocation ATTACK_SPEED = ResourceLocation.fromNamespaceAndPath(
-        ReaperChronicle.MODID, RCItemAttributeNames.ReaperItem.ATTACK_SPEED
+        ReaperChronicle.MODID, "reaper/attack_speed"
     );
 
     private static final Map<Reaper, Item> BY_REAPER = new HashMap<>();
 
     private final Supplier<Reaper> reaper;
 
-    public ReaperItem(Supplier<Reaper> reaper, Properties properties) {
+    public ReaperItem(Supplier<Reaper> reaper, @Nonnull Properties properties) {
         super(properties);
         this.reaper = reaper;
     }
@@ -96,7 +96,7 @@ public class ReaperItem extends Item {
 
     @EventBusSubscriber(modid = ReaperChronicle.MODID)
     private static class Events {
-        @SubscribeEvent
+        @SubscribeEvent(priority = EventPriority.HIGHEST)
         private static void onLivingDamagePre(LivingDamageEvent.Pre event) {
             if (event.getEntity().level().isClientSide()) {
                 return;
@@ -122,7 +122,7 @@ public class ReaperItem extends Item {
             event.setNewDamage(newDamage);
         }
 
-        @SubscribeEvent
+        @SubscribeEvent(priority = EventPriority.HIGHEST)
         @SuppressWarnings("null")
         private static void onItemAttributeModifier(ItemAttributeModifierEvent event) {
             ItemStack stack = event.getItemStack();

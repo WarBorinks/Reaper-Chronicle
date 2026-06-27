@@ -8,9 +8,9 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 import warborinks.mods.reaperchronicle.ReaperChronicle;
-import warborinks.mods.reaperchronicle.world.level.crystal.Crystal;
 import warborinks.mods.reaperchronicle.world.reaper.Reaper;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttribute;
+import warborinks.mods.reaperchronicle.world.reaper.crystal.Crystal;
 
 @SuppressWarnings("null")
 public final class RCRegistries {

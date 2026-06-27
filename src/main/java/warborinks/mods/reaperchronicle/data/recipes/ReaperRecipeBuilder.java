@@ -27,8 +27,8 @@ import warborinks.mods.reaperchronicle.world.item.CrystalItem;
 import warborinks.mods.reaperchronicle.world.item.ReaperItem;
 import warborinks.mods.reaperchronicle.world.item.crafting.ReaperRecipe;
 import warborinks.mods.reaperchronicle.world.item.crafting.ReaperRecipeIngredient;
-import warborinks.mods.reaperchronicle.world.level.crystal.Crystal;
 import warborinks.mods.reaperchronicle.world.reaper.Reaper;
+import warborinks.mods.reaperchronicle.world.reaper.crystal.Crystal;
 
 public final class ReaperRecipeBuilder implements RecipeBuilder {
     private final List<ReaperRecipeIngredient> crystals = new ArrayList<>();

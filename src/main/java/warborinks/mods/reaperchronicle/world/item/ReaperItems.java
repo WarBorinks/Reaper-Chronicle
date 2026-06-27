@@ -11,7 +11,7 @@ public final class ReaperItems {
     private static final DeferredRegister<Item> REGISTRAR = RCDeferredRegisters.ITEM;
 
     public static final DeferredHolder<Item, ReaperItem> COMMON_REAPER = REGISTRAR.register(
-        RCRegistryNames.Reapers.COMMON_REAPER,
+        RCRegistryNames.Items.COMMON_REAPER,
         () -> new ReaperItem(
             Reapers.COMMON_REAPER,
             new Item.Properties()

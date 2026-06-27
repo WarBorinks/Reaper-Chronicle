@@ -1,5 +1,5 @@
-modLoader="javafml" #mandatory
-loaderVersion="${loader_version_range}" #mandatory
+modLoader="javafml"
+loaderVersion="${loader_version_range}"
 
 license="${mod_license}"
 
@@ -11,9 +11,6 @@ authors="War Borinks"
 description='''
 Crossing the boundary between life and death, reforging a lost world...
 '''
-
-[[mixins]]
-config="${mod_id}.mixins.json"
 
 [[dependencies.${mod_id}]]
     modId="neoforge"
@@ -28,4 +25,3 @@ config="${mod_id}.mixins.json"
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
-

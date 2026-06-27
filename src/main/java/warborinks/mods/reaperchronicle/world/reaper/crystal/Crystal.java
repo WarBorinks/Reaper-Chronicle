@@ -1,4 +1,4 @@
-package warborinks.mods.reaperchronicle.world.level.crystal;
+package warborinks.mods.reaperchronicle.world.reaper.crystal;
 
 import java.util.Set;
 import java.util.function.Supplier;
@@ -31,15 +31,7 @@ public class Crystal implements ItemLike {
         this.attributes = Set.of(attributes);
     }
 
-    @Override
-    public Item asItem() {
-        if (this.item == null) {
-            this.item = CrystalItem.byCrystal(this);
-        }
-
-        return this.item;
-    }
-
+    @SuppressWarnings("null")
     public Set<ReaperAttribute> getAttributes() {
         return this.attributes.stream()
             .map(Supplier<ReaperAttribute>::get)
@@ -52,5 +44,19 @@ public class Crystal implements ItemLike {
         }
 
         return this.descriptionId;
+    }
+
+    @Override
+    public Item asItem() {
+        if (this.item == null) {
+            this.item = CrystalItem.byCrystal(this);
+        }
+
+        return this.item;
+    }
+
+    @Override
+    public String toString() {
+        return RCRegistries.CRYSTAL.wrapAsHolder(this).getRegisteredName();
     }
 }

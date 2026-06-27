@@ -10,7 +10,7 @@ public final class RCRecipeSerializers {
     private static final DeferredRegister<RecipeSerializer<?>> REGISTRAR = RCDeferredRegisters.RECIPE_SERIALIZERS;
 
     public static final DeferredHolder<RecipeSerializer<?>, ReaperRecipeSerializer> REAPER_RECIPE = REGISTRAR.register(
-        RCRegistryNames.RecipeTypes.REAPER,
+        RCRegistryNames.RecipeSerializers.REAPER,
         () -> new ReaperRecipeSerializer()
     );
 

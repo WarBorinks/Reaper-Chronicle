@@ -35,7 +35,7 @@ public final class RCBlocks {
     );
 
     public static final DeferredHolder<Block, SoulAltarBlock> SOUL_ALTAR = REGISTRAR.register(
-        RCRegistryNames.BlockEntityTypes.SOUL_ALTAR,
+        RCRegistryNames.Blocks.SOUL_ALTAR,
         () -> new SoulAltarBlock(BlockBehaviour.Properties.of()
             .strength(4.0f, 20.0f)
             .mapColor(MapColor.COLOR_GRAY)

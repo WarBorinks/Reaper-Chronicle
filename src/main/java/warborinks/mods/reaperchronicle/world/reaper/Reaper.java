@@ -78,15 +78,6 @@ public abstract class Reaper implements ItemLike {
         return newDamage;
     }
 
-    @Override
-    public Item asItem() {
-        if (this.item == null) {
-            this.item = ReaperItem.byReaper(this);
-        }
-
-        return this.item;
-    }
-
     public String getTitleTranslationKey() {
         if (this.titleTranslationKey == null) {
             this.titleTranslationKey = this.getDescriptionId() + ".title";
@@ -94,9 +85,10 @@ public abstract class Reaper implements ItemLike {
 
         return this.titleTranslationKey;
     }
+    @SuppressWarnings("null")
     public Component getTitleComponent() {
         if (this.titleComponent == null) {
-            this.titleComponent = Component.translatable(this.getDescriptionId() + ".title");
+            this.titleComponent = Component.translatable(this.getTitleTranslationKey());
         }
 
         return this.titleComponent;
@@ -109,9 +101,10 @@ public abstract class Reaper implements ItemLike {
 
         return this.writerTranslationKey;
     }
+    @SuppressWarnings("null")
     public Component getWriterComponent() {
         if (this.writerComponent == null) {
-            this.writerComponent = Component.translatable(this.getDescriptionId() + ".writer");
+            this.writerComponent = Component.translatable(this.getWriterTranslationKey());
         }
 
         return this.writerComponent;
@@ -124,9 +117,10 @@ public abstract class Reaper implements ItemLike {
 
         return this.textTranslationKey;
     }
+    @SuppressWarnings("null")
     public Component getTextComponent() {
         if (this.textComponent == null) {
-            this.textComponent = Component.translatable(this.getDescriptionId() + ".text");
+            this.textComponent = Component.translatable(this.getTextTranslationKey());
         }
 
         return this.textComponent;
@@ -144,6 +138,7 @@ public abstract class Reaper implements ItemLike {
         return this.speed;
     }
 
+    @SuppressWarnings("null")
     public Set<ReaperAttribute> getAttributes() {
         return this.attributes.stream()
             .map(Supplier<ReaperAttribute>::get)
@@ -156,5 +151,19 @@ public abstract class Reaper implements ItemLike {
         }
 
         return this.descriptionId;
+    }
+
+    @Override
+    public Item asItem() {
+        if (this.item == null) {
+            this.item = ReaperItem.byReaper(this);
+        }
+
+        return this.item;
+    }
+
+    @Override
+    public String toString() {
+        return RCRegistries.REAPER.wrapAsHolder(this).getRegisteredName();
     }
 }

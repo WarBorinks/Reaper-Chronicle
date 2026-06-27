@@ -13,7 +13,7 @@ public final class RCBlockItems {
     private static final DeferredRegister<Item> REGISTRAR = RCDeferredRegisters.ITEM;
 
     public static final DeferredHolder<Item, BlockItem> NETHER_SAND = REGISTRAR.register(
-        RCRegistryNames.Blocks.NETHER_SAND,
+        RCRegistryNames.Items.NETHER_SAND,
         () -> new BlockItem(
             RCBlocks.NETHER_SAND.get(),
             new Item.Properties()
@@ -21,7 +21,7 @@ public final class RCBlockItems {
     );
     
     public static final DeferredHolder<Item, BlockItem> NETHER_SOIL = REGISTRAR.register(
-        RCRegistryNames.Blocks.NETHER_SOIL,
+        RCRegistryNames.Items.NETHER_SOIL,
         () -> new BlockItem(
             RCBlocks.NETHER_SOIL.get(),
             new Item.Properties()
@@ -29,7 +29,7 @@ public final class RCBlockItems {
     );
 
     public static final DeferredHolder<Item, BlockItem> SOUL_ALTAR = REGISTRAR.register(
-        RCRegistryNames.BlockEntityTypes.SOUL_ALTAR,
+        RCRegistryNames.Items.SOUL_ALTAR,
         () -> new BlockItem(
             RCBlocks.SOUL_ALTAR.get(),
             new Item.Properties()

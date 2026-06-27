@@ -18,21 +18,13 @@ public final class ReaperChronicle {
 
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    private static IEventBus eventBus;
-    private static ModContainer modContainer;
+    public static IEventBus EVENT_BUS;
+    public static ModContainer CONTAINER;
 
     public ReaperChronicle(IEventBus bus, ModContainer container) {
-        eventBus = bus;
-        modContainer = container;
+        EVENT_BUS = bus;
+        CONTAINER = container;
         
         RCDeferredRegisters.register(bus);
-    }
-
-    public static IEventBus getEventBus() {
-        return eventBus;
-    }
-    
-    public static ModContainer getModContainer() {
-        return modContainer;
     }
 }

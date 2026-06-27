@@ -26,16 +26,16 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import warborinks.mods.reaperchronicle.RCUtil;
 import warborinks.mods.reaperchronicle.ReaperChronicle;
-import warborinks.mods.reaperchronicle.world.level.crystal.Crystal;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttribute;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.features.SpecialFeatures;
+import warborinks.mods.reaperchronicle.world.reaper.crystal.Crystal;
 
 public class CrystalItem extends Item {
     private static final Map<Crystal, Item> BY_CRYSTAL = new HashMap<>();
 
     private final Supplier<Crystal> crystal;
 
-    public CrystalItem(Supplier<Crystal> crystal, Properties properties) {
+    public CrystalItem(Supplier<Crystal> crystal, @Nonnull Properties properties) {
         super(properties);
         this.crystal = crystal;
     }

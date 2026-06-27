@@ -14,29 +14,25 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import warborinks.mods.reaperchronicle.ReaperChronicle;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
-import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttributeBehaviour.Args;
-import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttributeBehaviour.Result;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.features.FeatureAnnotations.FeatureToolset;
 
-@FeatureToolset(id = RCRegistryNames.ReaperAttributes.WATER_ATTRIBUTE)
-public final class WaterAttributeFeatures implements FeatureClass {
-    @Override
+@FeatureToolset(namespace = ReaperChronicle.MODID, id = RCRegistryNames.ReaperAttributes.WATER_ATTRIBUTE)
+public final class WaterAttributeFeatures implements IFeatureClass {
     @SuppressWarnings("null")
-    public Result use(Args args) {
-        Level level = args.get(1, Level.class);
-        Player player = args.get(2, Player.class);
-        ItemStack stack = player.getItemInHand(args.get(3, InteractionHand.class));
+    public InteractionResultHolder<ItemStack> use(Item item, Level level, Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
 
         BlockHitResult hit = Item.getPlayerPOVHitResult(level, player, ClipContext.Fluid.ANY);
         if (hit.getType() != HitResult.Type.BLOCK) {
-            return Result.of(InteractionResultHolder.pass(stack));
+            return InteractionResultHolder.pass(stack);
         }
         
         BlockPos pos = hit.getBlockPos();
         BlockState state = level.getBlockState(pos);
         if (state.is(Blocks.BEDROCK) || state.is(Blocks.BARRIER)) {
-            return Result.of(InteractionResultHolder.fail(stack));
+            return InteractionResultHolder.fail(stack);
         }
       
         if (!level.isClientSide()) {
@@ -48,6 +44,6 @@ public final class WaterAttributeFeatures implements FeatureClass {
             stack.shrink(1);
         }
 
-        return Result.of(InteractionResultHolder.sidedSuccess(stack, level.isClientSide()));
+        return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
     }
 }

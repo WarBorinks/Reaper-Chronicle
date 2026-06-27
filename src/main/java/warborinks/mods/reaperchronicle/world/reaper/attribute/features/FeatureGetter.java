@@ -1,10 +1,7 @@
 package warborinks.mods.reaperchronicle.world.reaper.attribute.features;
 
 import java.lang.annotation.ElementType;
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -14,9 +11,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforgespi.language.ModFileScanData;
-import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttributeBehaviour.Args;
-import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttributeBehaviour.Result;
+import warborinks.mods.reaperchronicle.RCUtil;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttributeBehaviour.TheSameFeatureException;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.features.FeatureAnnotations.Feature;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.features.FeatureAnnotations.FeatureToolset;
@@ -25,33 +22,20 @@ public final class FeatureGetter {
     private static final Class<Feature> featureAnnotationType = Feature.class;
     private static final Class<FeatureToolset> classAnnotationType = FeatureToolset.class;
 
-    public static Map<String, Map<List<Class<?>>, FeatureInterface>> getFeatures(FeatureClass featureClass) {
-        Class<? extends FeatureClass> cls = featureClass.getClass();
+    public static Map<String, Map<List<Class<?>>, FeatureInterface>> getFeatures(IFeatureClass featureClass) {
+        Class<? extends IFeatureClass> cls = featureClass.getClass();
         Map<String, Map<List<Class<?>>, FeatureInterface>> features = new HashMap<>();
-
-        MethodHandles.Lookup lookup;
-        try {
-            lookup = MethodHandles.privateLookupIn(cls, MethodHandles.lookup());
-        } catch (IllegalAccessException exception) {
-            throw new RuntimeException(exception);
-        }
 
         for (Method method : collectAnnotatedMethods(cls)) {
             Feature featureAnnotation = method.getAnnotation(featureAnnotationType);
 
             String name = featureAnnotation.name();
-            Class<?>[] paramTypes = featureAnnotation.types();
-
-            MethodHandle methodHandle;
-            try {
-                methodHandle = lookup.unreflect(method);
-            } catch (IllegalAccessException exception) {
-                continue;
-            }
+            Class<?>[] paramTypes = method.getParameterTypes();
 
             FeatureInterface feature = args -> {
-                return (Result) methodHandle.invoke(featureClass, args);
+                return RCUtil.invokeMethod(featureClass, cls, method, args.getValues());
             };
+            
             features.computeIfAbsent(name, k -> new HashMap<>())
                 .merge(
                     List.of(paramTypes), feature,
@@ -68,7 +52,6 @@ public final class FeatureGetter {
         Set<Method> result = new LinkedHashSet<>();
         for (Method m : cls.getDeclaredMethods()) {
             if (m.isAnnotationPresent(Feature.class)) {
-                validateMethodSignature(m);
                 result.add(m);
             }
         }
@@ -85,38 +68,32 @@ public final class FeatureGetter {
         return result;
     }
 
-    private static void validateMethodSignature(Method method) {
-        if (!Modifier.isStatic(method.getModifiers())
-                && method.getReturnType() == Result.class
-                && method.getParameterCount() == 1
-                && method.getParameterTypes()[0] == Args.class) {
-            return;
-        }
-        throw new IllegalStateException("Invalid @Feature method signature: " + method);
-    }
-
-    public static Map<String, FeatureClass> getClasses(ModFileScanData modFileScanData) {
-    return modFileScanData.getAnnotatedBy(classAnnotationType, ElementType.TYPE)
-        .map(data -> {
-            try {
-                return Class.forName(data.clazz().getClassName());
-            } catch (ClassNotFoundException e) {
-                return null;
-            }
-        }).filter(Objects::nonNull)
-        .filter(FeatureClass.class::isAssignableFrom) 
-        .map(cls -> {
-            try {
-                String id = cls.getAnnotation(classAnnotationType).id();
-                FeatureClass instance = (FeatureClass) cls.getDeclaredConstructor().newInstance();
-                return new AbstractMap.SimpleEntry<>(id, instance);
-            } catch (Exception e) {
-                return null;
-            }
-        }).filter(Objects::nonNull)
-        .collect(Collectors.toMap(
-            Map.Entry::getKey,
-            Map.Entry::getValue
-        ));
+    @SuppressWarnings("null")
+    public static Map<ResourceLocation, IFeatureClass> getClasses(ModFileScanData modFileScanData) {
+        return modFileScanData.getAnnotatedBy(classAnnotationType, ElementType.TYPE)
+            .map(data -> {
+                try {
+                    return Class.forName(data.clazz().getClassName());
+                } catch (ClassNotFoundException e) {
+                    return null;
+                }
+            }).filter(Objects::nonNull)
+            .filter(IFeatureClass.class::isAssignableFrom) 
+            .map(cls -> {
+                try {
+                    FeatureToolset featureToolset = cls.getAnnotation(classAnnotationType);
+                    ResourceLocation key = ResourceLocation.fromNamespaceAndPath(
+                        featureToolset.namespace(), featureToolset.id()
+                    );
+                    IFeatureClass instance = (IFeatureClass) cls.getDeclaredConstructor().newInstance();
+                    return new AbstractMap.SimpleEntry<>(key, instance);
+                } catch (Exception e) {
+                    return null;
+                }
+            }).filter(Objects::nonNull)
+            .collect(Collectors.toMap(
+                Map.Entry::getKey,
+                Map.Entry::getValue
+            ));
     }
 }

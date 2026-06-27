@@ -1,4 +1,4 @@
-package warborinks.mods.reaperchronicle.world.level.crystal;
+package warborinks.mods.reaperchronicle.world.reaper.crystal;
 
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;

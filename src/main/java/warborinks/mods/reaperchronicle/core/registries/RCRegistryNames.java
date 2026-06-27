@@ -3,13 +3,24 @@ package warborinks.mods.reaperchronicle.core.registries;
 import javax.annotation.Nonnull;
 
 public final class RCRegistryNames {
+    public static final class BiomeModifiers {
+        @Nonnull public static final String NETHER_SAND = Blocks.NETHER_SAND;
+        @Nonnull public static final String NETHER_SOIL = Blocks.NETHER_SOIL;
+    }
+
     public static final class Blocks {
         @Nonnull public static final String NETHER_SAND = "nether_sand";
         @Nonnull public static final String NETHER_SOIL = "nether_soil";
+        @Nonnull public static final String SOUL_ALTAR = BlockEntityTypes.SOUL_ALTAR;
     }
 
     public static final class BlockEntityTypes {
         @Nonnull public static final String SOUL_ALTAR = "soul_altar";
+    }
+
+    public static final class ConfiguredFeatures {
+        @Nonnull public static final String NETHER_SAND = Blocks.NETHER_SAND;
+        @Nonnull public static final String NETHER_SOIL = Blocks.NETHER_SOIL;
     }
 
     public static final class CreativeModeTabs {
@@ -28,7 +39,17 @@ public final class RCRegistryNames {
     }
 
     public static final class Items {
+        @Nonnull public static final String COMMON_REAPER = Reapers.COMMON_REAPER;
+        @Nonnull public static final String EMPTY_CRYSTAL = Crystals.EMPTY_CRYSTAL;
         @Nonnull public static final String NETEHR_DEBRIS = "nether_debris";
+        @Nonnull public static final String NETHER_SAND = Blocks.NETHER_SAND;
+        @Nonnull public static final String NETHER_SOIL = Blocks.NETHER_SOIL;
+        @Nonnull public static final String SOUL_ALTAR = BlockEntityTypes.SOUL_ALTAR;
+        @Nonnull public static final String WATER_CRYSTAL = Crystals.WATER_CRYSTAL;
+    }
+
+    public static final class MenuTypes {
+        @Nonnull public static final String SOUL_ALTAR = BlockEntityTypes.SOUL_ALTAR;
     }
 
     public static final class MobEffects {
@@ -44,6 +65,10 @@ public final class RCRegistryNames {
         @Nonnull public static final String WATER_ATTRIBUTE = "water_attribute";
     }
 
+    public static final class RecipeSerializers {
+        @Nonnull public static final String REAPER = RecipeTypes.REAPER;
+    }
+
     public static final class RecipeTypes {
         @Nonnull public static final String REAPER = "reaper";
     }
@@ -52,6 +77,11 @@ public final class RCRegistryNames {
         @Nonnull public static String CRYSTAL = "crystal";
         @Nonnull public static String REAPER = "reaper";
         @Nonnull public static String REAPER_ATTRIBUTE = "reaper_attribute";
+    }
+    
+    public static final class PlacedFeatures {
+        @Nonnull public static final String NETHER_SAND = Blocks.NETHER_SAND;
+        @Nonnull public static final String NETHER_SOIL = Blocks.NETHER_SOIL;
     }
 
     public static final class SoundEvents {

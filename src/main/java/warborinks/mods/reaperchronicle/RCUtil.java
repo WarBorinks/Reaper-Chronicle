@@ -2,8 +2,12 @@ package warborinks.mods.reaperchronicle;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Nonnull;
 
@@ -14,6 +18,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforgespi.language.ModFileScanData;
@@ -27,16 +32,16 @@ public final class RCUtil {
         return ModList.get().getModFileById(modid).getFile().getScanResult();
     }
 
-    public static String getCreativeModeTabDescriptionId(@Nonnull CreativeModeTab creativeModeTab) {
-        return Util.makeDescriptionId("creative_mode_tab", BuiltInRegistries.CREATIVE_MODE_TAB.getKey(creativeModeTab));
+    public static String makeCreativeModeTabDescriptionId(@Nonnull ResourceLocation resourceLocation) {
+        return Util.makeDescriptionId("itemGroup", resourceLocation);
     }
-    
     @SuppressWarnings("null")
-    public static String getCreativeModeTabDescriptionId(@Nonnull String namespace, @Nonnull String id) {
-        return getCreativeModeTabDescriptionId(ResourceLocation.fromNamespaceAndPath(namespace, id));
+    public static String makeCreativeModeTabDescriptionId(@Nonnull CreativeModeTab creativeModeTab) {
+        return makeCreativeModeTabDescriptionId(BuiltInRegistries.CREATIVE_MODE_TAB.getKey(creativeModeTab));
     }
-    public static String getCreativeModeTabDescriptionId(@Nonnull ResourceLocation resourceLocation) {
-        return Util.makeDescriptionId("creative_mode_tab", resourceLocation);
+    @SuppressWarnings("null")
+    public static String makeCreativeModeTabDescriptionId(@Nonnull String namespace, @Nonnull String id) {
+        return makeCreativeModeTabDescriptionId(ResourceLocation.fromNamespaceAndPath(namespace, id));
     }
 
     public static boolean checkEmptyforComponent(Component component) {
@@ -85,20 +90,20 @@ public final class RCUtil {
         }
     }
 
-    public static <T, R> Result invokeMethodFromInstance(T instance, Class<?> beCalled, String name,
-        Class<R> resultType, List<Class<?>> argTypes, List<Object> args) throws Throwable {
-        MethodHandles.Lookup lookup;
-        try {
-            lookup = MethodHandles.privateLookupIn(beCalled, MethodHandles.lookup());
-        } catch (IllegalAccessException exception) {
-            return Result.empty();
-        }
-
+    private static final Map<Method, MethodHandle> METHOD_HANDLE_CACHE = new HashMap<>();
+    public static <T> Result invokeMethod(T instance, Class<?> beCalled, Method method,
+        List<Object> args) throws Throwable {
         MethodHandle methodHandle;
-        try {
-            methodHandle = lookup.unreflect(beCalled.getMethod(name, argTypes.toArray(new Class<?>[0])));
-        } catch (Exception exception) {
-            return Result.empty();
+        if (METHOD_HANDLE_CACHE.containsKey(method)) {
+            methodHandle = METHOD_HANDLE_CACHE.get(method);
+        } else {   
+            MethodHandles.Lookup lookup;
+            try {
+                lookup = MethodHandles.privateLookupIn(beCalled, MethodHandles.lookup());
+                methodHandle = lookup.unreflect(method);
+            } catch (Exception exception) {
+                return Result.empty();
+            }
         }
 
         List<Object> argList = new ArrayList<>();
@@ -108,16 +113,47 @@ public final class RCUtil {
             argList.toArray()
         ));
     }
-    public static <T, R> Result invokeMethodFromInstance(T instance, String name,
+    public static <T> Result invokeMethod(T instance, Method method, List<Object> args) throws Throwable {
+        return invokeMethod(instance, instance.getClass(), method, args);
+    }
+    public static <T> Result invokeMethod(T instance, Class<?> beCalled, Method method, Object arg) throws Throwable {
+        return invokeMethod(instance, beCalled, method, List.of(arg));
+    }
+    public static <T> Result invokeMethod(T instance, Method method, Object arg) throws Throwable {
+        return invokeMethod(instance, instance.getClass(), method, arg);
+    }
+
+    public static <T, R> Result invokeMethod(T instance, Class<?> beCalled, String name,
         Class<R> resultType, List<Class<?>> argTypes, List<Object> args) throws Throwable {
-        return invokeMethodFromInstance(instance, instance.getClass(), name, resultType, argTypes, args);
+        Method method;
+        try {
+            method = beCalled.getMethod(name, argTypes.toArray(new Class<?>[0]));
+        } catch (Exception exception) {
+            return Result.empty();
+        }
+
+        return invokeMethod(instance, beCalled, method, args);
     }
-    public static <T, R> Result invokeMethodFromInstance(T instance, Class<?> beCalled, String name,
-        Class<R> resultType, Class<?> argType, List<Object> args) throws Throwable {
-        return invokeMethodFromInstance(instance, beCalled, name, resultType, List.of(argType), args);
+    public static <T, R> Result invokeMethod(T instance, String name,
+        Class<R> resultType, List<Class<?>> argTypes, List<Object> args) throws Throwable {
+        return invokeMethod(instance, instance.getClass(), name, resultType, argTypes, args);
     }
-    public static <T, R> Result invokeMethodFromInstance(T instance, String name,
-        Class<R> resultType, Class<?> argType, List<Object> args) throws Throwable {
-        return invokeMethodFromInstance(instance, instance.getClass(), name, resultType, argType, args);
+    public static <T, R> Result invokeMethod(T instance, Class<?> beCalled, String name,
+        Class<R> resultType, Class<?> argType, Object arg) throws Throwable {
+        return invokeMethod(instance, beCalled, name, resultType, List.of(argType), List.of(arg));
+    }
+    public static <T, R> Result invokeMethod(T instance, String name,
+        Class<R> resultType, Class<?> argType, Object arg) throws Throwable {
+        return invokeMethod(instance, instance.getClass(), name, resultType, argType, arg);
+    }
+
+    public static class ItemStackList extends ArrayList<ItemStack> {
+        @SuppressWarnings("null")
+        public void sort() {
+            sort(Comparator.comparing(
+                    (ItemStack stack) -> BuiltInRegistries.ITEM.getKey(stack.getItem()).toString()
+                ).thenComparing(Comparator.comparingInt(ItemStack::getCount).reversed())
+            );
+        }
     }
 }
