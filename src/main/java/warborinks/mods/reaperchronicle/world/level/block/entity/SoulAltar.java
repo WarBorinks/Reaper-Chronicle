@@ -32,7 +32,6 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import warborinks.mods.reaperchronicle.ReaperChronicle;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 import warborinks.mods.reaperchronicle.util.ItemStackList;
 import warborinks.mods.reaperchronicle.world.inventory.SoulAltarMenu;
@@ -370,7 +369,6 @@ public class SoulAltar extends BlockEntity implements MenuProvider {
     @SuppressWarnings("null")
     private boolean consumeIngredients(ItemStackList available, List<Ingredient> needed,
         boolean crystal, boolean reaper, boolean simulate) {
-        ReaperChronicle.LOGGER.info("check input list {}", available);
         List<ItemStack> stacks = available.stream()
             .map(ItemStack::copy)
             .collect(Collectors.toList());

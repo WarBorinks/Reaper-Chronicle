@@ -11,6 +11,7 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 import warborinks.mods.reaperchronicle.data.recipes.ReaperRecipeBuilder;
@@ -29,6 +30,11 @@ public final class RCRecipeProvider extends RecipeProvider {
         ReaperRecipeBuilder.crystal(CrystalItems.EMPTY_CRYSTAL.get())
             .addOther(RCItems.NETHER_DEBRIS.get(), 9)
             .unlockedBy("has_" + RCRegistryNames.Items.NETEHR_DEBRIS, has(RCItems.NETHER_DEBRIS.get()))
+            .save(recipeOutput);
+        ReaperRecipeBuilder.crystal(CrystalItems.WATER_CRYSTAL.get())
+            .addCrystal(CrystalItems.EMPTY_CRYSTAL.get(), 1)
+            .addOther(Items.WATER_BUCKET, 1)
+            .unlockedBy("has_" + RCRegistryNames.Items.EMPTY_CRYSTAL, has(CrystalItems.EMPTY_CRYSTAL.get()))
             .save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RCBlockItems.NETHER_SOIL.get())

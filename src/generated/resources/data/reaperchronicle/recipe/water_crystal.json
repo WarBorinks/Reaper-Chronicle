@@ -1,0 +1,26 @@
+{
+  "type": "reaperchronicle:reaper",
+  "crystals": [
+    {
+      "type": "reaperchronicle:reaper",
+      "value": {
+        "count": 1,
+        "item": "reaperchronicle:empty_crystal"
+      }
+    }
+  ],
+  "others": [
+    {
+      "type": "reaperchronicle:reaper",
+      "value": {
+        "count": 1,
+        "item": "minecraft:water_bucket"
+      }
+    }
+  ],
+  "reapers": [],
+  "result": {
+    "count": 1,
+    "id": "reaperchronicle:water_crystal"
+  }
+}

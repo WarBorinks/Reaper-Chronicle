@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_empty_crystal": {
+      "conditions": {
+        "items": [
+          {
+            "items": "reaperchronicle:empty_crystal"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "reaperchronicle:water_crystal"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_empty_crystal"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "reaperchronicle:water_crystal"
+    ]
+  }
+}
