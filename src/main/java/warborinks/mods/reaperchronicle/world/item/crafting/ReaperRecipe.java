@@ -1,8 +1,10 @@
 package warborinks.mods.reaperchronicle.world.item.crafting;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 
@@ -14,63 +16,107 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import warborinks.mods.reaperchronicle.ReaperChronicle;
 import warborinks.mods.reaperchronicle.world.item.CrystalItem;
 import warborinks.mods.reaperchronicle.world.item.ReaperItem;
 
 public class ReaperRecipe implements Recipe<ReaperRecipeInput> {
     private final String group;
-    private final List<ReaperRecipeIngredient> crystals;
-    private final List<ReaperRecipeIngredient> reapers;
-    private final List<ReaperRecipeIngredient> others;
+    private final List<Ingredient> crystals;
+    private final List<Ingredient> reapers;
+    private final List<Ingredient> others;
     private final ItemStack result;
 
-    public ReaperRecipe(String group, List<ReaperRecipeIngredient> crystals, List<ReaperRecipeIngredient> reapers,
-        List<ReaperRecipeIngredient> others, ItemStack result) {
+    public ReaperRecipe(String group, List<Ingredient> crystals, List<Ingredient> reapers,
+        List<Ingredient> others, ItemStack result) {
         this.group = group;
-        this.crystals = crystals;
-        this.reapers = reapers;
-        this.others = others;
         this.result = result;
+
+        this.crystals = dealInputList(crystals, ing -> {
+            for (ItemStack stack : ing.getItems()) {
+                if (stack.getItem() instanceof CrystalItem) {
+                    return true;
+                }
+            }
+            return false;
+        });
+        this.reapers = dealInputList(reapers, ing -> {
+            for (ItemStack stack : ing.getItems()) {
+                if (stack.getItem() instanceof ReaperItem) {
+                    return true;
+                }
+            }
+            return false;
+        });
+        this.others = dealInputList(others, ing -> {
+            for (ItemStack stack : ing.getItems()) {
+                if (!(stack.getItem() instanceof CrystalItem || stack.getItem() instanceof ReaperItem)) {
+                    return true;
+                }
+            }
+            return false;
+        });
+
+        if (this.getIngredients().size() == 0) {
+            ReaperChronicle.LOGGER.warn("Recipe '{}' has no valid ingredients after filtering", this.result);
+        }
     }
+
+    private static List<Ingredient> dealInputList(List<Ingredient> list,
+        Function<Ingredient, Boolean> checker) {
+        return list
+            .stream()
+            .filter(ing -> ing != null && ing.getCustomIngredient() instanceof ReaperRecipeIngredient && checker.apply(ing))
+            .toList();
+    }
+
 
     @Override
     public boolean matches(@Nonnull ReaperRecipeInput input, @Nonnull Level level) {
-        return checkType(this.crystals, input.getCrystals(), true, false) &&
-               checkType(this.reapers, input.getReapers(), false, true) &&
-               checkType(this.others, input.getOthers(), false, false);
+        if (this.getIngredients().size() == 0) {
+            return false;
+        } else {
+            return checkType(this.crystals, input.getCrystals()) &&
+                   checkType(this.reapers, input.getReapers()) &&
+                   checkType(this.others, input.getOthers());
+        }
     }
 
-    private boolean checkType(List<ReaperRecipeIngredient> required, List<ItemStack> available,
-        boolean mustBeCrystal, boolean mustBeReaper) {
-        List<ItemStack> mutableAvailable = new ArrayList<>();
-        for (ItemStack s : available) {
-            mutableAvailable.add(s.copy());
-        }
-        for (ReaperRecipeIngredient req : required) {
-            int needed = req.count();
-            for (Iterator<ItemStack> it = mutableAvailable.iterator(); it.hasNext() && needed > 0;) {
+    @SuppressWarnings("null")
+    private boolean checkType(List<Ingredient> needed, List<ItemStack> input) {
+        List<ItemStack> stacks = input.stream()
+            .map(ItemStack::copy)
+            .collect(Collectors.toList());
+
+        for (Ingredient ing : needed) {
+            boolean passed = false;
+            for (Iterator<ItemStack> it = stacks.iterator(); it.hasNext(); ) {
                 ItemStack stack = it.next();
-                if (mustBeCrystal && !(stack.getItem() instanceof CrystalItem)) {
-                    continue;
-                } else if (mustBeReaper && !(stack.getItem() instanceof ReaperItem)) {
-                    continue;
-                } else if (!mustBeCrystal && !mustBeReaper) {
-                    if (stack.getItem() instanceof CrystalItem || stack.getItem() instanceof ReaperItem) {
-                        continue;
+                if (ing.test(stack)) {
+                    ItemStack ingStack = Arrays.stream(ing.getItems())
+                        .filter(
+                            itemStack -> ItemStack.isSameItemSameComponents(stack, itemStack) && 
+                                stack.getCount() >= itemStack.getCount() 
+                        ).findFirst().orElse(ItemStack.EMPTY);
+                    stack.shrink(ingStack.getCount());
+
+                    if (stack.isEmpty()) {
+                        it.remove();
                     }
-                }
-                
-                if (req.ingredient().test(stack)) {
-                    int take = Math.min(stack.getCount(), needed);
-                    needed -= take;
-                    stack.shrink(take);
-                    if (stack.isEmpty()) it.remove();
+                    
+                    passed = true;
+                    break;
                 }
             }
-            if (needed > 0) return false;
+
+            if (!passed) {
+                return false;
+            }
         }
+        
         return true;
     }
+
 
     @Override
     public ItemStack assemble(@Nonnull ReaperRecipeInput input, @Nonnull HolderLookup.Provider registries) {
@@ -85,9 +131,9 @@ public class ReaperRecipe implements Recipe<ReaperRecipeInput> {
     @Override
     public NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> list = NonNullList.create();
-        this.crystals.forEach(i -> list.add(i.ingredient()));
-        this.reapers.forEach(i -> list.add(i.ingredient()));
-        this.others.forEach(i -> list.add(i.ingredient()));
+        list.addAll(this.crystals);
+        list.addAll(this.reapers);
+        list.addAll(this.others);
         return list;
     }
 
@@ -111,13 +157,13 @@ public class ReaperRecipe implements Recipe<ReaperRecipeInput> {
         return width * height >= 1;
     }
 
-    public List<ReaperRecipeIngredient> getCrystals() {
+    public List<Ingredient> getCrystals() {
         return this.crystals;
     }
-    public List<ReaperRecipeIngredient> getReapers() {
+    public List<Ingredient> getReapers() {
         return this.reapers;
     }
-    public List<ReaperRecipeIngredient> getOthers() {
+    public List<Ingredient> getOthers() {
         return this.others;
     }
     public ItemStack getResult() {

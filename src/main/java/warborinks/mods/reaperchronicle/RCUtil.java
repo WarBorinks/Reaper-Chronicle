@@ -4,10 +4,13 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
+import java.util.function.Function;
+import java.util.stream.Collector;
 
 import javax.annotation.Nonnull;
 
@@ -18,7 +21,6 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforgespi.language.ModFileScanData;
@@ -146,14 +148,29 @@ public final class RCUtil {
         Class<R> resultType, Class<?> argType, Object arg) throws Throwable {
         return invokeMethod(instance, instance.getClass(), name, resultType, argType, arg);
     }
-
-    public static class ItemStackList extends ArrayList<ItemStack> {
-        @SuppressWarnings("null")
-        public void sort() {
-            sort(Comparator.comparing(
-                    (ItemStack stack) -> BuiltInRegistries.ITEM.getKey(stack.getItem()).toString()
-                ).thenComparing(Comparator.comparingInt(ItemStack::getCount).reversed())
+    public static <T, R, U> Collector<T, Map<R, U>, List<T>> getMergedListCollector(
+            Function<T, R> keyGetter, Function<T, U> valueGetter,
+            BiFunction<U, U, U> add,
+            Function<Map.Entry<R, U>, T> constructor,
+            Function<List<T>, List<T>> finisher
+        ) {
+            return Collector.of(
+                HashMap<R, U>::new,
+                (map, v) -> map.merge(keyGetter.apply(v), valueGetter.apply(v), add),
+                (a, b) -> {
+                    b.forEach((k, v) -> a.merge(k, v, add));
+                    return a;
+                },
+                map -> finisher.apply(map.entrySet().stream()
+                    .map(constructor)
+                    .toList())
             );
         }
+    public static <T, R, U> Collector<T, Map<R, U>, List<T>> getMergedListCollector(
+        Function<T, R> keyGetter, Function<T, U> valueGetter,
+        BiFunction<U, U, U> add,
+        Function<Map.Entry<R, U>, T> constructor
+    ) {
+        return getMergedListCollector(keyGetter, valueGetter, add, constructor, Collections::unmodifiableList);
     }
 }

@@ -10,9 +10,9 @@ import warborinks.mods.reaperchronicle.world.level.block.RCBlocks;
 
 @SuppressWarnings("null")
 public final class RCBlockItems {
-    private static final DeferredRegister<Item> REGISTRAR = RCDeferredRegisters.ITEM;
+    private static final DeferredRegister<Item> REGISTER = RCDeferredRegisters.ITEM;
 
-    public static final DeferredHolder<Item, BlockItem> NETHER_SAND = REGISTRAR.register(
+    public static final DeferredHolder<Item, BlockItem> NETHER_SAND = REGISTER.register(
         RCRegistryNames.Items.NETHER_SAND,
         () -> new BlockItem(
             RCBlocks.NETHER_SAND.get(),
@@ -20,7 +20,7 @@ public final class RCBlockItems {
         )
     );
     
-    public static final DeferredHolder<Item, BlockItem> NETHER_SOIL = REGISTRAR.register(
+    public static final DeferredHolder<Item, BlockItem> NETHER_SOIL = REGISTER.register(
         RCRegistryNames.Items.NETHER_SOIL,
         () -> new BlockItem(
             RCBlocks.NETHER_SOIL.get(),
@@ -28,7 +28,7 @@ public final class RCBlockItems {
         )
     );
 
-    public static final DeferredHolder<Item, BlockItem> SOUL_ALTAR = REGISTRAR.register(
+    public static final DeferredHolder<Item, BlockItem> SOUL_ALTAR = REGISTER.register(
         RCRegistryNames.Items.SOUL_ALTAR,
         () -> new BlockItem(
             RCBlocks.SOUL_ALTAR.get(),

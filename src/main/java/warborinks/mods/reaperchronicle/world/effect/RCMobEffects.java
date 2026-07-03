@@ -8,9 +8,9 @@ import warborinks.mods.reaperchronicle.core.registries.RCDeferredRegisters;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 
 public final class RCMobEffects {
-    private static final DeferredRegister<MobEffect> REGISTRAR = RCDeferredRegisters.MOB_EFFECT;
+    private static final DeferredRegister<MobEffect> REGISTER = RCDeferredRegisters.MOB_EFFECT;
 
-    public static final DeferredHolder<MobEffect, NetherPoison> NETHER_POISON = REGISTRAR.register(
+    public static final DeferredHolder<MobEffect, NetherPoison> NETHER_POISON = REGISTER.register(
         RCRegistryNames.MobEffects.NETHER_POISON,
         () -> new NetherPoison(MobEffectCategory.HARMFUL, 0x03020c)
 

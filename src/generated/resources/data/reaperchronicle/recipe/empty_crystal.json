@@ -3,8 +3,9 @@
   "crystals": [],
   "others": [
     {
-      "count": 9,
-      "ingredient": {
+      "type": "reaperchronicle:reaper",
+      "value": {
+        "count": 9,
         "item": "reaperchronicle:nether_debris"
       }
     }

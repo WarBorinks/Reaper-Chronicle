@@ -8,9 +8,9 @@ import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 import warborinks.mods.reaperchronicle.world.reaper.Reapers;
 
 public final class ReaperItems {
-    private static final DeferredRegister<Item> REGISTRAR = RCDeferredRegisters.ITEM;
+    private static final DeferredRegister<Item> REGISTER = RCDeferredRegisters.ITEM;
 
-    public static final DeferredHolder<Item, ReaperItem> COMMON_REAPER = REGISTRAR.register(
+    public static final DeferredHolder<Item, ReaperItem> COMMON_REAPER = REGISTER.register(
         RCRegistryNames.Items.COMMON_REAPER,
         () -> new ReaperItem(
             Reapers.COMMON_REAPER,

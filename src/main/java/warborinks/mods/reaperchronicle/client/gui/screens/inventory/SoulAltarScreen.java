@@ -101,8 +101,13 @@ public class SoulAltarScreen extends AbstractContainerScreen<SoulAltarMenu> {
         if (slot instanceof SoulAltarMenu.DisplaySlot) {
             long now = Util.getMillis();
             this.doubleclick = this.lastClickSlot == slot && now - this.lastClickTime < 250L;
-            this.lastClickSlot = slot;
-            this.lastClickTime = now;
+            if (this.doubleclick) {
+                this.lastClickTime = 0L;
+                this.lastClickSlot = null;
+            } else {
+                this.lastClickSlot = slot;
+                this.lastClickTime = now;
+            }
             
             return true;
         }
@@ -124,7 +129,6 @@ public class SoulAltarScreen extends AbstractContainerScreen<SoulAltarMenu> {
             }
             
             this.doubleclick = false;
-            this.lastClickTime = 0L;
         }
 
         return super.mouseReleased(mouseX, mouseY, button);
@@ -199,6 +203,7 @@ public class SoulAltarScreen extends AbstractContainerScreen<SoulAltarMenu> {
             }
         }
     
+        @SuppressWarnings("null")
         private boolean isPageShiftPossible() {
             SoulAltar soulAltar = this.screen.getMenu().getSoulAltar();
             int maxPage = soulAltar.getMaxPageForType(type);

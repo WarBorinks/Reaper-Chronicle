@@ -8,9 +8,9 @@ import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 
 @SuppressWarnings("null")
 public final class RCItems {
-    private static final DeferredRegister<Item> REGISTRAR = RCDeferredRegisters.ITEM;
+    private static final DeferredRegister<Item> REGISTER = RCDeferredRegisters.ITEM;
 
-    public static final DeferredHolder<Item, Item> NETHER_DEBRIS = REGISTRAR.register(
+    public static final DeferredHolder<Item, Item> NETHER_DEBRIS = REGISTER.register(
         RCRegistryNames.Items.NETEHR_DEBRIS,
         () -> new Item(
             new Item.Properties()

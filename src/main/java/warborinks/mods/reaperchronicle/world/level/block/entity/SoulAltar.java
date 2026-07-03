@@ -1,9 +1,9 @@
 package warborinks.mods.reaperchronicle.world.level.block.entity;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
@@ -32,14 +32,14 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import warborinks.mods.reaperchronicle.RCUtil.ItemStackList;
+import warborinks.mods.reaperchronicle.ReaperChronicle;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
+import warborinks.mods.reaperchronicle.util.ItemStackList;
 import warborinks.mods.reaperchronicle.world.inventory.SoulAltarMenu;
 import warborinks.mods.reaperchronicle.world.item.CrystalItem;
 import warborinks.mods.reaperchronicle.world.item.ReaperItem;
 import warborinks.mods.reaperchronicle.world.item.crafting.RCRecipeTypes;
 import warborinks.mods.reaperchronicle.world.item.crafting.ReaperRecipe;
-import warborinks.mods.reaperchronicle.world.item.crafting.ReaperRecipeIngredient;
 import warborinks.mods.reaperchronicle.world.item.crafting.ReaperRecipeInput;
 
 public class SoulAltar extends BlockEntity implements MenuProvider {
@@ -114,7 +114,7 @@ public class SoulAltar extends BlockEntity implements MenuProvider {
         }
     }
 
-    public ItemStackList getListForType(ListType type) {
+    public ItemStackList getListForType(@Nonnull ListType type) {
         return switch (type) {
             case CRYSTAL -> this.crystals;
             case REAPER  -> this.reapers;
@@ -122,7 +122,7 @@ public class SoulAltar extends BlockEntity implements MenuProvider {
         };
     }
 
-    public int getPageForType(ListType type) {
+    public int getPageForType(@Nonnull ListType type) {
         return switch (type) {
             case CRYSTAL -> this.crystalPage;
             case REAPER  -> this.reaperPage;
@@ -130,7 +130,7 @@ public class SoulAltar extends BlockEntity implements MenuProvider {
         };
     }
 
-    public List<ItemStack> getPageItems(ListType type) {
+    public List<ItemStack> getPageItems(@Nonnull ListType type) {
         ItemStackList list = this.getListForType(type);
         int page = this.getPageForType(type);
         int from = page * ITEMS_PER_PAGE;
@@ -142,7 +142,7 @@ public class SoulAltar extends BlockEntity implements MenuProvider {
         return Collections.unmodifiableList(list.subList(from, to));
     }
 
-    public void shiftPage(ListType type, boolean right) {
+    public void shiftPage(@Nonnull ListType type, boolean right) {
         int maxPage = this.getMaxPageForType(type);
         int current = this.getPageForType(type);
 
@@ -162,17 +162,17 @@ public class SoulAltar extends BlockEntity implements MenuProvider {
         this.sortListForType(ListType.OTHER);
     }
 
-    private void sortListForType(ListType type) {
+    private void sortListForType(@Nonnull ListType type) {
         ItemStackList list = this.getListForType(type);
         list.sort();
         this.setPage(type, 0);
     }
 
-    public int getMaxPageForType(ListType type) {
+    public int getMaxPageForType(@Nonnull ListType type) {
         return this.getPageForIndex(this.getListForType(type).size() - 1);
     }
 
-    private void setPage(ListType type, int page) {
+    private void setPage(@Nonnull ListType type, int page) {
         switch (type) {
             case CRYSTAL -> this.crystalPage = page;
             case REAPER  -> this.reaperPage  = page;
@@ -201,10 +201,7 @@ public class SoulAltar extends BlockEntity implements MenuProvider {
         }
 
         RecipeManager manager = level.getRecipeManager();
-        ReaperRecipeInput input = new ReaperRecipeInput(
-                Collections.unmodifiableList(crystals),
-                Collections.unmodifiableList(reapers),
-                Collections.unmodifiableList(others));
+        ReaperRecipeInput input = new ReaperRecipeInput(this.crystals, this.reapers, this.others);
         manager.getRecipeFor(RCRecipeTypes.REAPER_RECIPE.get(), input, level)
                 .ifPresentOrElse(holder -> {
                     this.cache = holder;
@@ -218,7 +215,7 @@ public class SoulAltar extends BlockEntity implements MenuProvider {
     }
 
     @SuppressWarnings("null")
-    public void insertItem(ItemStack stack) {
+    public void insertItem(@Nonnull ItemStack stack) {
         if (stack.isEmpty()) {
             return;
         }
@@ -256,7 +253,7 @@ public class SoulAltar extends BlockEntity implements MenuProvider {
         }
     }
 
-    public ItemStack extractItem(ListType type, int index, int amount, boolean simulate) {
+    public ItemStack extractItem(@Nonnull ListType type, int index, int amount, boolean simulate) {
         ItemStackList list = this.getListForType(type);
         if (index < 0 || index >= list.size()) {
             return ItemStack.EMPTY;
@@ -285,7 +282,7 @@ public class SoulAltar extends BlockEntity implements MenuProvider {
         return result;
     }
 
-    private void clampPage(ListType type) {
+    private void clampPage(@Nonnull ListType type) {
         int max = this.getMaxPageForType(type);
         switch (type) {
             case CRYSTAL -> this.crystalPage = Math.min(this.crystalPage, max);
@@ -294,7 +291,7 @@ public class SoulAltar extends BlockEntity implements MenuProvider {
         }
     }
 
-    public ItemStack extractFromDisplaySlot(ListType type, int slotIndex, int amount, boolean simulate) {
+    public ItemStack extractFromDisplaySlot(@Nonnull ListType type, int slotIndex, int amount, boolean simulate) {
         int index = this.getIndexForPage(this.getPageForType(type), slotIndex);
         return extractItem(type, index, amount, simulate);
     }
@@ -302,7 +299,7 @@ public class SoulAltar extends BlockEntity implements MenuProvider {
     @SuppressWarnings("null")
     public ItemStack craftOne() {
         if (!this.recipeValid || this.cache == null || level == null) {
-            return null;
+            return ItemStack.EMPTY;
         }
 
         ReaperRecipe recipe = this.cache.value();
@@ -310,7 +307,7 @@ public class SoulAltar extends BlockEntity implements MenuProvider {
             this.updateRecipe();
 
             if (!this.recipeValid) {
-                return null;
+                return ItemStack.EMPTY;
             }
 
             recipe = this.cache.value();
@@ -319,7 +316,7 @@ public class SoulAltar extends BlockEntity implements MenuProvider {
         if (!this.consumeIngredients(this.crystals, recipe.getCrystals(), true, false, true) ||
             !this.consumeIngredients(this.reapers, recipe.getReapers(), false, true, true) ||
             !this.consumeIngredients(this.others, recipe.getOthers(), false, false, true)) {
-            return null;
+            return ItemStack.EMPTY;
         }
 
         this.consumeIngredients(this.crystals, recipe.getCrystals(), true, false, false);
@@ -371,65 +368,52 @@ public class SoulAltar extends BlockEntity implements MenuProvider {
     }
 
     @SuppressWarnings("null")
-    private boolean consumeIngredients(ItemStackList available, List<ReaperRecipeIngredient> required,
+    private boolean consumeIngredients(ItemStackList available, List<Ingredient> needed,
         boolean crystal, boolean reaper, boolean simulate) {
-        List<ItemStack> mutable = available.stream()
+        ReaperChronicle.LOGGER.info("check input list {}", available);
+        List<ItemStack> stacks = available.stream()
             .map(ItemStack::copy)
-            .toList();
-
-        Map<Ingredient, Integer> needed = required.stream()
-            .collect(Collectors.toMap(
-                ReaperRecipeIngredient::ingredient,
-                ReaperRecipeIngredient::count,
-                Integer::sum
-            ));
-
-        for (Iterator<ItemStack> it = mutable.iterator(); it.hasNext(); ) {
-            ItemStack stack = it.next();
-            if (!this.checkType(stack.getItem(), crystal, reaper)) {
-                continue;
-            }
-
-            for (Map.Entry<Ingredient, Integer> entry : needed.entrySet()) {
-                if (entry.getValue() <= 0) {
-                    continue;
-                }
-
-                if (entry.getKey().test(stack)) {
-                    int take = Math.min(stack.getCount(), entry.getValue());
-                    entry.setValue(entry.getValue() - take);
-                    stack.shrink(take);
-
+            .collect(Collectors.toList());
+        
+        boolean passed = true;
+        for (Ingredient ing : needed) {
+            boolean passedOne = false;
+            for (Iterator<ItemStack> it = stacks.iterator(); it.hasNext(); ) {
+                ItemStack stack = it.next();
+                if (ing.test(stack)) {
+                    ItemStack ingStack = Arrays.stream(ing.getItems())
+                        .filter(
+                            itemStack -> ItemStack.isSameItemSameComponents(stack, itemStack) && 
+                                stack.getCount() >= itemStack.getCount() 
+                        ).findFirst().orElse(ItemStack.EMPTY);
+                    stack.shrink(ingStack.getCount());
+                    
                     if (stack.isEmpty()) {
                         it.remove();
                     }
 
+                    passedOne = true;
                     break;
                 }
             }
+
+            if (!passedOne) {
+                passed = false;
+                break;
+            }
         }
 
-        if (needed.values().stream().anyMatch(v -> v > 0)) {
+        if (!passed) {
             return false;
         }
 
         if (!simulate) {
             available.clear();
-            available.addAll(mutable);
+            available.addAll(stacks);
             available.removeIf(ItemStack::isEmpty);
         }
 
         return true;
-    }
-
-    private boolean checkType(Item item, boolean crystal, boolean reaper) {
-        if (crystal) {
-            return item instanceof CrystalItem;
-        } else if (reaper) {
-            return item instanceof ReaperItem;
-        } else {
-            return !(item instanceof CrystalItem) && !(item instanceof ReaperItem);
-        }
     }
 
     @Override

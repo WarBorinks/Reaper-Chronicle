@@ -9,9 +9,9 @@ import warborinks.mods.reaperchronicle.world.level.block.RCBlocks;
 
 @SuppressWarnings("null")
 public final class RCBlockEntityTypes {
-    private static final DeferredRegister<BlockEntityType<?>> REGISTRAR = RCDeferredRegisters.BLOCK_ENTITY_TYPE;
+    private static final DeferredRegister<BlockEntityType<?>> REGISTER = RCDeferredRegisters.BLOCK_ENTITY_TYPE;
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SoulAltar>> SOUL_ALTAR = REGISTRAR.register(
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SoulAltar>> SOUL_ALTAR = REGISTER.register(
         RCRegistryNames.BlockEntityTypes.SOUL_ALTAR,
         () -> BlockEntityType.Builder.of(
             SoulAltar::new,

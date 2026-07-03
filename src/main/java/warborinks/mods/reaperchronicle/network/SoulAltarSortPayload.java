@@ -16,9 +16,8 @@ public record SoulAltarSortPayload() implements CustomPacketPayload {
             ReaperChronicle.MODID, RCPacketPayloadNames.SoulAltar.SORT
         ));
     
-    public static final StreamCodec<FriendlyByteBuf, SoulAltarSortPayload> STREAM_CODEC = StreamCodec.of(
-        (buf, payload) -> {},
-        buf -> new SoulAltarSortPayload()
+    public static final StreamCodec<FriendlyByteBuf, SoulAltarSortPayload> STREAM_CODEC = StreamCodec.unit(
+        new SoulAltarSortPayload()
     );
 
     public static void handle(final SoulAltarSortPayload payload, final IPayloadContext context) {

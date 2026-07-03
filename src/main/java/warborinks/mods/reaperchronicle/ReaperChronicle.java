@@ -25,6 +25,6 @@ public final class ReaperChronicle {
         EVENT_BUS = bus;
         CONTAINER = container;
         
-        RCDeferredRegisters.register(bus);
+        RCDeferredRegisters.register();
     }
 }

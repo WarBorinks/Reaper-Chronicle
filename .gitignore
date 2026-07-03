@@ -5,3 +5,6 @@
 bin/
 build/
 run/
+
+hs_err_pid2632.log
+replay_pid2632.log

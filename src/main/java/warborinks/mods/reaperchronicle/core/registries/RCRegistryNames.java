@@ -38,6 +38,10 @@ public final class RCRegistryNames {
         @Nonnull public static final String TEXT_INDEX = "text_index";
     }
 
+    public static final class IngredientTypes {
+        @Nonnull public static final String REAPER = RecipeTypes.REAPER;
+    }
+
     public static final class Items {
         @Nonnull public static final String COMMON_REAPER = Reapers.COMMON_REAPER;
         @Nonnull public static final String EMPTY_CRYSTAL = Crystals.EMPTY_CRYSTAL;

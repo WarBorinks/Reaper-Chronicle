@@ -20,13 +20,13 @@ public final class RCSoundDefinitionsProvider extends SoundDefinitionsProvider {
     }
 
     @SuppressWarnings("null")
-    private SoundDefinition.Sound[] createSounds(String name, Integer amount) {
+    private SoundDefinition.Sound[] createSounds(String name, int amount) {
         List<String> t = Arrays.asList(name.split("\\."));
         String path = String.join("/", t.toArray(new String[0])) + "/" + t.getLast();
         List<SoundDefinition.Sound> resList = new ArrayList<>();
         for (int num = 1; num <= amount; num++) {
             resList.add(
-                sound(ResourceLocation.fromNamespaceAndPath(ReaperChronicle.MODID, path + ((Integer) num).toString()))
+                sound(ResourceLocation.fromNamespaceAndPath(ReaperChronicle.MODID, path + num))
             );
         }
         return resList.toArray(new SoundDefinition.Sound[0]);

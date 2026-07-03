@@ -12,7 +12,9 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.common.crafting.IngredientType;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import warborinks.mods.reaperchronicle.ReaperChronicle;
 import warborinks.mods.reaperchronicle.core.component.RCDataComponentTypes;
 import warborinks.mods.reaperchronicle.sounds.RCSoundEvents;
@@ -20,6 +22,7 @@ import warborinks.mods.reaperchronicle.world.effect.RCMobEffects;
 import warborinks.mods.reaperchronicle.world.inventory.RCMenuTypes;
 import warborinks.mods.reaperchronicle.world.item.RCCreativeModeTabs;
 import warborinks.mods.reaperchronicle.world.item.RCItems;
+import warborinks.mods.reaperchronicle.world.item.crafting.RCIngredientTypes;
 import warborinks.mods.reaperchronicle.world.item.crafting.RCRecipeSerializers;
 import warborinks.mods.reaperchronicle.world.item.crafting.RCRecipeTypes;
 import warborinks.mods.reaperchronicle.world.level.block.RCBlocks;
@@ -55,6 +58,11 @@ public final class RCDeferredRegisters {
 
     public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPE = DeferredRegister.create(
         BuiltInRegistries.DATA_COMPONENT_TYPE,
+        ReaperChronicle.MODID
+    );
+
+    public static final DeferredRegister<IngredientType<?>> INGREDIENT_TYPE = DeferredRegister.create(
+        NeoForgeRegistries.INGREDIENT_TYPES,
         ReaperChronicle.MODID
     );
 
@@ -98,7 +106,9 @@ public final class RCDeferredRegisters {
         ReaperChronicle.MODID
     );
 
-    public static void register(IEventBus bus) {
+    public static void register() {
+        IEventBus bus = ReaperChronicle.EVENT_BUS;
+
         Crystals.load();
         Reapers.load();
         ReaperAttributes.load();
@@ -107,6 +117,7 @@ public final class RCDeferredRegisters {
         RCBlockEntityTypes.load();
         RCCreativeModeTabs.load();
         RCDataComponentTypes.load();
+        RCIngredientTypes.load();
         RCItems.load();
         RCMenuTypes.load();
         RCMobEffects.load();
@@ -119,6 +130,7 @@ public final class RCDeferredRegisters {
         CREATIVE_MODE_TAB.register(bus);
         CRYSTAL.register(bus);
         DATA_COMPONENT_TYPE.register(bus);
+        INGREDIENT_TYPE.register(bus);
         ITEM.register(bus);
         MENU_TYPE.register(bus);
         MOB_EFFECT.register(bus);

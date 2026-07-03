@@ -10,9 +10,9 @@ import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 
 @SuppressWarnings("null")
 public final class RCDataComponentTypes {
-    private static final DeferredRegister<DataComponentType<?>> REGISTRAR = RCDeferredRegisters.DATA_COMPONENT_TYPE;
+    private static final DeferredRegister<DataComponentType<?>> REGISTER = RCDeferredRegisters.DATA_COMPONENT_TYPE;
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> TEXT_INDEX = REGISTRAR.register(
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> TEXT_INDEX = REGISTER.register(
         RCRegistryNames.DataComponentTypes.TEXT_INDEX,
         () -> new DataComponentType.Builder<Integer>()
             .persistent(ExtraCodecs.NON_NEGATIVE_INT)

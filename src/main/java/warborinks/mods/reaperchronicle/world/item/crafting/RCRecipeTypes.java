@@ -10,9 +10,9 @@ import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 
 @SuppressWarnings("null")
 public final class RCRecipeTypes {
-    private static final DeferredRegister<RecipeType<?>> REGISTRAR = RCDeferredRegisters.RECIPE_TYPE;
+    private static final DeferredRegister<RecipeType<?>> REGISTER = RCDeferredRegisters.RECIPE_TYPE;
 
-    public static final DeferredHolder<RecipeType<?>, RecipeType<ReaperRecipe>> REAPER_RECIPE = REGISTRAR.register(
+    public static final DeferredHolder<RecipeType<?>, RecipeType<ReaperRecipe>> REAPER_RECIPE = REGISTER.register(
         RCRegistryNames.RecipeTypes.REAPER,
         () -> RecipeType.simple(ResourceLocation.fromNamespaceAndPath(
             ReaperChronicle.MODID, RCRegistryNames.RecipeTypes.REAPER

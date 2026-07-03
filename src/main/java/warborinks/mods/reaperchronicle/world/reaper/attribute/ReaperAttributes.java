@@ -6,14 +6,14 @@ import warborinks.mods.reaperchronicle.core.registries.RCDeferredRegisters;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 
 public final class ReaperAttributes {
-    private static final DeferredRegister<ReaperAttribute> REGISTRAR = RCDeferredRegisters.REAPER_ATTRIBUTE;
+    private static final DeferredRegister<ReaperAttribute> REGISTER = RCDeferredRegisters.REAPER_ATTRIBUTE;
 
-    public static final DeferredHolder<ReaperAttribute, ReaperAttribute> EMPTY_ATTRIBUTE = REGISTRAR.register(
+    public static final DeferredHolder<ReaperAttribute, ReaperAttribute> EMPTY_ATTRIBUTE = REGISTER.register(
         RCRegistryNames.ReaperAttributes.EMPTY_ATTRIBUTE,
         () -> new ReaperAttribute(0xffffff)
     );
 
-    public static final DeferredHolder<ReaperAttribute, ReaperAttribute> WATER_ATTRIBUTE = REGISTRAR.register(
+    public static final DeferredHolder<ReaperAttribute, ReaperAttribute> WATER_ATTRIBUTE = REGISTER.register(
         RCRegistryNames.ReaperAttributes.WATER_ATTRIBUTE,
         () -> new ReaperAttribute(0x0000ff)
     );

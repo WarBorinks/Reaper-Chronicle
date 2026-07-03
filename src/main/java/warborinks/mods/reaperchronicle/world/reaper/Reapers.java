@@ -13,9 +13,9 @@ import warborinks.mods.reaperchronicle.core.registries.RCDeferredRegisters;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 
 public final class Reapers {
-    private static final DeferredRegister<Reaper> REGISTRAR = RCDeferredRegisters.REAPER;
+    private static final DeferredRegister<Reaper> REGISTER = RCDeferredRegisters.REAPER;
 
-    public static final DeferredHolder<Reaper, Reaper> COMMON_REAPER = REGISTRAR.register(
+    public static final DeferredHolder<Reaper, Reaper> COMMON_REAPER = REGISTER.register(
         RCRegistryNames.Reapers.COMMON_REAPER,
         () -> new Reaper("", 2.0, 0.0) {
             public void onReap(LivingEntity target, LivingEntity attacker, ItemStack stack) {}

@@ -84,11 +84,13 @@ public class SoulAltarMenu extends AbstractContainerMenu {
 
         broadcastChanges();
     }
-    public void handleShiftPage(SoulAltar.ListType type, boolean right) {
+    public void handleShiftPage(@Nonnull SoulAltar.ListType type, boolean right) {
         this.soulAltar.shiftPage(type, right);
+        broadcastChanges();
     }
     public void handleSort() {
         this.soulAltar.sort();
+        broadcastChanges();
     }
 
     @Override
@@ -177,6 +179,11 @@ public class SoulAltarMenu extends AbstractContainerMenu {
         public boolean hasItem() {
             return false;
         }
+
+        @Override
+        public boolean mayPickup(@Nonnull Player player) {
+            return false;
+        }
     }
 
     public static final class DisplaySlot extends Slot {
@@ -199,6 +206,7 @@ public class SoulAltarMenu extends AbstractContainerMenu {
         }
 
         @Override
+        @SuppressWarnings("null")
         public ItemStack getItem() {
             List<ItemStack> pageItems = this.soulAltar.getPageItems(this.type);
             return this.index < pageItems.size() ? pageItems.get(this.index).copy() : ItemStack.EMPTY;
@@ -210,6 +218,7 @@ public class SoulAltarMenu extends AbstractContainerMenu {
         }
 
         @Override
+        @SuppressWarnings("null")
         public boolean mayPickup(@Nonnull Player player) {
             return this.index < this.soulAltar.getPageItems(this.type).size();
         }
@@ -243,13 +252,12 @@ public class SoulAltarMenu extends AbstractContainerMenu {
         }
 
         @Override
-        public void onTake(@Nonnull Player player, @Nonnull ItemStack stack) {
-            if (!player.level().isClientSide()) {
-                ItemStack result = this.soulAltar.craftOne();
-                if (result != null) {
-                    player.getInventory().placeItemBackInInventory(result);
-                }
+        public ItemStack remove(int amount) {
+            if (!this.hasItem()) {
+                return ItemStack.EMPTY;
             }
+            
+            return this.soulAltar.craftOne();
         }
 
         @Override

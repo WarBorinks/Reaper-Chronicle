@@ -31,9 +31,9 @@ import warborinks.mods.reaperchronicle.world.reaper.Reaper;
 import warborinks.mods.reaperchronicle.world.reaper.crystal.Crystal;
 
 public final class ReaperRecipeBuilder implements RecipeBuilder {
-    private final List<ReaperRecipeIngredient> crystals = new ArrayList<>();
-    private final List<ReaperRecipeIngredient> reapers = new ArrayList<>();
-    private final List<ReaperRecipeIngredient> others = new ArrayList<>();
+    private final List<Ingredient> crystals = new ArrayList<>();
+    private final List<Ingredient> reapers = new ArrayList<>();
+    private final List<Ingredient> others = new ArrayList<>();
     private final ItemStack result;
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
     private String group = "";
@@ -70,38 +70,51 @@ public final class ReaperRecipeBuilder implements RecipeBuilder {
         return new ReaperRecipeBuilder(new ItemStack(reaper, count));
     }
 
+    @SuppressWarnings("null")
     public ReaperRecipeBuilder addCrystal(ItemLike item, int count) {
-        if (item instanceof CrystalItem crystalItem) {
-            this.crystals.add(new ReaperRecipeIngredient(Ingredient.of(crystalItem), count));
-        } else if (item instanceof Crystal crystal) {
-            this.crystals.add(new ReaperRecipeIngredient(Ingredient.of(crystal), count));
+        if (item instanceof CrystalItem || item instanceof Crystal) {
+            this.crystals.add(new Ingredient(ReaperRecipeIngredient.of(item, count)));
         }
         return this;
     }
-    public ReaperRecipeBuilder addCrystal(@Nonnull TagKey<Item> crystal, int count) {
-        this.crystals.add(new ReaperRecipeIngredient(Ingredient.of(crystal), count));
+    @SuppressWarnings("null")
+    public ReaperRecipeBuilder addCrystal(@Nonnull TagKey<Item> tag, int count) {
+        this.crystals.add(new Ingredient(ReaperRecipeIngredient.of(tag, count)));
         return this;
     }
 
+    @SuppressWarnings("null")
     public ReaperRecipeBuilder addReaper(ItemLike item, int count) {
-        if (item instanceof ReaperItem reaperItem) {
-            this.reapers.add(new ReaperRecipeIngredient(Ingredient.of(reaperItem), count));
-        } else if (item instanceof Reaper reaper) {
-            this.reapers.add(new ReaperRecipeIngredient(Ingredient.of(reaper), count));
+        if (item instanceof ReaperItem || item instanceof Reaper) {
+            this.reapers.add(new Ingredient(ReaperRecipeIngredient.of(item, count)));
         }
         return this;
     }
-    public ReaperRecipeBuilder addReaper(@Nonnull TagKey<Item> reaper, int count) {
-        this.reapers.add(new ReaperRecipeIngredient(Ingredient.of(reaper), count));
+    @SuppressWarnings("null")
+    public ReaperRecipeBuilder addReaper(@Nonnull TagKey<Item> tag, int count) {
+        this.reapers.add(new Ingredient(ReaperRecipeIngredient.of(tag, count)));
         return this;
     }
 
+    @SuppressWarnings("null")
     public ReaperRecipeBuilder addOther(ItemLike item, int count) {
-        this.others.add(new ReaperRecipeIngredient(Ingredient.of(item), count));
+        if (!(item instanceof ReaperItem) && !(item instanceof Reaper)) {
+            this.others.add(new Ingredient(ReaperRecipeIngredient.of(item, count)));
+        }
         return this;
     }
-    public ReaperRecipeBuilder addOther(@Nonnull TagKey<Item> item, int count) {
-        this.others.add(new ReaperRecipeIngredient(Ingredient.of(item), count));
+    @SuppressWarnings("null")
+    public ReaperRecipeBuilder addOther(@Nonnull TagKey<Item> tag, int count) {
+        this.others.add(new Ingredient(ReaperRecipeIngredient.of(tag, count)));
+        return this;
+    }
+
+    public ReaperRecipeBuilder add(@Nonnull Ingredient ingredient) {
+        if (ingredient.getCustomIngredient() instanceof ReaperRecipeIngredient) {
+            this.crystals.add(ingredient);
+            this.reapers.add(ingredient);
+            this.others.add(ingredient);
+        }
         return this;
     }
     
@@ -129,7 +142,7 @@ public final class ReaperRecipeBuilder implements RecipeBuilder {
             .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
             .rewards(AdvancementRewards.Builder.recipe(id))
             .requirements(AdvancementRequirements.Strategy.OR);
-        criteria.forEach(adv::addCriterion);
+        this.criteria.forEach(adv::addCriterion);
         ReaperRecipe recipe = new ReaperRecipe(this.group, this.crystals, this.reapers, this.others, this.result);
         output.accept(id, recipe, adv.build(id.withPrefix(
             "recipes/" + ReaperChronicle.MODID + "/" + RCRegistryNames.RecipeTypes.REAPER + "/"

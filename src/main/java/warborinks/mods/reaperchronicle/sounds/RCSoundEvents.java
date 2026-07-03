@@ -14,7 +14,7 @@ import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 
 @SuppressWarnings("null")
 public final class RCSoundEvents {
-    private static final DeferredRegister<SoundEvent> REGISTRAR = RCDeferredRegisters.SOUND_EVENT;
+    private static final DeferredRegister<SoundEvent> REGISTER = RCDeferredRegisters.SOUND_EVENT;
 
     @Nonnull private static Supplier<SoundEvent> getSoundEventSupplier(@Nonnull String name) {
         ResourceLocation id = ResourceLocation.fromNamespaceAndPath(
@@ -23,44 +23,44 @@ public final class RCSoundEvents {
         return () -> SoundEvent.createVariableRangeEvent(id);
     }
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SAND_BREAK = REGISTRAR.register(
+    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SAND_BREAK = REGISTER.register(
         RCRegistryNames.SoundEvents.NETHER_SAND_BREAK,
         getSoundEventSupplier(RCRegistryNames.SoundEvents.NETHER_SAND_BREAK)
     );
-    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SAND_STEP = REGISTRAR.register(
+    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SAND_STEP = REGISTER.register(
         RCRegistryNames.SoundEvents.NETHER_SAND_STEP,
         getSoundEventSupplier(RCRegistryNames.SoundEvents.NETHER_SAND_STEP)
     );
-    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SAND_PLACE = REGISTRAR.register(
+    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SAND_PLACE = REGISTER.register(
         RCRegistryNames.SoundEvents.NETHER_SAND_PLACE,
         getSoundEventSupplier(RCRegistryNames.SoundEvents.NETHER_SAND_PLACE)
     );
-    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SAND_HIT = REGISTRAR.register(
+    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SAND_HIT = REGISTER.register(
         RCRegistryNames.SoundEvents.NETHER_SAND_HIT,
         getSoundEventSupplier(RCRegistryNames.SoundEvents.NETHER_SAND_HIT)
     );
-    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SAND_FALL = REGISTRAR.register(
+    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SAND_FALL = REGISTER.register(
         RCRegistryNames.SoundEvents.NETHER_SAND_FALL,
         getSoundEventSupplier(RCRegistryNames.SoundEvents.NETHER_SAND_FALL)
     );
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SOIL_BREAK = REGISTRAR.register(
+    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SOIL_BREAK = REGISTER.register(
         RCRegistryNames.SoundEvents.NETHER_SOIL_BREAK,
         getSoundEventSupplier(RCRegistryNames.SoundEvents.NETHER_SOIL_BREAK)
     );
-    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SOIL_STEP = REGISTRAR.register(
+    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SOIL_STEP = REGISTER.register(
         RCRegistryNames.SoundEvents.NETHER_SOIL_STEP,
         getSoundEventSupplier(RCRegistryNames.SoundEvents.NETHER_SOIL_STEP)
     );
-    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SOIL_PLACE = REGISTRAR.register(
+    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SOIL_PLACE = REGISTER.register(
         RCRegistryNames.SoundEvents.NETHER_SOIL_PLACE,
         getSoundEventSupplier(RCRegistryNames.SoundEvents.NETHER_SOIL_PLACE)
     );
-    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SOIL_HIT = REGISTRAR.register(
+    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SOIL_HIT = REGISTER.register(
         RCRegistryNames.SoundEvents.NETHER_SOIL_HIT,
         getSoundEventSupplier(RCRegistryNames.SoundEvents.NETHER_SOIL_HIT)
     );
-    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SOIL_FALL = REGISTRAR.register(
+    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_SOIL_FALL = REGISTER.register(
         RCRegistryNames.SoundEvents.NETHER_SOIL_FALL,
         getSoundEventSupplier(RCRegistryNames.SoundEvents.NETHER_SOIL_FALL)
     );

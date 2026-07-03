@@ -16,7 +16,7 @@ import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 
 @SuppressWarnings("null")
 public final class RCCreativeModeTabs {
-    private static final DeferredRegister<CreativeModeTab> REGISTRAR = RCDeferredRegisters.CREATIVE_MODE_TAB;
+    private static final DeferredRegister<CreativeModeTab> REGISTER = RCDeferredRegisters.CREATIVE_MODE_TAB;
 
     private static String getTranslatableString(String name) {
         return RCUtil.makeCreativeModeTabDescriptionId(
@@ -24,7 +24,7 @@ public final class RCCreativeModeTabs {
         );
     }
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> CRYSTAL_INGREDIENTS = REGISTRAR.register(
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> CRYSTAL_INGREDIENTS = REGISTER.register(
         RCRegistryNames.CreativeModeTabs.CRYSTAL_INGREDIENTS,
         () -> CreativeModeTab.builder()
             .title(Component.translatable(getTranslatableString(RCRegistryNames.CreativeModeTabs.CRYSTAL_INGREDIENTS)))
@@ -37,7 +37,7 @@ public final class RCCreativeModeTabs {
             .build()
     );
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> CRYSTALS = REGISTRAR.register(
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> CRYSTALS = REGISTER.register(
         RCRegistryNames.CreativeModeTabs.CRYSTALS,
         () -> CreativeModeTab.builder()
             .title(Component.translatable(getTranslatableString(RCRegistryNames.CreativeModeTabs.CRYSTALS)))
@@ -49,7 +49,7 @@ public final class RCCreativeModeTabs {
             .build()
     );
     
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> REAPERS = REGISTRAR.register(
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> REAPERS = REGISTER.register(
         RCRegistryNames.CreativeModeTabs.REAPERS,
         () -> CreativeModeTab.builder()
             .title(Component.translatable(getTranslatableString(RCRegistryNames.CreativeModeTabs.REAPERS)))
