@@ -1,7 +1,7 @@
 package warborinks.mods.reaperchronicle.world.reaper.attribute.features;
 
-import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttributeBehaviour.Args;
-import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttributeBehaviour.Result;
+import warborinks.mods.reaperchronicle.util.Args;
+import warborinks.mods.reaperchronicle.util.Result;
 
 @FunctionalInterface
 public interface FeatureInterface {

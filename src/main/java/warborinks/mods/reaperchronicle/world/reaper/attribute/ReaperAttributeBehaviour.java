@@ -8,25 +8,45 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.Nonnull;
 
+import warborinks.mods.reaperchronicle.RCUtil;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.features.FeatureInterface;
+import warborinks.mods.reaperchronicle.world.reaper.attribute.features.IFeatureClass;
 
 public class ReaperAttributeBehaviour {
+    protected final Properties properties;
     private final Map<String, Map<List<Class<?>>, FeatureInterface>> featureMap = new ConcurrentHashMap<>();
 
-    protected ReaperAttributeBehaviour() {}
-
-    public void add(@Nonnull String name,
-        @Nonnull FeatureInterface feature, Class<?>... paramTypes) {
-        this.featureMap.computeIfAbsent(name, k -> new ConcurrentHashMap<>())
-        .merge(
-            List.of(paramTypes), feature,
-            (o, n) -> {
-                throw new TheSameFeatureException(name, paramTypes);
-            }
-        );
+    protected ReaperAttributeBehaviour(Properties properties) {
+        this.properties = properties;
     }
 
-    public Result invoke(String name, Object... args) throws NoSuchFeatureException, Throwable {
+    void complete() {
+        this.featureMap.putAll(this.properties.getFeatureMap());
+    }
+
+    public boolean findFeature(@Nonnull String name) {
+        return this.featureMap.containsKey(name);
+    }
+
+    @SuppressWarnings("null")
+    public boolean findFeature(@Nonnull String name, @Nonnull List<Class<?>> classes) {
+        if (!this.findFeature(name)) {
+            return false;
+        }
+
+        classes = classes.stream()
+            .filter(cls -> cls != null && RCUtil.boxed(cls) != Void.class)
+            .toList();
+
+        return this.featureMap.get(name).containsKey(classes);
+    }
+    @SuppressWarnings("null")
+    public boolean findFeature(@Nonnull String name, @Nonnull Class<?>... classes) {
+        return this.findFeature(name, List.of(classes));
+    }
+
+    public Map.Entry<List<Class<?>>, FeatureInterface> find(String name, Object... args)
+        throws NoSuchFeatureException {
         Map<List<Class<?>>, FeatureInterface> features = this.featureMap.get(name);
         if (features == null) {
             throw new NoSuchFeatureException("Feature not found: " + name);
@@ -59,14 +79,7 @@ public class ReaperAttributeBehaviour {
             );
         }
 
-        Map.Entry<List<Class<?>>, FeatureInterface> best = this.findMostSpecific(compatible, name);
-
-        Args argWrapper = Args.of(args);
-        return best.getValue().invoke(argWrapper);
-    }
-
-    public boolean findFeature(@Nonnull String name) {
-        return this.featureMap.containsKey(name);
+        return this.findMostSpecific(compatible, name);
     }
 
     private boolean isCompatible(List<Class<?>> paramTypes, List<Class<?>> argTypes) {
@@ -88,8 +101,8 @@ public class ReaperAttributeBehaviour {
     }
 
     private boolean isAssignable(Class<?> paramType, Class<?> argType) {
-        paramType = boxed(paramType);
-        argType = boxed(argType);
+        paramType = RCUtil.boxed(paramType);
+        argType = RCUtil.boxed(argType);
         return paramType.isAssignableFrom(argType);
     }
 
@@ -135,123 +148,53 @@ public class ReaperAttributeBehaviour {
         return true;
     }
 
-    private static Class<?> boxed(Class<?> primitive) {
-        return switch (primitive.getName()) {
-            case "boolean" -> Boolean.class;
-            case "byte"    -> Byte.class;
-            case "char"    -> Character.class;
-            case "short"   -> Short.class;
-            case "int"     -> Integer.class;
-            case "long"    -> Long.class;
-            case "float"   -> Float.class;
-            case "double"  -> Double.class;
-            case "void"    -> Void.class;
-            default        -> primitive;
-        };
-    }
+    public static final class Properties {
+        private final Map<String, Map<List<Class<?>>, FeatureInterface>> featureMap = new ConcurrentHashMap<>();
 
-    public static final class Args {
-        private final List<Object> values;
+        public Properties addFeature(@Nonnull String name,
+            @Nonnull FeatureInterface feature, @Nonnull List<Class<?>> argTypes) {
+            this.featureMap.computeIfAbsent(name, key -> new ConcurrentHashMap<>())
+                .put(
+                    argTypes.stream()
+                        .filter(cls -> cls != null && RCUtil.boxed(cls) != Void.class)
+                        .toList(),
+                    feature
+                );
 
-        private Args(List<Object> values) {
-            this.values = values;
+            return this;
+        }
+        @SuppressWarnings("null")
+        public Properties addFeature(@Nonnull String name,
+            @Nonnull FeatureInterface feature, @Nonnull Class<?>... argTypes) {
+            return this.addFeature(name, feature, List.of(argTypes));
         }
 
-        public static Args of(Object... values) {
-            return new Args(List.of(values));
+        public Properties addFeatures(@Nonnull Map<String, Map<List<Class<?>>, FeatureInterface>> map) {
+            map.forEach((name, features) -> {
+                features.forEach((argTypes, feature) -> {
+                    if (name != null && argTypes != null && feature != null) {
+                        this.addFeature(name, feature, argTypes);
+                    }
+                });
+            });
+            return this;
         }
 
-        public <T> T get(int index, @Nonnull Class<T> type) {
-            Object value = this.values.get(index);
-            if (value == null) {
-                if (type.isPrimitive()) {
-                    throw new IllegalArgumentException("Cannot assign null to primitive type" + type);
-                } else {
-                    return null;
-                }
-            }
-
-            if (boxed(type).isInstance(value)) {
-                return type.cast(value);
-            } else {
-                throw new ClassCastException("Parameter at index " + index + " is " + value.getClass() +
-                    " but requested as " + type);
-            }
+        public Properties addFeatures(@Nonnull IFeatureClass featureClass) {
+            return this.addFeatures(FeatureGetter.getFeatures(featureClass));
         }
 
-        public List<Object> getValues() {
-            return this.values;
-        }
-        public List<Object> getValues(int index) {
-            return this.values.subList(index, this.values.size());
-        }
-
-        public int size() {
-            return this.values.size();
-        }
-    }
-    public static final class Result {
-        private final Object value;
-        private final boolean isVoid;
-
-        private Result(Object value, boolean isVoid) {
-            this.value = value;
-            this.isVoid = isVoid;
-        }
-
-        public static Result of(Object value) {
-            return new Result(value, false);
-        }
-
-        public static Result empty() {
-            return new Result(null, true);
-        }
-
-        public <T> T get(@Nonnull Class<T> type) {
-            if (this.isVoid() && type != Void.class) {
-                throw new VoidResultException();
-            }
-
-            if (this.value == null) {
-                if (type.isPrimitive()) {
-                    throw new IllegalArgumentException("Result is null, cannot be cast to primitive " + type);
-                } else {
-                    return null;
-                }
-            }
-
-            if (boxed(type).isInstance(this.value)) {
-                return type.cast(this.value);
-            } else {
-                throw new ClassCastException("Result is " + value.getClass() + " but requested as " + type);
-            }
-        }
-
-        public boolean isVoid() {
-            return this.isVoid;
-        }
-
-        public static final class VoidResultException extends RuntimeException {
-            public VoidResultException() {
-                super("The value of the result is void, please pass in Void.class");
-            }
+        public Map<String, Map<List<Class<?>>, FeatureInterface>> getFeatureMap() {
+            return this.featureMap;
         }
     }
 
-    public static final class TheSameFeatureException extends RuntimeException {
-        public TheSameFeatureException(String name, Class<?>... paramTypes) {
-            super(
-                "The feature " + name + "(" +
-                Arrays.toString(paramTypes).replaceAll("^\\[(.*)]$", "$1")
-                + ") has the same one"
-            );
-        }
-    }
     public static final class AmbiguousFeatureException extends RuntimeException {
         public AmbiguousFeatureException(String message) {
             super(message);
         }
     }
+
     public static final class NoSuchFeatureException extends NoSuchMethodException {
         public NoSuchFeatureException(String message) {
             super(message);

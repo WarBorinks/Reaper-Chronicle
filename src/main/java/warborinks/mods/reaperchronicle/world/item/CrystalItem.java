@@ -45,48 +45,16 @@ public class CrystalItem extends Item {
     }
 
     @Override
-    public InteractionResult useOn(@Nonnull UseOnContext context) {
-        List<ReaperAttribute> attributesHavingUseOn = new ArrayList<>();
-        this.crystal.get().getAttributes().forEach(
-            attribute -> {
-                if (attribute.findFeature(SpecialFeatures.USE_ON)) {
-                    attributesHavingUseOn.add(attribute);
-                }
-            }
-        );
-
-        if (attributesHavingUseOn.size() > 0) {
-            ReaperAttribute beCalled = attributesHavingUseOn.get(
-                ThreadLocalRandom.current().nextInt(attributesHavingUseOn.size())
-            );
-            InteractionResult result = beCalled.invokeOrDealAndGet(
-                SpecialFeatures.USE_ON,
-                (args, throwable) -> {
-                    ReaperChronicle.LOGGER.warn(
-                        "The feature useOn({}) of the ReaperAttribute {} throws {}, fallback to default",
-                        UseOnContext.class.getName(),
-                        beCalled.getDescriptionId(),
-                        throwable.toString()
-                    );
-                    return super.useOn(context);
-                },
-                InteractionResult.class,
-                this, context
-            );
-            return result == null ? super.useOn(context) : result;
-        } else {
-            return super.useOn(context);
-        }
-    }
-
-    @Override
     @SuppressWarnings("unchecked")
     public InteractionResultHolder<ItemStack> use(@Nonnull Level level,
         @Nonnull Player player, @Nonnull InteractionHand hand) {
         List<ReaperAttribute> attributesHavingUse = new ArrayList<>();
         this.crystal.get().getAttributes().forEach(
             attribute -> {
-                if (attribute.findFeature(SpecialFeatures.USE)) {
+                if (attribute.findFeature(
+                    SpecialFeatures.USE,
+                    Item.class, Level.class, Player.class, InteractionHand.class
+                )) {
                     attributesHavingUse.add(attribute);
                 }
             }
@@ -98,7 +66,7 @@ public class CrystalItem extends Item {
             );
             InteractionResultHolder<ItemStack> result = beCalled.invokeOrDealAndGet(
                 SpecialFeatures.USE,
-                (args, throwable) -> {
+                throwable -> {
                     ReaperChronicle.LOGGER.warn(
                         "The feature use({}, {}, {}) of the ReaperAttribute {} throws {}, fallback to default",
                         Level.class.getName(),
@@ -115,6 +83,44 @@ public class CrystalItem extends Item {
             return result == null ? super.use(level, player, hand) : result;
         } else {
             return super.use(level, player, hand);
+        }
+    }
+
+    @Override
+    public InteractionResult useOn(@Nonnull UseOnContext context) {
+        List<ReaperAttribute> attributesHavingUseOn = new ArrayList<>();
+        this.crystal.get().getAttributes().forEach(
+            attribute -> {
+                if (attribute.findFeature(
+                    SpecialFeatures.USE_ON,
+                    Item.class, UseOnContext.class
+                )) {
+                    attributesHavingUseOn.add(attribute);
+                }
+            }
+        );
+
+        if (attributesHavingUseOn.size() > 0) {
+            ReaperAttribute beCalled = attributesHavingUseOn.get(
+                ThreadLocalRandom.current().nextInt(attributesHavingUseOn.size())
+            );
+            InteractionResult result = beCalled.invokeOrDealAndGet(
+                SpecialFeatures.USE_ON,
+                throwable -> {
+                    ReaperChronicle.LOGGER.warn(
+                        "The feature useOn({}) of the ReaperAttribute {} throws {}, fallback to default",
+                        UseOnContext.class.getName(),
+                        beCalled.getDescriptionId(),
+                        throwable.toString()
+                    );
+                    return super.useOn(context);
+                },
+                InteractionResult.class,
+                this, context
+            );
+            return result == null ? super.useOn(context) : result;
+        } else {
+            return super.useOn(context);
         }
     }
 

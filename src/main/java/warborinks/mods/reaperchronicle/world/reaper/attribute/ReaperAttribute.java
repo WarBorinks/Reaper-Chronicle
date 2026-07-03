@@ -1,9 +1,10 @@
 package warborinks.mods.reaperchronicle.world.reaper.attribute;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
@@ -20,85 +21,35 @@ import warborinks.mods.reaperchronicle.RCUtil;
 import warborinks.mods.reaperchronicle.ReaperChronicle;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistries;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
-import warborinks.mods.reaperchronicle.world.reaper.attribute.features.IFeatureClass;
-import warborinks.mods.reaperchronicle.world.reaper.attribute.features.FeatureGetter;
+import warborinks.mods.reaperchronicle.event.AddFeaturesEvent;
+import warborinks.mods.reaperchronicle.util.Args;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.features.FeatureInterface;
+import warborinks.mods.reaperchronicle.world.reaper.attribute.features.IFeatureClass;
 
 public class ReaperAttribute extends ReaperAttributeBehaviour {
     private final int color;
 
-    private boolean locked = false;
-
     @Nullable private String descriptionId;
     
-    public ReaperAttribute(int color) {
-        super();
+    public ReaperAttribute(int color, Properties properties) {
+        super(properties);
         this.color = color;
-    }
-
-    @Override
-    public void add(@Nonnull String name,
-        @Nonnull FeatureInterface feature, Class<?>... paramTypes) {
-        try {
-            this.addOrThrow(name, feature, paramTypes);
-        } catch (LockedException exception) {}
-    }
-    
-    public void addOrThrow(@Nonnull String name,
-        @Nonnull FeatureInterface feature, Class<?>... paramTypes) {
-        if (this.isLocked()) {
-            throw new LockedException(this);
-        } else {
-            super.add(name, feature, paramTypes);
-        }
-    }
-
-    public ReaperAttribute addFeature(@Nonnull String name,
-        @Nonnull FeatureInterface feature, Class<?>... paramTypes) {
-        try {
-            return this.addFeatureOrThrow(name, feature, paramTypes);
-        } catch (LockedException exception) {
-            return this;
-        }
-    }
-    public ReaperAttribute addFeatureOrThrow(@Nonnull String name,
-        @Nonnull FeatureInterface feature, Class<?>... paramTypes) {
-        if (this.isLocked()) {
-            throw new LockedException(this);
-        } else {
-            add(name, feature, paramTypes);
-            return this;
-        }
-    }
-
-    public ReaperAttribute addFeatures(@Nonnull IFeatureClass featureClass) {
-        try {
-            return this.addFeaturesOrThrow(featureClass);
-        } catch (LockedException exception) {
-            return this;
-        }
-    }
-    @SuppressWarnings("null")
-    public ReaperAttribute addFeaturesOrThrow(@Nonnull IFeatureClass featureClass) {
-        if (this.isLocked()) {
-            throw new LockedException(this);
-        } else {
-            Map<String, Map<List<Class<?>>, FeatureInterface>> features = FeatureGetter.getFeatures(featureClass);
-            features.forEach((name, featureMap) -> {
-                featureMap.forEach((paramTypes, feature) -> {
-                    this.addFeature(name, feature, paramTypes.toArray(new Class<?>[0]));
-                });
-            });
-            return this;
-        }
     }
     
     public <T> T invoke(@Nonnull String name, @Nonnull Class<T> resType, Object... args)
         throws NoSuchFeatureException, Throwable {
-        return invoke(name, args).get(resType);
+        Map.Entry<List<Class<?>>, FeatureInterface> feature = find(name, args);
+        ReaperChronicle.LOGGER.info(
+            "Invoke {}#{}({}) for ({})",
+            this, name,
+            feature.getKey().toString().replaceAll("^\\[(.*)]$", "$1"),
+            Arrays.toString(args).replaceAll("^\\[(.*)]$", "$1")
+        );
+
+        return feature.getValue().invoke(Args.of(args)).get(resType);
     }
     public <T> T invokeOrSilence(@Nonnull String name, @Nonnull Class<T> resType, Object... args) {
-        return this.invokeOrDeal(name, (a, t) -> {}, resType, args);
+        return this.invokeOrDeal(name, t -> {}, resType, args);
     }
     public <T> T invokeOrDefault(@Nonnull String name, T defaultValue,
         @Nonnull Class<T> resType, Object... args) {
@@ -112,36 +63,28 @@ public class ReaperAttribute extends ReaperAttributeBehaviour {
             return getter.get();
         }
     }
-    public <T> T invokeOrDeal(@Nonnull String name, BiConsumer<Object[], Throwable> deal,
+    public <T> T invokeOrDeal(@Nonnull String name, Consumer<Throwable> deal,
         @Nonnull Class<T> resType, Object... args) {
         T result;
         try {
             result = this.invoke(name, resType, args);
         } catch (Throwable throwable) {
-            deal.accept(args, throwable);
+            deal.accept(throwable);
             result = null;
         }
         return result;
     }
-    public <T> T invokeOrDealAndGet(@Nonnull String name, BiFunction<Object[], Throwable, T> dealAndget,
+    public <T> T invokeOrDealAndGet(@Nonnull String name, Function<Throwable, T> dealAndget,
         @Nonnull Class<T> resType, Object... args) {
         try {
             return this.invoke(name, resType, args);
         } catch (Throwable throwable) {
-            return dealAndget.apply(args, throwable);
+            return dealAndget.apply(throwable);
         }
-    }
-    
-    public void lock() {
-        this.locked = true;
     }
 
     public int getColor() {
         return this.color;
-    }
-
-    public boolean isLocked() {
-        return this.locked;
     }
 
     public String getDescriptionId() {
@@ -156,12 +99,6 @@ public class ReaperAttribute extends ReaperAttributeBehaviour {
     public String toString() {
         return RCRegistries.REAPER_ATTRIBUTE.wrapAsHolder(this).getRegisteredName();
     }
-    
-    public static final class LockedException extends RuntimeException {
-        public LockedException(ReaperAttribute reaperAttribute) {
-            super("The ReaperAttribute " + reaperAttribute.getDescriptionId() + " is locked!");
-        }
-    }
 
     @EventBusSubscriber(modid = ReaperChronicle.MODID)
     private static final class Events {
@@ -169,14 +106,23 @@ public class ReaperAttribute extends ReaperAttributeBehaviour {
         @SuppressWarnings("null")
         private static void onFMLCommonSetup(FMLCommonSetupEvent event) {
             ModFileScanData modFileScanData = RCUtil.getModFileScanDataByModContainer(ReaperChronicle.CONTAINER);
-            Map<ResourceLocation, IFeatureClass> idToFeatureClass = FeatureGetter.getClasses(modFileScanData);
+            Map<ResourceLocation, List<IFeatureClass>> idToFeatureClass = FeatureGetter.getClasses(modFileScanData);
             for (ReaperAttribute reaperAttribute : RCRegistries.REAPER_ATTRIBUTE) {
                 ResourceLocation key = RCRegistries.REAPER_ATTRIBUTE.getKey(reaperAttribute);
-                IFeatureClass featureClass = idToFeatureClass.get(key);
-                if (featureClass != null) {
-                    reaperAttribute.addFeatures(featureClass);
+                List<IFeatureClass> featureClasses = idToFeatureClass.get(key);
+                if (featureClasses != null && !featureClasses.isEmpty()) {
+                    featureClasses.forEach(featureClass -> {
+                        if (featureClass != null) {
+                            reaperAttribute.properties.addFeatures(featureClass);
+                        }
+                    });
                 }
-                reaperAttribute.lock();
+
+                AddFeaturesEvent addFeaturesEvent = new AddFeaturesEvent(reaperAttribute);
+                ReaperChronicle.EVENT_BUS.post(addFeaturesEvent);
+                reaperAttribute.properties.addFeatures(addFeaturesEvent.getFeatureMap());
+
+                reaperAttribute.complete();
             }
         }
     }

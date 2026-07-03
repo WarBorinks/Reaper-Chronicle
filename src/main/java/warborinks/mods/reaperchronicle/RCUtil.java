@@ -24,7 +24,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforgespi.language.ModFileScanData;
-import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttributeBehaviour.Result;
+import warborinks.mods.reaperchronicle.util.Result;
 
 public final class RCUtil {
     public static ModFileScanData getModFileScanDataByModContainer(ModContainer modContainer) {
@@ -103,17 +103,19 @@ public final class RCUtil {
             try {
                 lookup = MethodHandles.privateLookupIn(beCalled, MethodHandles.lookup());
                 methodHandle = lookup.unreflect(method);
+                METHOD_HANDLE_CACHE.put(method, methodHandle);
             } catch (Exception exception) {
                 return Result.empty();
             }
         }
 
         List<Object> argList = new ArrayList<>();
-        argList.add(instance);
+        if (instance != null) {
+            argList.add(instance);
+        }
         argList.addAll(args);
-        return Result.of(methodHandle.invoke(
-            argList.toArray()
-        ));
+
+        return Result.of(methodHandle.invokeWithArguments(argList));
     }
     public static <T> Result invokeMethod(T instance, Method method, List<Object> args) throws Throwable {
         return invokeMethod(instance, instance.getClass(), method, args);
@@ -148,6 +150,7 @@ public final class RCUtil {
         Class<R> resultType, Class<?> argType, Object arg) throws Throwable {
         return invokeMethod(instance, instance.getClass(), name, resultType, argType, arg);
     }
+    
     public static <T, R, U> Collector<T, Map<R, U>, List<T>> getMergedListCollector(
             Function<T, R> keyGetter, Function<T, U> valueGetter,
             BiFunction<U, U, U> add,
@@ -172,5 +175,20 @@ public final class RCUtil {
         Function<Map.Entry<R, U>, T> constructor
     ) {
         return getMergedListCollector(keyGetter, valueGetter, add, constructor, Collections::unmodifiableList);
+    }
+
+    public static Class<?> boxed(Class<?> primitive) {
+        return switch (primitive.getName()) {
+            case "boolean" -> Boolean.class;
+            case "byte"    -> Byte.class;
+            case "char"    -> Character.class;
+            case "short"   -> Short.class;
+            case "int"     -> Integer.class;
+            case "long"    -> Long.class;
+            case "float"   -> Float.class;
+            case "double"  -> Double.class;
+            case "void"    -> Void.class;
+            default        -> primitive;
+        };
     }
 }

@@ -9,7 +9,7 @@ public class FeatureAnnotations {
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     public static @interface Feature {
-        String name();
+        String name() default "";
     }
 
     @Target(ElementType.TYPE)
