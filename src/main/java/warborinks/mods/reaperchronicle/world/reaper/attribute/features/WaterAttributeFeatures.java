@@ -16,8 +16,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import warborinks.mods.reaperchronicle.ReaperChronicle;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
-import warborinks.mods.reaperchronicle.world.reaper.attribute.features.FeatureAnnotations.Feature;
-import warborinks.mods.reaperchronicle.world.reaper.attribute.features.FeatureAnnotations.FeatureToolset;
 
 @FeatureToolset(namespace = ReaperChronicle.MODID, id = RCRegistryNames.ReaperAttributes.WATER_ATTRIBUTE)
 public final class WaterAttributeFeatures implements IFeatureClass {

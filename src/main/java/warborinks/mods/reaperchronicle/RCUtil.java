@@ -21,19 +21,9 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.ModList;
-import net.neoforged.neoforgespi.language.ModFileScanData;
 import warborinks.mods.reaperchronicle.util.Result;
 
 public final class RCUtil {
-    public static ModFileScanData getModFileScanDataByModContainer(ModContainer modContainer) {
-        return modContainer.getModInfo().getOwningFile().getFile().getScanResult();
-    }
-    public static ModFileScanData getModFileScanDataByModId(String modid) {
-        return ModList.get().getModFileById(modid).getFile().getScanResult();
-    }
-
     public static String makeCreativeModeTabDescriptionId(@Nonnull ResourceLocation resourceLocation) {
         return Util.makeDescriptionId("itemGroup", resourceLocation);
     }

@@ -19,9 +19,9 @@ import net.neoforged.neoforgespi.language.ModFileScanData;
 import warborinks.mods.reaperchronicle.RCUtil;
 import warborinks.mods.reaperchronicle.ReaperChronicle;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.features.FeatureInterface;
+import warborinks.mods.reaperchronicle.world.reaper.attribute.features.FeatureToolset;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.features.IFeatureClass;
-import warborinks.mods.reaperchronicle.world.reaper.attribute.features.FeatureAnnotations.Feature;
-import warborinks.mods.reaperchronicle.world.reaper.attribute.features.FeatureAnnotations.FeatureToolset;
+import warborinks.mods.reaperchronicle.world.reaper.attribute.features.IFeatureClass.Feature;
 
 public final class FeatureGetter {
     private static final Class<Feature> featureAnnotationType = Feature.class;

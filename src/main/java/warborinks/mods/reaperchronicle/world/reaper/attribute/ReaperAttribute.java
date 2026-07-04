@@ -1,6 +1,7 @@
 package warborinks.mods.reaperchronicle.world.reaper.attribute;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -14,10 +15,10 @@ import net.minecraft.Util;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforgespi.language.ModFileScanData;
-import warborinks.mods.reaperchronicle.RCUtil;
+import net.neoforged.neoforgespi.language.IModFileInfo;
 import warborinks.mods.reaperchronicle.ReaperChronicle;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistries;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
@@ -105,8 +106,11 @@ public class ReaperAttribute extends ReaperAttributeBehaviour {
         @SubscribeEvent(priority = EventPriority.HIGHEST)
         @SuppressWarnings("null")
         private static void onFMLCommonSetup(FMLCommonSetupEvent event) {
-            ModFileScanData modFileScanData = RCUtil.getModFileScanDataByModContainer(ReaperChronicle.CONTAINER);
-            Map<ResourceLocation, List<IFeatureClass>> idToFeatureClass = FeatureGetter.getClasses(modFileScanData);
+            Map<ResourceLocation, List<IFeatureClass>> idToFeatureClass = new HashMap<>();
+            for (IModFileInfo modFile : ModList.get().getModFiles()) {
+                idToFeatureClass.putAll(FeatureGetter.getClasses(modFile.getFile().getScanResult()));
+            }
+
             for (ReaperAttribute reaperAttribute : RCRegistries.REAPER_ATTRIBUTE) {
                 ResourceLocation key = RCRegistries.REAPER_ATTRIBUTE.getKey(reaperAttribute);
                 List<IFeatureClass> featureClasses = idToFeatureClass.get(key);
