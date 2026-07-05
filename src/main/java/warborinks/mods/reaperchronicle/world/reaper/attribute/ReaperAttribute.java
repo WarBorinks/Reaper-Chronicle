@@ -22,11 +22,13 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforgespi.language.IModFileInfo;
 import warborinks.mods.reaperchronicle.ReaperChronicle;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistries;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 import warborinks.mods.reaperchronicle.event.AddFeaturesEvent;
+import warborinks.mods.reaperchronicle.event.InvokeFeatureEvent;
 import warborinks.mods.reaperchronicle.util.Args;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.features.FeatureInterface;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.features.IFeatureClass;
@@ -46,11 +48,20 @@ public class ReaperAttribute extends ReaperAttributeBehaviour {
     public <T> T invoke(@Nonnull String name, @Nonnull Class<T> resType, Object... args)
         throws NoSuchFeatureException, Throwable {
         Map.Entry<List<Class<?>>, FeatureInterface> feature = find(name, args);
+        List<Class<?>> paramTypes = feature.getKey();
+
+        InvokeFeatureEvent event = new InvokeFeatureEvent(this, name, paramTypes, args);
+        NeoForge.EVENT_BUS.post(event);
+
+        if (event.isCanceled()) {
+            throw new InvocationCanceledException(this, name, paramTypes, args);
+        }
+
         LOGGER.info(
-            "Invoke {}#{}({}) for ({})",
+            "Invoke {}#{}({}) for {}",
             this, name,
-            feature.getKey().toString().replaceAll("^\\[(.*)]$", "$1"),
-            Arrays.toString(args).replaceAll("^\\[(.*)]$", "$1")
+            paramTypes.toString().replaceAll("^\\[(.*)]$", "$1"),
+            Arrays.toString(args)
         );
 
         return feature.getValue().invoke(Args.of(args)).get(resType);
@@ -113,6 +124,18 @@ public class ReaperAttribute extends ReaperAttributeBehaviour {
         public Properties color(int color) {
             this.color = color;
             return this;
+        }
+    }
+
+    public static class InvocationCanceledException extends Exception {
+        public InvocationCanceledException(ReaperAttribute reaperAttribute,
+            String name, List<Class<?>> paramTypes, Object... args) {
+            super(
+                "The operation of invoking " + reaperAttribute + "#" + name + "(" + 
+                paramTypes.toString().replaceAll("^\\[(.*)]$", "$1") +
+                ") for " + Arrays.toString(args) +
+                " has canceled!"
+            );
         }
     }
 

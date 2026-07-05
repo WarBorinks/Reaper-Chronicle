@@ -9,24 +9,18 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.Nonnull;
 
-import net.neoforged.bus.api.Event;
 import net.neoforged.fml.event.IModBusEvent;
 import warborinks.mods.reaperchronicle.RCUtil;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttribute;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.features.FeatureInterface;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.features.IFeatureClass;
 
-public class AddFeaturesEvent extends Event implements IModBusEvent {
-    private final ReaperAttribute reaperAttribute;
+public class AddFeaturesEvent extends ReaperAttributeEvent implements IModBusEvent {
     private final Map<String, Map<List<Class<?>>, FeatureInterface>> features = new HashMap<>();
     private final Set<IFeatureClass> featureClasses = new HashSet<>();
 
     public AddFeaturesEvent(ReaperAttribute reaperAttribute) {
-        this.reaperAttribute = reaperAttribute;
-    }
-
-    public ReaperAttribute getReaperAttribute() {
-        return this.reaperAttribute;
+        super(reaperAttribute);
     }
 
     public Map<String, Map<List<Class<?>>, FeatureInterface>> getFeatures() {
