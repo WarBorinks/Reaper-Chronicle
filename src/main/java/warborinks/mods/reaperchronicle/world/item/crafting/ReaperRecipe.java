@@ -8,6 +8,10 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 
+import org.slf4j.Logger;
+
+import com.mojang.logging.LogUtils;
+
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
@@ -16,11 +20,12 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import warborinks.mods.reaperchronicle.ReaperChronicle;
 import warborinks.mods.reaperchronicle.world.item.CrystalItem;
 import warborinks.mods.reaperchronicle.world.item.ReaperItem;
 
 public class ReaperRecipe implements Recipe<ReaperRecipeInput> {
+    private static final Logger LOGGER = LogUtils.getLogger();
+
     private final String group;
     private final List<Ingredient> crystals;
     private final List<Ingredient> reapers;
@@ -58,7 +63,7 @@ public class ReaperRecipe implements Recipe<ReaperRecipeInput> {
         });
 
         if (this.getIngredients().size() == 0) {
-            ReaperChronicle.LOGGER.warn("Recipe '{}' has no valid ingredients after filtering", this.result);
+            LOGGER.warn("Recipe '{}' has no valid ingredients after filtering", this.result);
         }
     }
 

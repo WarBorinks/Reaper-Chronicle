@@ -148,7 +148,7 @@ public class ReaperAttributeBehaviour {
         return true;
     }
 
-    public static final class Properties {
+    protected static class Properties {
         private final Map<String, Map<List<Class<?>>, FeatureInterface>> featureMap = new ConcurrentHashMap<>();
 
         public Properties addFeature(@Nonnull String name,

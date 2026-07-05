@@ -10,12 +10,12 @@ public final class ReaperAttributes {
 
     public static final DeferredHolder<ReaperAttribute, ReaperAttribute> EMPTY_ATTRIBUTE = REGISTER.register(
         RCRegistryNames.ReaperAttributes.EMPTY_ATTRIBUTE,
-        () -> new ReaperAttribute(0xffffff, new ReaperAttributeBehaviour.Properties())
+        () -> new ReaperAttribute(new ReaperAttribute.Properties())
     );
 
     public static final DeferredHolder<ReaperAttribute, ReaperAttribute> WATER_ATTRIBUTE = REGISTER.register(
         RCRegistryNames.ReaperAttributes.WATER_ATTRIBUTE,
-        () -> new ReaperAttribute(0x0000ff, new ReaperAttributeBehaviour.Properties())
+        () -> new ReaperAttribute(new ReaperAttribute.Properties().color(0x0000ff))
     );
 
     public static void load() {}

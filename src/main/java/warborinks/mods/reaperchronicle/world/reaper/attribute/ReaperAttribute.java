@@ -11,6 +11,10 @@ import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.slf4j.Logger;
+
+import com.mojang.logging.LogUtils;
+
 import net.minecraft.Util;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.EventPriority;
@@ -28,19 +32,21 @@ import warborinks.mods.reaperchronicle.world.reaper.attribute.features.FeatureIn
 import warborinks.mods.reaperchronicle.world.reaper.attribute.features.IFeatureClass;
 
 public class ReaperAttribute extends ReaperAttributeBehaviour {
+    private static final Logger LOGGER = LogUtils.getLogger();
+
     private final int color;
 
     @Nullable private String descriptionId;
     
-    public ReaperAttribute(int color, Properties properties) {
+    public ReaperAttribute(Properties properties) {
         super(properties);
-        this.color = color;
+        this.color = properties.getColor();
     }
     
     public <T> T invoke(@Nonnull String name, @Nonnull Class<T> resType, Object... args)
         throws NoSuchFeatureException, Throwable {
         Map.Entry<List<Class<?>>, FeatureInterface> feature = find(name, args);
-        ReaperChronicle.LOGGER.info(
+        LOGGER.info(
             "Invoke {}#{}({}) for ({})",
             this, name,
             feature.getKey().toString().replaceAll("^\\[(.*)]$", "$1"),
@@ -101,6 +107,19 @@ public class ReaperAttribute extends ReaperAttributeBehaviour {
         return RCRegistries.REAPER_ATTRIBUTE.wrapAsHolder(this).getRegisteredName();
     }
 
+    public static class Properties extends ReaperAttributeBehaviour.Properties {
+        private int color = 0xffffff;
+
+        public Properties color(int color) {
+            this.color = color;
+            return this;
+        }
+
+        public int getColor() {
+            return this.color;
+        }
+    }
+
     @EventBusSubscriber(modid = ReaperChronicle.MODID)
     private static final class Events {
         @SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -124,7 +143,11 @@ public class ReaperAttribute extends ReaperAttributeBehaviour {
 
                 AddFeaturesEvent addFeaturesEvent = new AddFeaturesEvent(reaperAttribute);
                 ReaperChronicle.EVENT_BUS.post(addFeaturesEvent);
-                reaperAttribute.properties.addFeatures(addFeaturesEvent.getFeatureMap());
+
+                reaperAttribute.properties.addFeatures(addFeaturesEvent.getFeatures());
+                for (IFeatureClass featureClass : addFeaturesEvent.getFeatureClasses()) {
+                    reaperAttribute.properties.addFeatures(featureClass);
+                }
 
                 reaperAttribute.complete();
             }
