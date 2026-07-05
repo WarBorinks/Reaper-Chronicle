@@ -21,7 +21,7 @@ public class ReaperAttributeBehaviour {
     }
 
     void complete() {
-        this.featureMap.putAll(this.properties.getFeatureMap());
+        this.featureMap.putAll(this.properties.featureMap);
     }
 
     public boolean findFeature(@Nonnull String name) {
@@ -182,10 +182,6 @@ public class ReaperAttributeBehaviour {
 
         public Properties addFeatures(@Nonnull IFeatureClass featureClass) {
             return this.addFeatures(FeatureGetter.getFeatures(featureClass));
-        }
-
-        public Map<String, Map<List<Class<?>>, FeatureInterface>> getFeatureMap() {
-            return this.featureMap;
         }
     }
 

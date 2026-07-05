@@ -1,5 +1,7 @@
 package warborinks.mods.reaperchronicle.core.component;
 
+import com.mojang.serialization.Codec;
+
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.util.ExtraCodecs;
@@ -11,6 +13,14 @@ import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 @SuppressWarnings("null")
 public final class RCDataComponentTypes {
     private static final DeferredRegister<DataComponentType<?>> REGISTER = RCDeferredRegisters.DATA_COMPONENT_TYPE;
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> ENCHANTED = REGISTER.register(
+        RCRegistryNames.DataComponentTypes.ENCHANTED,
+        () -> new DataComponentType.Builder<Boolean>()
+            .persistent(Codec.BOOL)
+            .networkSynchronized(ByteBufCodecs.BOOL)
+            .build()
+    );
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> TEXT_INDEX = REGISTER.register(
         RCRegistryNames.DataComponentTypes.TEXT_INDEX,

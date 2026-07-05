@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -15,17 +16,24 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.event.AnvilUpdateEvent;
+import net.neoforged.neoforge.event.GrindstoneEvent;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
+import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
 import warborinks.mods.reaperchronicle.RCUtil;
 import warborinks.mods.reaperchronicle.ReaperChronicle;
 import warborinks.mods.reaperchronicle.core.component.RCDataComponentTypes;
@@ -88,6 +96,16 @@ public class ReaperItem extends Item {
     public void registerReapers(Map<Reaper, Item> reaperToItemMap, Item item) {
         reaperToItemMap.put(this.getReaper(), item);
     }
+
+    @Override
+    public boolean isFoil(@Nonnull ItemStack stack) {
+        return false;
+    }
+
+    @Override
+    public boolean isEnchantable(@Nonnull ItemStack stack) {
+        return false;
+    }
     
     @Override
     public String getDescriptionId() {
@@ -97,29 +115,46 @@ public class ReaperItem extends Item {
     @EventBusSubscriber(modid = ReaperChronicle.MODID)
     private static class Events {
         @SubscribeEvent(priority = EventPriority.HIGHEST)
-        private static void onLivingDamagePre(LivingDamageEvent.Pre event) {
-            if (event.getEntity().level().isClientSide()) {
-                return;
+        private static void onAnvilUpdate(AnvilUpdateEvent event) {
+            if (event.getLeft().getItem() instanceof ReaperItem) {
+                event.setCanceled(true);
             }
+        }
 
-            if (!(event.getSource().getEntity() instanceof Player player)) {
-                return;
-            }
-
+        @SubscribeEvent(priority = EventPriority.HIGHEST)
+        private static void onAttackEntity(AttackEntityEvent event) {
+            Player player = event.getEntity();
             ItemStack stack = player.getMainHandItem();
-            if (!(stack.getItem() instanceof ReaperItem reaperItem)) {
-                return;
+            if (!stack.isEmpty() && stack.getItem() instanceof ReaperItem reaperItem) {
+                addEnchantmentsToStack(stack, reaperItem.getReaper().getEnchantments(player.level()));
             }
+        }
 
-            Reaper reaper = reaperItem.getReaper();
-            LivingEntity target = event.getEntity();
-            float newDamage = reaper.getModifiedDamage(
-                target, player,
-                event.getOriginalDamage(),
-                reaper.isSpecialAttack(stack)
-            );
+        @SubscribeEvent(priority = EventPriority.HIGHEST)
+        private static void onEntityJoinLevel(EntityJoinLevelEvent event) {
+            if (event.getEntity() instanceof ItemEntity itemEntity) {
+                ItemStack stack = itemEntity.getItem();
+                if (!stack.isEmpty() && stack.getItem() instanceof ReaperItem reaperItem) {
+                    addEnchantmentsToStack(stack, reaperItem.getReaper().getEnchantments(event.getLevel()));
+                }
+                itemEntity.setItem(stack);
+            }
+        }
+        
+        @SubscribeEvent
+        private static void onFMLCommonSetup(FMLCommonSetupEvent event) {
+            for (Item item : BuiltInRegistries.ITEM) {
+                if (item instanceof ReaperItem reaperItem) {
+                    BY_REAPER.put(reaperItem.getReaper(), item);
+                }
+            }
+        }
 
-            event.setNewDamage(newDamage);
+        @SubscribeEvent
+        public static void onGrindstonePlace(GrindstoneEvent.OnPlaceItem event) {
+            if (event.getTopItem().getItem() instanceof ReaperItem && event.getBottomItem().isEmpty()) {
+                event.setCanceled(true);
+            }
         }
 
         @SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -150,13 +185,46 @@ public class ReaperItem extends Item {
                 EquipmentSlotGroup.MAINHAND
             );
         }
-        
-        @SubscribeEvent
-        private static void onFMLCommonSetup(FMLCommonSetupEvent event) {
-            for (Item item : BuiltInRegistries.ITEM) {
-                if (item instanceof ReaperItem reaperItem) {
-                    BY_REAPER.put(reaperItem.getReaper(), item);
-                }
+
+        @SubscribeEvent(priority = EventPriority.HIGHEST)
+        private static void onLivingDamagePre(LivingDamageEvent.Pre event) {
+            if (event.getEntity().level().isClientSide()) {
+                return;
+            }
+
+            if (!(event.getSource().getEntity() instanceof Player player)) {
+                return;
+            }
+
+            ItemStack stack = player.getMainHandItem();
+            if (!(stack.getItem() instanceof ReaperItem reaperItem)) {
+                return;
+            }
+
+            Reaper reaper = reaperItem.getReaper();
+            LivingEntity target = event.getEntity();
+            float newDamage = reaper.getModifiedDamage(
+                target, player,
+                event.getOriginalDamage(),
+                reaper.isSpecialAttack(stack)
+            );
+
+            event.setNewDamage(newDamage);
+        }
+
+        @SubscribeEvent(priority = EventPriority.HIGHEST)
+        private static void onLivingEntityUseItemStart(LivingEntityUseItemEvent.Start event) {
+            ItemStack stack = event.getItem();
+            if (!stack.isEmpty() && stack.getItem() instanceof ReaperItem reaperItem) {
+                addEnchantmentsToStack(stack, reaperItem.getReaper().getEnchantments(event.getEntity().level()));
+            }
+        }
+
+        @SuppressWarnings("null")
+        private static void addEnchantmentsToStack(ItemStack stack, ItemEnchantments enchantments) {
+            if (!stack.getOrDefault(RCDataComponentTypes.ENCHANTED, false)) {
+                stack.set(DataComponents.ENCHANTMENTS, enchantments);
+                stack.set(RCDataComponentTypes.ENCHANTED, true);
             }
         }
     }

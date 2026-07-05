@@ -35,6 +35,7 @@ public final class RCRegistryNames {
     }
 
     public static final class DataComponentTypes {
+        @Nonnull public static final String ENCHANTED = "enchanted";
         @Nonnull public static final String TEXT_INDEX = "text_index";
     }
 

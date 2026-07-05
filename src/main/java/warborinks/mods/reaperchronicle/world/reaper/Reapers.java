@@ -17,7 +17,7 @@ public final class Reapers {
 
     public static final DeferredHolder<Reaper, Reaper> COMMON_REAPER = REGISTER.register(
         RCRegistryNames.Reapers.COMMON_REAPER,
-        () -> new Reaper("", 2.0, 0.0) {
+        () -> new Reaper(new Reaper.Properties().damage(2).speed(-1)) {
             public void onReap(LivingEntity target, LivingEntity attacker, ItemStack stack) {}
             public boolean isSpecialAttack(ItemStack stack) {
                 return false;

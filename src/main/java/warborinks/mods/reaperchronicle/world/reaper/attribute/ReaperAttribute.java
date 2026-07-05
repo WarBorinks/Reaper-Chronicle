@@ -40,7 +40,7 @@ public class ReaperAttribute extends ReaperAttributeBehaviour {
     
     public ReaperAttribute(Properties properties) {
         super(properties);
-        this.color = properties.getColor();
+        this.color = properties.color;
     }
     
     public <T> T invoke(@Nonnull String name, @Nonnull Class<T> resType, Object... args)
@@ -113,10 +113,6 @@ public class ReaperAttribute extends ReaperAttributeBehaviour {
         public Properties color(int color) {
             this.color = color;
             return this;
-        }
-
-        public int getColor() {
-            return this.color;
         }
     }
 

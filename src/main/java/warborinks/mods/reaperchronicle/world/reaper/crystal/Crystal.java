@@ -19,7 +19,6 @@ public class Crystal implements ItemLike {
     private final Set<Supplier<ReaperAttribute>> attributes;
 
     @Nullable private Item item;
-    
     @Nullable private String descriptionId;
 
     public Crystal() {

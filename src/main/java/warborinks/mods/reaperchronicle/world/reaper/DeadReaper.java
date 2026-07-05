@@ -1,7 +1,6 @@
 package warborinks.mods.reaperchronicle.world.reaper;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.EntityTypeTags;
@@ -13,16 +12,10 @@ import net.minecraft.world.item.TooltipFlag;
 import warborinks.mods.reaperchronicle.RCUtil;
 import warborinks.mods.reaperchronicle.core.component.RCDataComponentTypes;
 import warborinks.mods.reaperchronicle.world.effect.RCMobEffects;
-import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttribute;
 
 public class DeadReaper extends Reaper {
-    public DeadReaper(String absoluteText, double damage, double speed) {
-        super(absoluteText, damage, speed);
-    }
-
-    @SafeVarargs
-    public DeadReaper(String absoluteText, double damage, double speed, Supplier<ReaperAttribute>... attributes) {
-        super(absoluteText, damage, speed, attributes);
+    public DeadReaper(Properties properties) {
+        super(properties);
     }
 
     @Override
