@@ -31,7 +31,6 @@ import warborinks.mods.reaperchronicle.event.AddFeaturesEvent;
 import warborinks.mods.reaperchronicle.event.InvokeFeatureEvent;
 import warborinks.mods.reaperchronicle.util.Args;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.features.FeatureInterface;
-import warborinks.mods.reaperchronicle.world.reaper.attribute.features.IFeatureClass;
 
 public class ReaperAttribute extends ReaperAttributeBehaviour {
     private static final Logger LOGGER = LogUtils.getLogger();
@@ -144,19 +143,17 @@ public class ReaperAttribute extends ReaperAttributeBehaviour {
         @SubscribeEvent(priority = EventPriority.HIGHEST)
         @SuppressWarnings("null")
         private static void onFMLCommonSetup(FMLCommonSetupEvent event) {
-            Map<ResourceLocation, List<IFeatureClass>> idToFeatureClass = new HashMap<>();
+            Map<ResourceLocation, List<Class<?>>> idToFeatureClass = new HashMap<>();
             for (IModFileInfo modFile : ModList.get().getModFiles()) {
                 idToFeatureClass.putAll(FeatureGetter.getClasses(modFile.getFile().getScanResult()));
             }
 
             for (ReaperAttribute reaperAttribute : RCRegistries.REAPER_ATTRIBUTE) {
                 ResourceLocation key = RCRegistries.REAPER_ATTRIBUTE.getKey(reaperAttribute);
-                List<IFeatureClass> featureClasses = idToFeatureClass.get(key);
-                if (featureClasses != null && !featureClasses.isEmpty()) {
-                    featureClasses.forEach(featureClass -> {
-                        if (featureClass != null) {
-                            reaperAttribute.properties.addFeatures(featureClass);
-                        }
+                List<Class<?>> classes = idToFeatureClass.get(key);
+                if (classes != null && !classes.isEmpty()) {
+                    classes.forEach(cls -> {
+                        reaperAttribute.properties.addFeatures(cls);
                     });
                 }
 
@@ -164,9 +161,9 @@ public class ReaperAttribute extends ReaperAttributeBehaviour {
                 ReaperChronicle.EVENT_BUS.post(addFeaturesEvent);
 
                 reaperAttribute.properties.addFeatures(addFeaturesEvent.getFeatures());
-                for (IFeatureClass featureClass : addFeaturesEvent.getFeatureClasses()) {
-                    reaperAttribute.properties.addFeatures(featureClass);
-                }
+                addFeaturesEvent.getClasses().forEach(cls -> {
+                    reaperAttribute.properties.addFeatures(cls);
+                });
 
                 reaperAttribute.complete();
             }

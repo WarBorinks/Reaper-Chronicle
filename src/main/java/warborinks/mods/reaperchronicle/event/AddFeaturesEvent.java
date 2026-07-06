@@ -13,11 +13,9 @@ import net.neoforged.fml.event.IModBusEvent;
 import warborinks.mods.reaperchronicle.RCUtil;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.ReaperAttribute;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.features.FeatureInterface;
-import warborinks.mods.reaperchronicle.world.reaper.attribute.features.IFeatureClass;
-
 public class AddFeaturesEvent extends ReaperAttributeEvent implements IModBusEvent {
     private final Map<String, Map<List<Class<?>>, FeatureInterface>> features = new HashMap<>();
-    private final Set<IFeatureClass> featureClasses = new HashSet<>();
+    private final Set<Class<?>> classes = new HashSet<>();
 
     public AddFeaturesEvent(ReaperAttribute reaperAttribute) {
         super(reaperAttribute);
@@ -27,8 +25,8 @@ public class AddFeaturesEvent extends ReaperAttributeEvent implements IModBusEve
         return this.features;
     }
 
-    public Set<IFeatureClass> getFeatureClasses() {
-        return this.featureClasses;
+    public Set<Class<?>> getClasses() {
+        return this.classes;
     }
 
     public void addFeature(@Nonnull String name,
@@ -57,7 +55,7 @@ public class AddFeaturesEvent extends ReaperAttributeEvent implements IModBusEve
         });
     }
 
-    public void addFeatures(@Nonnull IFeatureClass featureClass) {
-        this.featureClasses.add(featureClass);
+    public void addFeatures(@Nonnull Class<?> cls) {
+        this.classes.add(cls);
     }
 }

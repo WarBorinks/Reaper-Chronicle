@@ -18,10 +18,10 @@ import warborinks.mods.reaperchronicle.ReaperChronicle;
 import warborinks.mods.reaperchronicle.core.registries.RCRegistryNames;
 
 @FeatureToolset(namespace = ReaperChronicle.MODID, id = RCRegistryNames.ReaperAttributes.WATER_ATTRIBUTE)
-public final class WaterAttributeFeatures implements IFeatureClass {
+public final class WaterAttributeFeatures {
     @SuppressWarnings("null")
     @Feature
-    public InteractionResultHolder<ItemStack> use(Item item, Level level, Player player, InteractionHand hand) {
+    public static InteractionResultHolder<ItemStack> use(Item item, Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
         BlockHitResult hit = Item.getPlayerPOVHitResult(level, player, ClipContext.Fluid.ANY);

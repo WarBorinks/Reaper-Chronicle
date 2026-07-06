@@ -10,7 +10,6 @@ import javax.annotation.Nonnull;
 
 import warborinks.mods.reaperchronicle.RCUtil;
 import warborinks.mods.reaperchronicle.world.reaper.attribute.features.FeatureInterface;
-import warborinks.mods.reaperchronicle.world.reaper.attribute.features.IFeatureClass;
 
 public class ReaperAttributeBehaviour {
     protected final Properties properties;
@@ -180,8 +179,8 @@ public class ReaperAttributeBehaviour {
             return this;
         }
 
-        public Properties addFeatures(@Nonnull IFeatureClass featureClass) {
-            return this.addFeatures(FeatureGetter.getFeatures(featureClass));
+        public Properties addFeatures(@Nonnull Class<?> cls) {
+            return this.addFeatures(FeatureGetter.getFeatures(cls));
         }
     }
 

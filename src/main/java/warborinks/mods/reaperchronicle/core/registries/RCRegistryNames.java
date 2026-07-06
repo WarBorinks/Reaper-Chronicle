@@ -39,6 +39,10 @@ public final class RCRegistryNames {
         @Nonnull public static final String TEXT_INDEX = "text_index";
     }
 
+    public static final class IGeometryLoaders {
+        @Nonnull public static final String REAPER = "reaper";
+    }
+
     public static final class IngredientTypes {
         @Nonnull public static final String REAPER = RecipeTypes.REAPER;
     }
